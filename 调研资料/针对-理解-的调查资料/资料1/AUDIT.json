@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "passed": true,
+  "date": "2026-11-05",
+  "source_count": 27,
+  "main_reference_count": 25,
+  "extended_reading_count": 2,
+  "duplicate_records_merged": [
+    {
+      "merged": "Q04",
+      "into": "H03",
+      "reason": "same normalized paper title"
+    }
+  ],
+  "categories": {
+    "实验／模型研究": 17,
+    "理论论证": 5,
+    "综述／Perspective": 3,
+    "扩展阅读：核查有限": 2
+  },
+  "source_required_fields_checked": true,
+  "citation_ids_resolved": true,
+  "limited_sources_excluded_from_primary_synthesis": true,
+  "input_hashes_unchanged": true,
+  "html_internal_and_local_links_checked": true,
+  "external_embedded_resources": 0,
+  "previous_understanding_model_source_and_two_weights_match_frozen_receipts": true,
+  "new_experiments_run": false,
+  "models_imported_or_trained_by_this_builder": false,
+  "browser_render_inspected": false,
+  "errors": [],
+  "input_sha256": {
+    "ai_sources.json": "31cde31ce5c8609d7b4f3285dbcbf790e0372226734d174f8b59f6e0748d166f",
+    "human_sources.json": "e2dd3e4333f3ddc1ad9d46b629635c9a873a1e8cbc89065fce04bddcf081dad4",
+    "question_sources.json": "0aae33087463752486b028c35a95235ace46e699beb3e6509b11f2c1b7664662",
+    "root_sources.json": "7fd76a52b809c6eb00d23c3065110093bfddf8e694ceb07f675205fc93d1eda2",
+    "SYNTHESIS.json": "040a1f755b3102fc39f9383d2b6a96fed532a3f33568c84d9debeb689b2ae13d",
+    "AI_NOTES.md": "578fa7f22b79bad037c38f4f8837db56efc5e8aebd38b337e9430da6d3da8831",
+    "HUMAN_NOTES.md": "f5b2a229cb4ace2d3f1e229500a412025bd8d02a08f5aecd4edbf875dfb5b995",
+    "QUESTION_NOTES.md": "7d6048aa81242b85a7260ace4f4483925faa533213429cb5b0c7244bd577db16"
+  },
+  "output_sha256": {
+    "SOURCE_REGISTER.json": "bd8d286a60926fb66dc7f75e637b9f1733041bd64fd4a9f2378532c19385aa65",
+    "SYNTHESIS.json": "040a1f755b3102fc39f9383d2b6a96fed532a3f33568c84d9debeb689b2ae13d",
+    "REPORT.html": "a9a5b8df416c98e713bcd3737c3b98365a022ae5bc0535c3084f3132c26d34bc"
+  },
+  "builder_sha256": "9322be51eb9ac03e7a488aa46fbbc5f05da07bc51a87d0d9c89b54930ab97b35"
+}

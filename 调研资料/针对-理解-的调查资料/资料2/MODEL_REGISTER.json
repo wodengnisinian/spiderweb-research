@@ -1,0 +1,1394 @@
+{
+  "generated_at": "2026-11-05T12:34:31+08:00",
+  "scope": "主流语言/多模态模型与代表性基础架构抽样，精确版本，不声称穷尽或全部为最新版本。",
+  "models": [
+    {
+      "id": "foundation_transformer_2017",
+      "model": "原始 Transformer",
+      "version": "2017论文 base；读取arXiv v7架构节",
+      "publication_date": "2017-06-12（首稿）；2017 NeurIPS",
+      "card_type": "基础网络",
+      "architecture_summary": "编码器—解码器：输入经双向自注意力编码，输出经因果自注意力与编码器交叉注意力逐词生成。",
+      "components": [
+        "输入/输出嵌入与正弦位置编码",
+        "多头缩放点积注意力",
+        "逐位置ReLU前馈网络",
+        "残差连接与Post-LayerNorm",
+        "线性输出与softmax"
+      ],
+      "disclosed_details": [
+        "原始base为6层编码器、6层解码器，隐藏维512、8头、FFN维2048。",
+        "编码器可读完整输入；解码器自注意力有因果掩码，另有读取编码结果的交叉注意力。"
+      ],
+      "unknowns": [
+        "这些配置仅对应原始base，不能迁移为所有Transformer或现代LLM的配置。",
+        "该结构本身没有给出理解问题的充要条件。"
+      ],
+      "sources": [
+        {
+          "title": "Attention Is All You Need",
+          "url": "https://arxiv.org/html/1706.03762v7",
+          "read_extent": "实际读取摘要、§1–3.5及§4表1，重点核对编码器/解码器、MHA、FFN、位置编码公式和复杂度限定；未复现论文实验。"
+        }
+      ],
+      "input_file": "foundation_models.json"
+    },
+    {
+      "id": "foundation_resnet_2015",
+      "model": "ResNet-18/34/50",
+      "version": "2015首稿/2016 CVPR 原始ImageNet网络",
+      "publication_date": "2015-12-10（首稿）；2016 CVPR",
+      "card_type": "基础网络",
+      "architecture_summary": "卷积特征提取与残差捷径相加，逐级构造图像特征，再经全局平均池化与分类层。",
+      "components": [
+        "卷积、BatchNorm、ReLU",
+        "残差加法 y=F(x)+x 或维度匹配投影",
+        "空间下采样",
+        "全局平均池化与分类头"
+      ],
+      "disclosed_details": [
+        "原始18/34层使用两层3×3基本块；50层使用1×1、3×3、1×1瓶颈块。",
+        "残差连接是连接结构，卷积是信息混合操作；二者不能当成互斥架构。"
+      ],
+      "unknowns": [
+        "这里是原始ResNet，不能套用后续pre-activation或其他改版的细节。",
+        "图像分类结构不直接构成语言问题理解器。"
+      ],
+      "sources": [
+        {
+          "title": "Deep Residual Learning for Image Recognition",
+          "url": "https://arxiv.org/pdf/1512.03385",
+          "read_extent": "实际读取摘要、§1、§3.1–3.4、表1及相关基本块描述；CVF PDF访问403后改读作者arXiv原稿。"
+        }
+      ],
+      "input_file": "foundation_models.json"
+    },
+    {
+      "id": "component_mqa_2019",
+      "model": "Multi-Query Attention（MQA）",
+      "version": "Shazeer 2019 原始机制",
+      "publication_date": "2019-11-06",
+      "card_type": "注意力组件",
+      "architecture_summary": "保留多个查询头，但让各查询头共享一组K和V，减少自回归解码需要加载的KV缓存。",
+      "components": [
+        "多查询投影",
+        "共享K/V投影",
+        "各查询头的softmax注意力",
+        "输出投影"
+      ],
+      "disclosed_details": [
+        "共享K/V不等于只剩一个注意力输出头。",
+        "原论文主要针对增量解码的内存带宽；不把论文的速度结论外推为任意硬件、长度和任务的固定倍数。"
+      ],
+      "unknowns": [
+        "它是可装入Transformer的组件，不是一个完整训练好的语言模型。",
+        "减少KV头并不消除全局softmax注意力的所有token两两交互。"
+      ],
+      "sources": [
+        {
+          "title": "Fast Transformer Decoding: One Write-Head is All You Need",
+          "url": "https://arxiv.org/pdf/1911.02150",
+          "read_extent": "实际读取摘要、§2的多头/增量解码说明、§3 MQA算法及性能分析；arXiv HTML失败后读取PDF。"
+        }
+      ],
+      "input_file": "foundation_models.json"
+    },
+    {
+      "id": "component_gqa_2023",
+      "model": "Grouped-Query Attention（GQA）",
+      "version": "Ainslie等2023；论文使用T5.1.1检查点",
+      "publication_date": "2023-05-22（arXiv首稿）；2023-12 EMNLP",
+      "card_type": "注意力组件",
+      "architecture_summary": "把查询头分组，每组共享一组K/V；在MHA与MQA之间调节KV缓存大小和表示能力。",
+      "components": [
+        "H个查询头",
+        "G组K/V头",
+        "分组softmax注意力",
+        "转换检查点后继续预训练的适配方案"
+      ],
+      "disclosed_details": [
+        "G=1等于MQA，G=H等于MHA。",
+        "原实验将GQA用于解码器自注意力及交叉注意力，编码器保留MHA。",
+        "这里的继续预训练是适配方法；GQA本身是K/V共享结构。"
+      ],
+      "unknowns": [
+        "原论文的分组数与效果不代表所有使用GQA的模型。",
+        "结构变更后的语义能力需要独立测试，不能由缓存节省推出。"
+      ],
+      "sources": [
+        {
+          "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+          "url": "https://aclanthology.org/2023.emnlp-main.298.pdf",
+          "read_extent": "实际读取摘要、§1–3.1、图2及主实验/分组说明，核对GQA/MQA/MHA边界；未复现实验。"
+        }
+      ],
+      "input_file": "foundation_models.json"
+    },
+    {
+      "id": "llama_3_1_8b_instruct",
+      "model": "Meta Llama 3.1 8B Instruct",
+      "version": "meta-llama/Llama-3.1-8B-Instruct；2024-07原始3.1版本，不含3.2/3.3",
+      "publication_date": "2024-07-23",
+      "publication_date_kind": "官方Llama3.1发布公告日期",
+      "architecture_summary": "稠密、decoder-only自回归Transformer；GQA、SwiGLU、pre-RMSNorm与缩放RoPE。",
+      "components": [
+        "backbone: causal decoder-only Transformer",
+        "parameterization: dense",
+        "token_mixer: softmax self-attention with GQA",
+        "position: scaled RoPE；本版本use_scaled_rope=true",
+        "normalization: pre-RMSNorm，末尾RMSNorm",
+        "ffn: SwiGLU：SiLU门控乘法+下投影",
+        "modalities: 文本输入、文本输出"
+      ],
+      "disclosed_details": [
+        "nominal_parameters: 8B",
+        "layers: 32",
+        "hidden_size: 4096",
+        "query_heads: 32",
+        "kv_heads: 8",
+        "norm_eps: 1e-05",
+        "rope_theta: 500000",
+        "evidence_binding: 层数/维度/头数来自Meta sku_list.py中llama3_1_8b；算子来自Meta llama3参考实现，不凭相邻型号猜测。"
+      ],
+      "unknowns": [
+        "HF config在本次工具读取中不可访问，未下载权重核验张量；未用该失败推断模型未公开。",
+        "所列参考实现并非Meta线上服务完整推理系统。"
+      ],
+      "sources": [
+        {
+          "title": "Introducing Llama 3.1",
+          "url": "https://ai.meta.com/blog/meta-llama-3-1/",
+          "source_type": "官方发布公告",
+          "read_extent": "实际检索官方发布日期和模型架构/系列介绍。"
+        },
+        {
+          "title": "Meta llama-models sku_list.py",
+          "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+          "source_type": "开发者公开配置代码",
+          "read_extent": "实际读取llama3_1_8b对应arch_args，避免使用Llama3或70B条目的值。"
+        },
+        {
+          "title": "Meta Llama3/3.1参考实现",
+          "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/model.py",
+          "source_type": "开发者参考实现",
+          "read_extent": "实际读取RMSNorm、RoPE缩放、attention和FeedForward/TransformerBlock。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "llama_4_scout_17b_16e_instruct",
+      "model": "Llama 4 Scout 17B-16E Instruct",
+      "version": "meta-llama/Llama-4-Scout-17B-16E-Instruct；2025-04发布",
+      "publication_date": "2025-04-05",
+      "publication_date_kind": "官方模型卡Model Release Date",
+      "architecture_summary": "自回归MoE语言骨干，文本与视觉token早期融合；使用iRoPE设计。Scout的精确层级超参有本次访问缺口，不套用Maverick示例。",
+      "components": [
+        "backbone: 自回归Transformer语言骨干+视觉编码器",
+        "parameterization: MoE；模型卡称16 experts",
+        "token_mixer: 公开参考Attention为scaled dot-product并支持KV头共享；本次未读取到Scout具体Q/KV头配置",
+        "position: iRoPE：大部分层用RoPE，穿插不使用位置编码的attention层；官方同时描述长上下文attention温度缩放",
+        "normalization: 公开Llama4实现采用RMSNorm；QK归一化按配置和层型控制",
+        "ffn: 公开MoE实现为SwiGLU专家及shared-expert路径；Scout具体MoE/dense层排列本次未核定",
+        "modalities: 文本/图像输入，文本输出；视觉编码器基于MetaCLIP，early fusion"
+      ],
+      "disclosed_details": [
+        "total_parameters_reported: 109B",
+        "active_parameters_reported: 17B",
+        "experts_reported: 16",
+        "query_heads: null",
+        "kv_heads: null",
+        "layers: null",
+        "context_model_card: 10M tokens；为开发者声明，不是本次实测",
+        "critical_scope: 发布文中128 routed+1 shared、dense/MoE交替的具体示例是Maverick，不据此填写Scout所有细节。"
+      ],
+      "unknowns": [
+        "本次HF config多种读取入口均不可访问，因此不填未经独立核对的Scout层数、宽度、头数、top-k或层间比例。",
+        "公开参考代码支持的选项不等于每个Scout层都启用；未下载权重/params.json核验。"
+      ],
+      "sources": [
+        {
+          "title": "Llama4官方模型卡",
+          "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+          "source_type": "官方模型卡",
+          "read_extent": "实际读取Model Information、参数/模态/日期表；未提交访问申请或接受许可。"
+        },
+        {
+          "title": "The Llama4 herd官方发布文",
+          "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+          "source_type": "官方技术发布文",
+          "read_extent": "实际读取early fusion、MetaCLIP、iRoPE与Scout段落；区分Maverick专属示例。"
+        },
+        {
+          "title": "Llama4公开model.py",
+          "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama4/model.py",
+          "source_type": "开发者参考实现",
+          "read_extent": "实际读取RMSNorm、Attention、nope_layer_interval和TransformerBlock条件分支。"
+        },
+        {
+          "title": "Llama4公开moe.py",
+          "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama4/moe.py",
+          "source_type": "开发者参考实现",
+          "read_extent": "实际读取SwiGLU专家、router与shared_expert；不将动态配置参数猜成Scout实值。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "qwen3_8b",
+      "model": "Qwen3-8B",
+      "version": "Qwen/Qwen3-8B；2025-04首次发布版本，非Qwen3-Next或2507更新",
+      "publication_date": "2025-04-29",
+      "publication_date_kind": "Qwen团队官方发布博客日期",
+      "architecture_summary": "稠密decoder-only Transformer，GQA+QK-Norm、pre-RMSNorm、SwiGLU、RoPE；thinking/non-thinking是此模型中的运行/后训练能力，不代表两套骨干。",
+      "components": [
+        "backbone: causal decoder-only Transformer",
+        "parameterization: dense",
+        "token_mixer: GQA；去除QKV bias并加入QK-Norm",
+        "position: RoPE；config rope_scaling=null",
+        "normalization: pre-RMSNorm及attention中的QK-Norm",
+        "ffn: SwiGLU",
+        "modalities: 文本输入/输出"
+      ],
+      "disclosed_details": [
+        "parameters_model_card: 8.2B total / 6.95B non-embedding",
+        "layers: 36",
+        "hidden_size: 4096",
+        "intermediate_size: 12288",
+        "query_heads: 32",
+        "kv_heads: 8",
+        "head_dim: 128",
+        "rope_theta: 1000000",
+        "config_revision_observed: b968826d9c46dd6066d109eabc6255188de91218",
+        "context_labels: {\"model_card_native\":32768,\"model_card_YaRN\":131072,\"config_max_position_embeddings\":40960,\"technical_report_table\":\"128K\"}"
+      ],
+      "unknowns": [
+        "model card的原生上下文、YaRN扩展、论文上下文标签与config位置上限不是同一量，未将这些数字合并成一个未经解释的上限。",
+        "不把该dense版本套用于同系列MoE或Qwen3-Next。"
+      ],
+      "sources": [
+        {
+          "title": "Qwen3官方发布博客",
+          "url": "https://qwenlm.github.io/blog/qwen3/",
+          "source_type": "官方发布文",
+          "read_extent": "实际检索发布日期与dense/MoE发布清单。"
+        },
+        {
+          "title": "Qwen3 Technical Report",
+          "url": "https://arxiv.org/html/2505.09388v1",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取第2节架构及dense型号表，明确8B是dense。"
+        },
+        {
+          "title": "Qwen3-8B官方模型卡",
+          "url": "https://huggingface.co/Qwen/Qwen3-8B",
+          "source_type": "官方模型卡",
+          "read_extent": "实际读取Model Overview及参数/头数/上下文说明。"
+        },
+        {
+          "title": "Qwen3-8B config.json",
+          "url": "https://huggingface.co/Qwen/Qwen3-8B/blob/b968826d9c46dd6066d109eabc6255188de91218/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际打开main的resolve原始JSON，重定向披露此revision，读取全部30行配置。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "qwen3_next_80b_a3b_instruct",
+      "model": "Qwen3-Next-80B-A3B-Instruct",
+      "version": "Qwen/Qwen3-Next-80B-A3B-Instruct；2025-09首版，非Thinking、非Qwen3.5/3.8",
+      "publication_date": "2025-09-11",
+      "publication_date_kind": "Qwen官方仓库历史News条目",
+      "architecture_summary": "因果混合骨干：3层Gated DeltaNet线性注意力配1层门控全注意力，所有这些模块后接高稀疏MoE；不是普通全softmax Transformer，也不直接等同于Mamba。",
+      "components": [
+        "backbone: causal hybrid linear-attention/full-attention language model",
+        "parameterization: MoE",
+        "token_mixer: 12×[3×Gated DeltaNet + 1×Gated Attention]，线性/全注意力3:1",
+        "position: 全注意力的partial RoPE：head维256中64维旋转；不能笼统说所有线性层都用同样RoPE",
+        "normalization: 模型卡披露zero-centered/weight-decayed norm；参考实现有RMSNorm及gated RMSNorm",
+        "ffn: SiLU门控专家；512路由专家每token激活10个，加1个shared expert",
+        "modalities: 文本输入/输出；本Instruct权重只支持non-thinking模式"
+      ],
+      "disclosed_details": [
+        "parameters_reported: 80B total / 3B activated",
+        "layers: 48",
+        "hidden_size: 2048",
+        "full_attention_query_heads: 16",
+        "full_attention_kv_heads: 2",
+        "full_attention_head_dim: 256",
+        "linear_qk_heads: 16",
+        "linear_value_heads: 32",
+        "linear_head_dim: 128",
+        "routed_experts: 512",
+        "activated_routed_experts_per_token: 10",
+        "shared_experts: 1",
+        "expert_intermediate_size: 512",
+        "config_revision_observed: 9c7f2fbe84465e40164a94cc16cd30b6999b0cc7"
+      ],
+      "unknowns": [
+        "旧Qwen3-Next GitHub main已转向更新Qwen系列；只用其历史News核日期，不将当前首页新架构当成本版证据。",
+        "博客页面当前动态内容不可全文读取；核心架构由具体官方HF模型卡/config交叉核对。",
+        "未实测MTP推理、吞吐或上下文；这些不作为本次验证结果。"
+      ],
+      "sources": [
+        {
+          "title": "Qwen3-Next官方模型卡",
+          "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
+          "source_type": "官方模型卡",
+          "read_extent": "实际读取Highlights和Model Overview，包含3:1布局、头数、MoE与Instruct模式限定。"
+        },
+        {
+          "title": "Qwen3-Next config.json",
+          "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct/blob/9c7f2fbe84465e40164a94cc16cd30b6999b0cc7/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际读取resolve原始43行JSON，核对重定向revision。"
+        },
+        {
+          "title": "Qwen官方仓库历史News",
+          "url": "https://raw.githubusercontent.com/QwenLM/Qwen3-Next/main/README.md",
+          "source_type": "开发者历史发布记录",
+          "read_extent": "仅采用实际读取到的2025-09-11历史发布记录；当前页标题已为后续系列，不用其当前架构描述。"
+        },
+        {
+          "title": "Qwen/HF Qwen3Next实现v4.57.0",
+          "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_next/modeling_qwen3_next.py",
+          "source_type": "开发者与框架团队联合参考实现",
+          "read_extent": "实际读取GatedDeltaRule导入、动态cache和RMSNormGated定义；未运行代码。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "deepseek_v3_original",
+      "model": "DeepSeek-V3",
+      "version": "deepseek-ai/DeepSeek-V3；2024-12原始V3，不含0324/V3.1/V3.2",
+      "publication_date": "2024-12-26",
+      "publication_date_kind": "DeepSeek官方历史发布页日期",
+      "architecture_summary": "decoder-only Transformer，MLA低秩KV潜变量压缩+DeepSeekMoE；前3层为dense FFN，之后为MoE；MTP属于其训练/额外预测设计。",
+      "components": [
+        "backbone: causal decoder-only Transformer",
+        "parameterization: dense前3层+后续MoE FFN",
+        "token_mixer: Multi-head Latent Attention（MLA），不是仅根据num_key_value_heads字段就应判定为普通MHA",
+        "position: decoupled RoPE，长上下文配置使用YaRN",
+        "normalization: RMSNorm；压缩潜变量后另加RMSNorm",
+        "ffn: SwiGLU；256路由专家top8+1共享专家",
+        "modalities: 文本输入/输出"
+      ],
+      "disclosed_details": [
+        "parameters_reported: 671B total / 37B activated per token",
+        "layers: 61",
+        "hidden_size: 7168",
+        "mla_heads: 128",
+        "kv_compression_dim: 512",
+        "query_compression_dim: 1536",
+        "decoupled_rope_head_dim: 64",
+        "dense_ffn_first_layers: 3",
+        "routed_experts_per_moe_layer: 256",
+        "activated_routed_experts: 8",
+        "shared_experts: 1",
+        "expert_intermediate_size: 2048",
+        "mtp_depth_reported: 1"
+      ],
+      "unknowns": [
+        "当前API同名/别名的实际服务后端不由原始开放权重架构决定，本条只调查原始V3。",
+        "MTP存在不意味着每次部署都运行MTP模块；未下载权重验证完整张量与运行路径。"
+      ],
+      "sources": [
+        {
+          "title": "Introducing DeepSeek-V3",
+          "url": "https://api-docs.deepseek.com/news/news1226/",
+          "source_type": "官方历史发布页",
+          "read_extent": "实际读取2024/12/26索引、671B/37B以及原始仓库/论文链接。"
+        },
+        {
+          "title": "DeepSeek-V3 Technical Report",
+          "url": "https://arxiv.org/html/2412.19437v2",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取第2节MLA/DeepSeekMoE与模型超参数段，含61层、压缩维度、256/8+1专家与RMSNorm。"
+        },
+        {
+          "title": "DeepSeek-V3 config.json",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际读取配置字段，与技术报告交叉核对；不把main当不可变权重证明。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "deepseek_r1_original",
+      "model": "DeepSeek-R1",
+      "version": "deepseek-ai/DeepSeek-R1；2025-01原始671B版本，非R1-0528、R1-Zero或Distill系列",
+      "publication_date": "2025-01-20",
+      "publication_date_kind": "DeepSeek官方历史新闻索引日期；具体旧新闻页现重定向",
+      "architecture_summary": "继承DeepSeek-V3-Base的MLA+DeepSeekMoE骨干；R1主要是cold-start SFT、RL等后训练流程与权重变化，不是因为会推理就换成另一种注意力结构。",
+      "components": [
+        "backbone: DeepSeek-V3-Base因果Transformer骨干",
+        "parameterization: MoE；前3层dense FFN，其后稀疏专家",
+        "token_mixer: MLA",
+        "position: decoupled RoPE/YaRN配置",
+        "normalization: RMSNorm，继承V3的潜变量归一化结构",
+        "ffn: SwiGLU；256路由专家top8+1共享",
+        "modalities: 文本输入/输出",
+        "post_training_distinction: 原始R1从V3-Base经cold-start、RL、采样/SFT、进一步RL得到；Distill-Qwen/Llama另有各自基础架构"
+      ],
+      "disclosed_details": [
+        "parameters_reported: 671B total / 37B activated",
+        "config_architectures: [\"DeepseekV3ForCausalLM\"]",
+        "config_model_type: deepseek_v3",
+        "layers: 61",
+        "hidden_size: 7168",
+        "mla_heads: 128",
+        "kv_compression_dim: 512",
+        "query_compression_dim: 1536",
+        "routed_experts: 256",
+        "activated_routed_experts: 8",
+        "shared_experts: 1",
+        "config_revision_observed: 56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad"
+      ],
+      "unknowns": [
+        "没有把R1-Zero的纯RL描述直接当作R1完整训练流程；原始R1含SFT阶段。",
+        "蒸馏版本不能统称MLA+MoE，例如Distill-Qwen/Llama保留各自学生骨干。",
+        "本次不核验当前API是否仍服务该原始checkpoint。"
+      ],
+      "sources": [
+        {
+          "title": "DeepSeek历史新闻索引",
+          "url": "https://api-docs.deepseek.com/news/news1226/",
+          "source_type": "官方历史新闻索引",
+          "read_extent": "实际读取侧栏DeepSeek-R1 Release 2025/01/20；其旧详情链接当前跳到API首页，不以首页当R1架构证据。"
+        },
+        {
+          "title": "DeepSeek-R1原始技术报告",
+          "url": "https://arxiv.org/html/2501.12948v1",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取V3-Base来源、R1与R1-Zero训练区别及蒸馏学生基础模型段落。"
+        },
+        {
+          "title": "DeepSeek-R1 config.json",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际读取resolve原始JSON的architecture、MLA维度与专家字段，重定向披露此revision。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "mistral_7b_v0_1",
+      "model": "Mistral-7B-v0.1",
+      "version": "mistralai/Mistral-7B-v0.1基础模型，非v0.2/v0.3或Instruct",
+      "publication_date": "2023-09-27",
+      "publication_date_kind": "官方模型发布公告日期",
+      "architecture_summary": "稠密decoder-only Transformer，GQA+4096滑窗注意力；RMSNorm、RoPE、SiLU门控FFN。",
+      "components": [
+        "backbone: causal decoder-only Transformer",
+        "parameterization: dense",
+        "token_mixer: GQA+Sliding Window Attention（SWA）",
+        "position: RoPE",
+        "normalization: pre-RMSNorm",
+        "ffn: SwiGLU式SiLU门控MLP",
+        "modalities: 文本输入/输出"
+      ],
+      "disclosed_details": [
+        "parameters_official_announcement: 7.3B",
+        "layers: 32",
+        "hidden_size: 4096",
+        "intermediate_size: 14336",
+        "query_heads: 32",
+        "kv_heads: 8",
+        "sliding_window: 4096",
+        "rope_theta: 10000",
+        "config_max_position_embeddings: 32768"
+      ],
+      "unknowns": [
+        "配置位置上限不自动表示所有长文本行为都可靠；SWA的跨层传播也不是全局逐token注意力。",
+        "v0.1的SWA/词表/位置设置不能直接套到后续Mistral版本。"
+      ],
+      "sources": [
+        {
+          "title": "Mistral7B官方公告",
+          "url": "https://mistral.ai/news/announcing-mistral-7b/",
+          "source_type": "官方发布文",
+          "read_extent": "实际读取日期、7.3B、GQA与SWA说明。"
+        },
+        {
+          "title": "Mistral7B技术报告",
+          "url": "https://arxiv.org/html/2310.06825v1",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取摘要、Architectural details位置及GQA/SWA说明。"
+        },
+        {
+          "title": "Mistral7B-v0.1 config.json",
+          "url": "https://huggingface.co/mistralai/Mistral-7B-v0.1/blob/main/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际读取32层、32/8头、宽度、norm、RoPE与sliding_window字段。"
+        },
+        {
+          "title": "Mistral/HF参考实现v4.36.0",
+          "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.36.0/src/transformers/models/mistral/modeling_mistral.py",
+          "source_type": "开发者与框架团队联合参考实现",
+          "read_extent": "实际打开版本固定实现，读取RMSNorm/RoPE及MLP相关公开结构；未运行。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "mixtral_8x7b_v0_1",
+      "model": "Mixtral-8x7B-v0.1",
+      "version": "mistralai/Mixtral-8x7B-v0.1基础模型，非8x22B或Instruct",
+      "publication_date": "2023-12-11",
+      "publication_date_kind": "官方技术公告日期；不声称是最早torrent/权重上传日",
+      "architecture_summary": "decoder-only Transformer，把FFN替换为8个专家、每token选2个的稀疏MoE；注意力仍共享GQA，不能把8x7B算成8套完整7B模型。",
+      "components": [
+        "backbone: causal decoder-only Transformer",
+        "parameterization: sparse MoE FFN",
+        "token_mixer: GQA；所读v0.1 config sliding_window=null，不从Mistral7B名称继承4096滑窗",
+        "position: RoPE",
+        "normalization: RMSNorm",
+        "ffn: 每层8个SiLU门控专家，top2路由加权合并",
+        "modalities: 文本输入/输出"
+      ],
+      "disclosed_details": [
+        "parameters_official_announcement: 46.7B total / 12.9B per token",
+        "layers: 32",
+        "hidden_size: 4096",
+        "expert_intermediate_size: 14336",
+        "query_heads: 32",
+        "kv_heads: 8",
+        "experts_per_layer: 8",
+        "experts_per_token: 2",
+        "rope_theta: 1000000",
+        "sliding_window_config: null"
+      ],
+      "unknowns": [
+        "报告将参数近似写作47B/13B，公告给46.7B/12.9B，属精度口径不同。",
+        "未下载权重核验路由或注意力内核；本条不据纸面规格给出实测延迟。"
+      ],
+      "sources": [
+        {
+          "title": "Mixtral of experts官方公告",
+          "url": "https://mistral.ai/news/mixtral-of-experts/",
+          "source_type": "官方发布文",
+          "read_extent": "实际读取日期、decoder-only、8选2和46.7B/12.9B。"
+        },
+        {
+          "title": "Mixtral of Experts技术报告",
+          "url": "https://arxiv.org/html/2401.04088v1",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取摘要与Architectural details说明；不把近似参数视作精确计数。"
+        },
+        {
+          "title": "Mixtral8x7B-v0.1 config.json",
+          "url": "https://huggingface.co/mistralai/Mixtral-8x7B-v0.1/blob/main/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际读取层数/头数/8选2/RoPE与sliding_window=null。"
+        },
+        {
+          "title": "Mistral/HF Mixtral实现v4.36.0",
+          "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.36.0/src/transformers/models/mixtral/modeling_mixtral.py",
+          "source_type": "开发者与框架团队联合参考实现",
+          "read_extent": "实际打开版本固定公开实现，用于参考MoE算子与归一化拓扑；未运行代码。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "gemma_3_4b_it",
+      "model": "Gemma3-4B-IT",
+      "version": "google/gemma-3-4b-it；2025-03首次Gemma3指令版本，非1B纯文本/12B/27B/QAT",
+      "publication_date": "2025-03-12",
+      "publication_date_kind": "Google官方发布公告日期；arXiv报告稍后提交",
+      "architecture_summary": "稠密decoder-only语言Transformer+SigLIP视觉编码器；GQA按5个局部层/1个全局层交错，加入QK-Norm，采用门控GELU FFN。",
+      "components": [
+        "backbone: dense causal decoder-only LM+vision encoder",
+        "parameterization: dense",
+        "token_mixer: GQA；局部滑窗与全局attention按5:1交错",
+        "position: local/global分别使用RoPE设置；全局基础频率1M、局部10K；报告用因子8作长上下文缩放",
+        "normalization: RMSNorm前/后归一化与QK-Norm",
+        "ffn: Google参考GemmaMLP为GELU(tanh近似)门控乘法，不是SiLU版SwiGLU",
+        "modalities: 文本/图像输入，文本输出；SigLIP编码器，图像表征进入语言骨干"
+      ],
+      "disclosed_details": [
+        "nominal_parameters: 4B",
+        "layers_reference_4b_config: 34",
+        "hidden_size_reference_4b_config: 2560",
+        "intermediate_size_reference_4b_config: 10240",
+        "query_heads_reference_4b_config: 8",
+        "kv_heads_reference_4b_config: 4",
+        "head_dim_reference_4b_config: 256",
+        "local_sliding_window: 1024",
+        "vision_encoder_parameters_reported: 417M"
+      ],
+      "unknowns": [
+        "本次HF权重config不可访问，维度来自Google公开get_config_for_4b；未对checkpoint形状逐张量核验。",
+        "Google参考配置的cleaned tokenizer与HF发行配置可能有词表包装差异，因此不合并报告/实现的词表数字。",
+        "Gemma3-1B没有视觉编码器，不能从4B的多模态结构推广整个系列。"
+      ],
+      "sources": [
+        {
+          "title": "Google Gemma3发布公告",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
+          "source_type": "官方发布文",
+          "read_extent": "实际读取2025-03-12日期、模型尺寸和模态介绍。"
+        },
+        {
+          "title": "Gemma3 Technical Report",
+          "url": "https://arxiv.org/html/2503.19786v1",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取第2节GQA/RMSNorm/QK-Norm、5:1局部全局结构、视觉参数及长上下文段落。"
+        },
+        {
+          "title": "Google Gemma PyTorch config",
+          "url": "https://raw.githubusercontent.com/google/gemma_pytorch/main/gemma/config.py",
+          "source_type": "开发者参考配置",
+          "read_extent": "实际读取get_config_for_4b，未使用1B/12B/27B相邻值。"
+        },
+        {
+          "title": "Google Gemma PyTorch model",
+          "url": "https://raw.githubusercontent.com/google/gemma_pytorch/main/gemma/model.py",
+          "source_type": "开发者参考实现",
+          "read_extent": "实际读取GemmaMLP的GELU门控、RMSNorm、QK norm及attention定义；未运行。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "phi_4_original",
+      "model": "Phi-4",
+      "version": "microsoft/phi-4；原始14B文本模型，非Phi4-mini/multimodal/reasoning",
+      "publication_date": "2024-12-12",
+      "publication_date_kind": "官方模型卡release date；不等于HF权重首次上传日",
+      "architecture_summary": "稠密decoder-only Transformer；与Phi3-medium接近，采用全注意力、GQA、RoPE、RMSNorm和SiLU门控MLP。推理能力提升主要由数据/训练改进解释，不能只凭名称判断骨干全新。",
+      "components": [
+        "backbone: causal decoder-only Transformer",
+        "parameterization: dense",
+        "token_mixer: full causal GQA；config sliding_window=null",
+        "position: RoPE；config rope_scaling=null",
+        "normalization: RMSNorm",
+        "ffn: SiLU门控MLP；配置调用Phi3ForCausalLM，参考实现将gate/up投影合并后分块",
+        "modalities: 文本输入/输出"
+      ],
+      "disclosed_details": [
+        "parameters_model_card: 14B",
+        "layers: 40",
+        "hidden_size: 5120",
+        "intermediate_size: 17920",
+        "query_heads: 40",
+        "kv_heads: 10",
+        "rope_theta: 250000",
+        "config_max_position_embeddings: 16384",
+        "config_architectures: [\"Phi3ForCausalLM\"]",
+        "config_model_type: phi3"
+      ],
+      "unknowns": [
+        "类名Phi3ForCausalLM不表示权重是Phi3；应与Phi4模型卡/配置一起辨认。",
+        "技术报告预训练4K后扩到16K，不能将4K训练阶段误作发行模型最终上下文。",
+        "不将Phi4-mini或multimodal的结构套到此14B版本。"
+      ],
+      "sources": [
+        {
+          "title": "Phi4官方模型卡",
+          "url": "https://huggingface.co/microsoft/phi-4",
+          "source_type": "官方模型卡",
+          "read_extent": "实际读取Architecture、文本模态、16K及2024-12-12日期。"
+        },
+        {
+          "title": "Phi4 Technical Report",
+          "url": "https://arxiv.org/html/2412.08905v1",
+          "source_type": "开发者技术报告",
+          "read_extent": "实际读取第3节decoder-only、Phi3-medium关联、full attention和4K到16K扩展说明。"
+        },
+        {
+          "title": "Phi4 config.json",
+          "url": "https://huggingface.co/microsoft/phi-4/blob/main/config.json",
+          "source_type": "官方权重配置",
+          "read_extent": "实际读取40层、40/10头、宽度、SiLU、norm/RoPE及Phi3类名；不从类名否定模型身份。"
+        },
+        {
+          "title": "Microsoft/HF Phi3ForCausalLM实现v4.47.0",
+          "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.47.0/src/transformers/models/phi3/modeling_phi3.py",
+          "source_type": "开发者与框架团队联合参考实现",
+          "read_extent": "实际读取RMSNorm、RoPE、Phi3MLP的gate/up分块乘法；版本与所读配置声明匹配，未运行。"
+        }
+      ],
+      "input_file": "open_models.json"
+    },
+    {
+      "id": "ALT01",
+      "model": "LSTM",
+      "version": "1997原始LSTM；另注明1999/2000 forget-gate扩展，不与现代实现混为一个版本",
+      "publication_date": "1997-11-15；forget-gate期刊论文2000",
+      "architecture_family": "门控循环网络",
+      "architecture_summary": "每步以当前输入和上一时刻状态更新记忆单元；1997结构用输入/输出门控制记忆通路，专门维持较稳定的误差信号。常见现代LSTM另有遗忘门。",
+      "components": [
+        "循环隐藏输出h",
+        "记忆单元c与自循环记忆路径",
+        "输入门、输出门",
+        "现代常见变体的遗忘门：来自后续扩展"
+      ],
+      "state_flow": "固定维c和h逐token传递；门选择写入和读出。1997原结构不应直接画成包含后来遗忘门的标准三门图。",
+      "attention_replacement": "它本来是递归序列建模路线，不是从Transformer拆下注意力后自动得到；不逐token保留完整历史KV。",
+      "training_objective": "网络结构不指定唯一损失；原文以人工长时距任务训练，后续语言模型可另用下一token交叉熵。",
+      "disclosed_details": [
+        "原论文明确误差衰减问题、记忆单元与门控通路。",
+        "forget gate属于后续持续输入流扩展，不能倒记为1997原设计。"
+      ],
+      "complexity_scope": "固定输入/隐藏宽度时，顺序处理长度T的成本随T线性增长，推理状态不随历史长度增长；训练BPTT仍需要展开或重算中间激活。",
+      "unknowns": [
+        "LSTM是架构家族，不存在唯一参数规模、分词器或语料配方。",
+        "本轮未重新验证长依赖或语言能力；较稳定梯度通路不等于无限精确记忆。"
+      ],
+      "sources": [
+        {
+          "title": "Long Short-Term Memory（原始期刊记录）",
+          "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+          "read_extent": "实际读出版信息、原始摘要及作者原论文索引；作者PDF字体编码损坏，未声称完整公式逐页核查。"
+        },
+        {
+          "title": "Gers作者研究页：Learning to forget文献列表",
+          "url": "https://prof.bht-berlin.de/gers/projekte/lstm",
+          "read_extent": "实际读作者页的1999会议/2000期刊条目；结合原始摘要核实遗忘门是后续扩展。"
+        },
+        {
+          "title": "Learning to Forget: Continual Prediction with LSTM",
+          "url": "https://doi.org/10.1162/089976600300015015",
+          "read_extent": "本轮读取该原论文摘要的公开索引和作者书目，未通读全文。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT02",
+      "model": "GRU",
+      "version": "Cho等2014原始gated hidden unit；不把库中reset放置变体当成同一公式",
+      "publication_date": "2014-06-03首预印本；2014-10 EMNLP",
+      "architecture_family": "门控循环网络",
+      "architecture_summary": "用更新门和重置门控制单个隐藏向量的保留与候选值计算；无LSTM式分离的c状态。原文将它放入RNN编码器—解码器。",
+      "components": [
+        "更新门z",
+        "重置门r",
+        "候选隐藏值",
+        "前一隐藏向量h与当前输入x"
+      ],
+      "state_flow": "原式h_t=z_t⊙h_(t-1)+(1-z_t)⊙h候选；候选读取被r门控的前一状态。长历史压入固定维h。",
+      "attention_replacement": "原始双RNN将源序列编码为固定向量，再条件生成目标；没有Transformer式全历史softmax自注意力。",
+      "training_objective": "2014论文最大化给定源短语的目标短语条件概率；GRU单元本身并不规定必须做翻译或分类。",
+      "disclosed_details": [
+        "论文2.3节给出reset/update及状态公式(5)–(8)。",
+        "现代框架中门的命名或reset位于矩阵乘前后可能不同，复现应核对具体版本。"
+      ],
+      "complexity_scope": "固定宽度时推理逐步递推，序列总工作量随T线性增长，状态固定；原非线性循环依赖并不因“线性T”而自动具备Transformer式整序列并行。",
+      "unknowns": [
+        "无单一GRU模型训练规模或语言理解能力指标。",
+        "本轮只核查架构原文，未比较现代库实现或训练结果。"
+      ],
+      "sources": [
+        {
+          "title": "Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation",
+          "url": "https://aclanthology.org/D14-1179.pdf",
+          "read_extent": "实际读原论文2.1–2.3节、Figure2、式(5)–(8)及训练目标说明。"
+        },
+        {
+          "title": "原始预印本及首发日期",
+          "url": "https://arxiv.org/abs/1406.1078",
+          "read_extent": "实际核验题名、作者、首次提交日期。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT03",
+      "model": "Mamba",
+      "version": "Mamba-1；论文2312.00752v2的selective SSM/S6与同质Mamba blocks",
+      "publication_date": "2023-12-01首预印本",
+      "architecture_family": "选择性状态空间模型",
+      "architecture_summary": "让离散SSM的部分参数随当前输入变化，以有限状态选择性保留或遗忘信息；用硬件感知scan计算，堆叠统一Mamba块。",
+      "components": [
+        "输入/输出投影",
+        "短因果卷积与SiLU",
+        "输入相关Δ、B、C和结构化A",
+        "selective scan、门控与残差/归一化"
+      ],
+      "state_flow": "h_t=A离散_t h_(t-1)+B离散_t x_t，y_t由C_t读出；各通道保留扩展SSM状态，解码还保留短卷积缓存。",
+      "attention_replacement": "原纯Mamba骨干不使用softmax注意力，也不交替保留独立Transformer FFN块；不能由此说它没有线性投影或门控非线性。",
+      "training_objective": "语言实验使用自回归预训练；selective SSM是序列变换结构，不是独立语义监督损失。",
+      "disclosed_details": [
+        "Algorithm2明确Δ、B、C输入相关，破坏时不变全局卷积等价。",
+        "官方repo公开scan、mamba_simple.py和完整LM骨干入口。"
+      ],
+      "complexity_scope": "在宽度D与状态维N固定时scan总算术量随T线性、递归解码状态约随DN而非T增长；投影、卷积、训练激活和GPU内核常数仍需计入。",
+      "unknowns": [
+        "有限压缩状态不保证无损保存全部上下文。",
+        "论文吞吐优势仅适用其硬件/形状/实现比较，不能推广为任何任务总更快更准。",
+        "本卡非2026最新SSM穷尽；官方repo已有Mamba-3入口，本轮不展开其机制。"
+      ],
+      "sources": [
+        {
+          "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+          "url": "https://arxiv.org/html/2312.00752v2",
+          "read_extent": "实际读2–3节、Algorithm2、scan/简化块设计及任务范围；未复现速度或模型。"
+        },
+        {
+          "title": "state-spaces/mamba 官方README",
+          "url": "https://github.com/state-spaces/mamba/blob/main/README.md",
+          "read_extent": "通过GitHub连接器实际读取README的Selective SSM、Mamba/Mamba2模块和LM入口；未安装或运行。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT04",
+      "model": "Mamba-2 / SSD",
+      "version": "论文2405.21060v1；纯Mamba-2与论文里的attention混合模型分开",
+      "publication_date": "2024-05-31首预印本；ICML2024",
+      "architecture_family": "受结构约束SSM与结构化注意力的对偶算法",
+      "architecture_summary": "把SSM写成半可分矩阵，利用块内矩阵乘与块间状态递推；Mamba-2采用SSD内核并调整块投影和归一化。",
+      "components": [
+        "每head受约束的标量衰减/结构化A",
+        "B、C、X并行投影",
+        "SSD分块算法及矩阵状态",
+        "门控、卷积、归一化与输出投影"
+      ],
+      "state_flow": "一个head的有限N×P状态随token或chunk更新；块内并行计算输出，块间传递压缩状态。模型宽度/状态维不等于上下文长度。",
+      "attention_replacement": "纯Mamba-2用SSD替代序列混合；题名中的对偶涉及特定SSM/结构化线性注意力，不是任何softmax Transformer都无条件等价于任意SSM。",
+      "training_objective": "语言建模实验仍是自回归下一token训练；SSD是计算/结构选择。",
+      "disclosed_details": [
+        "第6节公开SSD最小实现；第7节说明并行投影及附加归一化。",
+        "官方repo公开mamba2.py、mamba2_simple.py、ssd_minimal.py。"
+      ],
+      "complexity_scope": "固定head/state/chunk尺寸时可用随T线性工作的状态算法；块内矩阵项与state大小影响成本。论文2–8倍是SSD内核特定benchmark，不是整个模型处处快2–8倍。",
+      "unknowns": [
+        "没有由结构对偶直接推出的通用语言理解定理。",
+        "更大状态会增内存，混合attention还会增加相应缓存。",
+        "本轮未核验每个已发布checkpoint的完整配置。"
+      ],
+      "sources": [
+        {
+          "title": "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality",
+          "url": "https://arxiv.org/html/2405.21060v1",
+          "read_extent": "实际读SSD块算法/Listing、第6–7节、第9.3节速度范围及hybrid对照；未重跑。"
+        },
+        {
+          "title": "state-spaces/mamba 官方README Mamba-2与SSD入口",
+          "url": "https://github.com/state-spaces/mamba/blob/main/README.md",
+          "read_extent": "实际读对应模块路径和完整LM说明，不把README示例默认参数当所有模型配置。"
+        }
+      ],
+      "training_note": "论文亦测试插入少量attention层的hybrid，不能把那些结果归给纯SSM。",
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT05",
+      "model": "RWKV-7 Goose",
+      "version": "2503.14456v1；明确不是RWKV-4、Eagle-5或Finch-6",
+      "publication_date": "2025-03-18首预印本",
+      "architecture_family": "矩阵状态循环网络／广义delta更新",
+      "architecture_summary": "以输入相关的对角加低秩变换更新矩阵状态，扩展delta rule的衰减、写入和替换；继承token shift和channel-mixing FFN。",
+      "components": [
+        "token shift",
+        "time-mixing的矩阵WKV状态",
+        "向量值衰减与向量值in-context更新强度",
+        "ReLU² channel-mixing FFN、归一化与残差"
+      ],
+      "state_flow": "概括式S_t=S_(t-1)(diag(w_t)+z_t^T b_t)+v_t^T k_t；有限矩阵加上token-shift缓存逐步传递，不缓存所有历史KV。",
+      "attention_replacement": "使用广义delta递推作跨token混合，不执行标准softmax全历史注意力；“in-context learning rate”是状态更新结构，不等于推理时对全部持久模型权重做反传。",
+      "training_objective": "论文LM训练为自回归；Pile模型从头训练，部分World模型从5/6版本checkpoint转换后续训，比较不能只数最后阶段token。",
+      "disclosed_details": [
+        "原文第3节给出广义状态更新，第6节区分Pile与World训练史。",
+        "官方repo同时保留多个版本，v7演示/训练入口需按目录和标记核对。"
+      ],
+      "complexity_scope": "固定层数、head与状态宽度时，每token递归成本和缓存相对历史T为常数；并不相对模型宽度为常数，也不意味着有限状态可无损记任意长文本。",
+      "unknowns": [
+        "正则语言/复杂度表达性论证有形式假设；不是任意训练checkpoint已自动掌握全部状态任务，更不是人类理解证明。",
+        "不把作者README的广泛性能宣传当作本地独立验证。"
+      ],
+      "sources": [
+        {
+          "title": "RWKV-7 Goose with Expressive Dynamic State Evolution",
+          "url": "https://arxiv.org/html/2503.14456v1",
+          "read_extent": "实际读第2–3节更新、第6节训练史和理论主张假设，未复核全部证明或benchmark。"
+        },
+        {
+          "title": "RWKV/RWKV-LM 官方README",
+          "url": "https://github.com/RWKV/RWKV-LM/blob/main/README.md",
+          "read_extent": "通过GitHub连接器实际读v7/v6版本入口、RNN演示和训练标记；未运行。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT06",
+      "model": "RetNet",
+      "version": "2307.08621v4的原始multi-scale retention；不混为2024 Gated RetNet/YOCO",
+      "publication_date": "2023-07-17首预印本；读取版本2023-08-09",
+      "architecture_family": "保留机制／递归与并行等价表示",
+      "architecture_summary": "用有衰减的键值累积与query读出替代softmax自注意力；保留Transformer式pre-LN、残差与FFN外壳。",
+      "components": [
+        "Q/K/V投影与相位位置处理",
+        "多head/多尺度衰减retention",
+        "GroupNorm与Swish输出门",
+        "FFN、pre-LN和残差"
+      ],
+      "state_flow": "计入位置变换后，递归概括为S_t=γS_(t-1)+k_t^T v_t，y_t=q_t S_t；不同head用不同γ。",
+      "attention_replacement": "retention取代softmax注意力；同一机制有全序列parallel、recurrent和chunkwise三种计算形式，不能混同三者成本。",
+      "training_objective": "论文以自回归语言建模训练；retention并非新的标签或理解目标。",
+      "disclosed_details": [
+        "论文2.1–2.3节公开三种表示及block。",
+        "官方README记录后续精度/归一化修复与2024 Gated RetNet，应固定原文或具体commit。"
+      ],
+      "complexity_scope": "固定状态宽度的recurrent解码每步相对T常数；朴素parallel公式仍形成T×T项。chunk大小固定时chunkwise可随T线性，总状态宽度/数值实现不能忽略。",
+      "unknowns": [
+        "原始与后续gated版本不是同一衰减规则。",
+        "未本地验证数值等价、速度或理解能力；固定状态压缩存在信息保留权衡。"
+      ],
+      "sources": [
+        {
+          "title": "Retentive Network: A Successor to Transformer for Large Language Models",
+          "url": "https://arxiv.org/html/2307.08621v4",
+          "read_extent": "实际读2.1–2.3节、三种retention表示与块组成，未复现性能数字。"
+        },
+        {
+          "title": "Microsoft unilm/retnet 官方README",
+          "url": "https://github.com/microsoft/unilm/blob/master/retnet/README.md",
+          "read_extent": "通过GitHub连接器实际读代码入口及2023修复、2024 Gated RetNet版本说明。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT07",
+      "model": "Gated DeltaNet",
+      "version": "2412.06464v1纯Gated DeltaNet；H1/H2混合模型另标",
+      "publication_date": "2024-12-09首预印本；ICLR2025",
+      "architecture_family": "门控delta矩阵状态／线性递归token mixing",
+      "architecture_summary": "结合整体遗忘门和按当前key纠错式写入；沿用Llama式token mixer+SwiGLU MLP宏结构，另有含滑窗注意力的混合变体。",
+      "components": [
+        "Q/K/V投影、短卷积、SiLU",
+        "Q/K的L2归一化",
+        "α遗忘门、β更新强度和矩阵状态",
+        "归一化/输出门、SwiGLU MLP与残差"
+      ],
+      "state_flow": "论文式8：S_t=S_(t-1)[α_t(I-β_t k_t k_t^T)]+β_t v_t k_t^T；先衰减并纠正key方向的旧值，再写入新键值。矩阵朝向依论文约定。",
+      "attention_replacement": "纯版本用gated delta rule替代softmax注意力；H1加入滑窗attention，H2还加入Mamba2，不应标为全无attention。",
+      "training_objective": "LM仍用下一token训练；内部状态更新可解释为在线学习，但不是额外提供人工语义标签。",
+      "disclosed_details": [
+        "原文第3节公开更新和chunk训练算法及hybrid区别。",
+        "官方repo提供代码；FAQ明确不发布该论文预训练权重，发布dataloader与论文训练数据还须区分。"
+      ],
+      "complexity_scope": "固定head状态维时递归推理相对T常数状态/单步成本；chunk算法利用矩阵乘并行，hybrid另计滑窗成本。没有“所有基准都胜过注意力”的普遍结论。",
+      "unknowns": [
+        "论文受控规模的收益不代表所有数据/规模最优；原文真实回忆任务中纯循环版本仍落后attention/hybrid。",
+        "本轮未运行官方kernel，也未审核下游Qwen等模型的完整变体。"
+      ],
+      "sources": [
+        {
+          "title": "Gated Delta Networks: Improving Mamba2 with Delta Rule",
+          "url": "https://arxiv.org/html/2412.06464v1",
+          "read_extent": "实际读式8、第3.2–3.3节、实验设置与真实回忆结果，未重跑。"
+        },
+        {
+          "title": "NVlabs/GatedDeltaNet 官方README",
+          "url": "https://github.com/NVlabs/GatedDeltaNet/blob/main/README.md",
+          "read_extent": "通过GitHub连接器实际读block示例、FAQ权重/训练数据说明和原论文入口；master路径失败后改用main。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT08",
+      "model": "BERT",
+      "version": "原始BERT Base/Large；不是RoBERTa/DeBERTa或decoder-only",
+      "publication_date": "2018-10-11首预印本；NAACL2019-06",
+      "architecture_family": "双向Transformer encoder-only对照",
+      "architecture_summary": "全输入位置之间做双向自注意力，逐层生成上下文向量；句对分类可读CLS，任务输出头与骨干分开。",
+      "components": [
+        "WordPiece、token/segment/学习位置embedding",
+        "双向multi-head self-attention",
+        "FFN、残差和LayerNorm",
+        "CLS/SEP及任务输出头"
+      ],
+      "state_flow": "传递的是每层完整token矩阵H，而非逐步固定维循环摘要；每个位置可结合左右上下文。",
+      "attention_replacement": "未替代attention；作为理解表示常用的encoder-only基本对照，原始骨干没有自回归生成decoder。",
+      "training_objective": "原始预训练是MLM+NSP；下游可加分类/抽取头并微调。不能把MLM、NSP或大量预训练本身叫成encoder结构。",
+      "disclosed_details": [
+        "Base=12层/768维/12头，约110M；Large=24层/1024维/16头，约340M。",
+        "官方README说明发布预训练代码不是论文内部C++代码的精确原样版本。"
+      ],
+      "complexity_scope": "普通dense注意力的成对交互项对输入长度N为二次；无需按输入位置做RNN递推，但训练/推理内存取决于实现，不应把所有实现都说必须物化N²注意力矩阵。",
+      "unknowns": [
+        "encoder-only不等于能理解任何问题；结果依赖预训练/微调数据与测量。",
+        "本卡只描述原始模型，不以旧README里的历史运行建议代表今天工具状态。"
+      ],
+      "sources": [
+        {
+          "title": "BERT原始NAACL论文",
+          "url": "https://aclanthology.org/N19-1423.pdf",
+          "read_extent": "实际读模型架构、输入表示、MLM/NSP、微调与Base/Large配置。"
+        },
+        {
+          "title": "google-research/bert 官方README",
+          "url": "https://github.com/google-research/bert/blob/master/README.md",
+          "read_extent": "通过GitHub连接器实际读模型、tokenization和pretraining公开范围，未下载权重。"
+        },
+        {
+          "title": "BERT首次预印本记录",
+          "url": "https://arxiv.org/abs/1810.04805",
+          "read_extent": "实际核验首发2018-10-11及后续版本日期。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "ALT09",
+      "model": "T5",
+      "version": "原始2019/2020 T5；不混入T5.1.1、Flan-T5或T5X训练框架",
+      "publication_date": "2019-10-23首预印本；JMLR2020",
+      "architecture_family": "Transformer encoder–decoder对照",
+      "architecture_summary": "双向encoder形成输入表征；因果decoder读已生成内容并通过cross-attention读取encoder输出，将多种任务统一为文本到文本。",
+      "components": [
+        "SentencePiece tokenization",
+        "encoder双向self-attention",
+        "decoder causal self-attention与cross-attention",
+        "FFN、pre-normalization、残差和相对位置bias",
+        "共享embedding/输出词表投影"
+      ],
+      "state_flow": "encoder保留完整输入token矩阵；decoder生成时传递输出前缀缓存，并逐步cross-attend输入表征，不是单个固定维上下文向量。",
+      "attention_replacement": "仍是dense Transformer，作为encoder–decoder基本对照；相对位置采用分桶标量bias。",
+      "training_objective": "原始框架比较多种预训练目标，最终span corruption用sentinel标记缺失片段并生成目标；下游任务转成条件文本生成。任务格式/去噪目标与骨干需分开。",
+      "disclosed_details": [
+        "JMLR第2.1节披露相对位置bias、归一化及encoder/decoder结构。",
+        "原始论文广泛比较架构与训练目标；后续Flan指令训练、T5X实现不是原始T5同一版本。"
+      ],
+      "complexity_scope": "普通注意力交互项约包含输入N²、输出M²及cross项NM；生成缓存随输入/输出长度增长。固定参数并不等于常数上下文状态。",
+      "unknowns": [
+        "text-to-text通用接口不等于自动掌握通用理解或推理。",
+        "本轮未对不同尺寸/后续变体进行参数或效果复核。"
+      ],
+      "sources": [
+        {
+          "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+          "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+          "read_extent": "实际读第2.1节骨干和位置bias、baseline/去噪目标及text-to-text定义；未逐项复核全部67页统计。"
+        },
+        {
+          "title": "Google T5 官方README",
+          "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/main/README.md",
+          "read_extent": "通过GitHub连接器实际读任务/模型接口与版本说明，未运行T5X或下载模型。"
+        },
+        {
+          "title": "T5首次预印本记录",
+          "url": "https://arxiv.org/abs/1910.10683",
+          "read_extent": "实际核验2019-10-23首发与后续修订记录。"
+        }
+      ],
+      "input_file": "alternative_models.json"
+    },
+    {
+      "id": "CM01",
+      "model": "GPT-4",
+      "version": "GPT-4 Technical Report，所读官方PDF页脚为2023-03-27；不等同于所有GPT-4后续API快照",
+      "publication_date": "2023-03-27（所读报告版本日期；最初模型公开日期不在此字段混用）",
+      "architecture_summary": "报告明确称为Transformer-style模型，以预测下一个token预训练，可接收图像和文字、输出文字；没有披露完整层级与多模态融合拓扑。",
+      "components": [
+        "Transformer-style主干（公开到家族级）",
+        "图像/文字输入处理与文字生成（内部连接细节未知）"
+      ],
+      "disclosed_details": [
+        "next-token预训练",
+        "RLHF是后训练方法，不能据此推导网络层结构",
+        "报告第2节明确表示不进一步披露架构，包括模型大小"
+      ],
+      "unknowns": [
+        "参数总量和激活参数量",
+        "层数/宽度/头数",
+        "dense还是MoE及专家配置",
+        "具体注意力变体",
+        "视觉编码器和融合位置"
+      ],
+      "disclosure_status": "闭源；仅家族级结构公开",
+      "sources": [
+        {
+          "title": "GPT-4 Technical Report",
+          "url": "https://cdn.openai.com/papers/gpt-4.pdf",
+          "read_extent": "实际读取摘要及第2节Scope and Limitations；官方PDF共100页，未通读全部安全附录。"
+        },
+        {
+          "title": "GPT-4 Model — OpenAI API",
+          "url": "https://developers.openai.com/api/docs/models/gpt-4",
+          "read_extent": "已实际打开官方API模型页；它不足以建立底层层数/专家数，所以未用API规格代替架构证据。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM02",
+      "model": "GPT-4o",
+      "version": "GPT-4o System Card，2024-08-08",
+      "publication_date": "2024-08-08",
+      "architecture_summary": "所选系统卡公开为自回归omni模型，文字、视觉、音频端到端训练，输入输出由同一神经网络处理；这不等于公开了内部每个编码器、注意力层和输出分支。",
+      "components": [
+        "统一的多模态自回归神经模型（更细拓扑未披露）",
+        "模态输入/输出通路，内部划分未披露"
+      ],
+      "disclosed_details": [
+        "卡中描述的模型输入可组合文字/音频/图像/视频，输出可组合文字/音频/图像",
+        "同一网络的端到端训练不同于把独立ASR、语言模型和TTS串起来的系统描述",
+        "描述的是报告中的模型，不据此保证任一日期API已开放全部模态"
+      ],
+      "unknowns": [
+        "精确层数/参数量",
+        "dense或MoE",
+        "注意力类型与专家路由",
+        "各模态token化、编码器和生成头详细结构"
+      ],
+      "disclosure_status": "闭源；公开端到端多模态组织方式，未公开完整网络",
+      "sources": [
+        {
+          "title": "GPT-4o System Card",
+          "url": "https://cdn.openai.com/gpt-4o-system-card.pdf",
+          "read_extent": "实际读取首页Introduction与Model data and training开头；并核对官方同名网页。"
+        },
+        {
+          "title": "GPT-4o System Card — OpenAI",
+          "url": "https://openai.com/index/gpt-4o-system-card/",
+          "read_extent": "实际读取系统卡网页及其模态/安全部署描述；未由辅助安全系统反推基础网络结构。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM03",
+      "model": "Claude 3 family",
+      "version": "Claude 3 Opus/Sonnet/Haiku，2024发布；模型卡含2024-06-20 Claude 3.5 Sonnet补充，本文不把补充当原版结构",
+      "publication_date": "2024-03-04（家族公告）",
+      "architecture_summary": "所读Claude 3官方资料确认文字/图像多模态输入和文字输出，但不足以重建底层网络。不能用其他Claude代际的架构描述、Constitutional AI或框架名称替代本代的结构披露。",
+      "components": [
+        "文字/图像输入与文字输出通路（具体编码器和连接拓扑未知）"
+      ],
+      "disclosed_details": [
+        "官方模型卡导言描述多模态输入、文字输出",
+        "Constitutional AI及无监督学习属于训练方法；PyTorch/JAX/Triton属于实现框架，不是架构图",
+        "本条对架构作有限披露登记，不假定已读到未公开的内部配置"
+      ],
+      "unknowns": [
+        "精确骨干拓扑与层数/宽度/头数",
+        "参数量、dense或MoE及专家数",
+        "视觉编码器、模态融合和位置表示细节",
+        "不同家族成员是否共享相同具体拓扑"
+      ],
+      "disclosure_status": "闭源；本次关键模型卡PDF完整打开受体积限制，所读官方公告及原始索引片段不足以重建架构",
+      "sources": [
+        {
+          "title": "Introducing the next generation of Claude",
+          "url": "https://www.anthropic.com/news/claude-3-family",
+          "read_extent": "实际打开官方公告，读取家族/视觉能力/模型细节段及模型卡链接。"
+        },
+        {
+          "title": "The Claude 3 Model Family: Opus, Sonnet, Haiku",
+          "url": "https://www-cdn.anthropic.com/f2986af8d052f26236f6251da62d16172cfabd6e/claude-3-model-card.pdf",
+          "read_extent": "实际读取搜索返回的官方PDF导言和June20更新说明；直接完整打开被工具拒绝（28,782,922字节）。没有声称通读或以未读全文证明某结构不存在。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM04",
+      "model": "Gemini 1.5 Pro / Gemini 1.5 Flash",
+      "version": "官方Gemini 1.5技术报告中更新的Pro与Flash；正文比较February与May2024版本；不是只含最初Pro的早期稿",
+      "publication_date": "2024（所读报告含多次更新；同题arXiv初稿2024-03-08）",
+      "architecture_summary": "同一家族包含不同骨干配置：Pro明确为稀疏MoE Transformer；Flash明确为dense Transformer，并由Pro在线蒸馏。不能把整个1.5家族统一填为MoE。",
+      "components": [
+        "Pro：Transformer与学习的稀疏专家路由",
+        "Flash：dense Transformer",
+        "多模态输入处理，详细模态接口未完全展开"
+      ],
+      "disclosed_details": [
+        "正文第3节及附录12.1模型卡分别确认Pro与Flash结构",
+        "图像、文字、音频、视频输入，报告中的主要输出为文字",
+        "在线蒸馏是Flash训练关系，不是推理时把每次请求转发给Pro"
+      ],
+      "unknowns": [
+        "Pro专家数、每token激活专家数及路由层布局",
+        "两模型完整参数量、层数、宽度与注意力变体",
+        "长上下文改进的完整实现细节"
+      ],
+      "disclosure_status": "闭源；公开dense/MoE差异，完整配置未公开",
+      "sources": [
+        {
+          "title": "Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context",
+          "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf",
+          "read_extent": "实际读取第3节Model Architecture及附录12.1 Model Card（PDF第105页附近），共154页，未通读全部评测。"
+        },
+        {
+          "title": "Gemini 1.5 arXiv record",
+          "url": "https://arxiv.org/abs/2403.05530",
+          "read_extent": "实际核实初稿2024-03-08、该条记录已多次修订；不将初稿日期冒充Flash发布日。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM05",
+      "model": "Gemini 2.5 Pro / Gemini 2.5 Flash",
+      "version": "Gemini 2.5官方技术报告第2.1节；不将文中2.0成员自动套用同一披露",
+      "publication_date": "2025（同题arXiv首发2025-07-07；本次读取的官方PDF未见精确版次日期）",
+      "architecture_summary": "报告明确称Gemini 2.5模型为原生支持文字、视觉和音频输入的稀疏MoE Transformer，token经学习路由激活部分专家参数。thinking budget属于推理计算/行为控制的披露，不能据此另画一种网络骨干。",
+      "components": [
+        "Transformer骨干",
+        "稀疏MoE专家层与学习路由（详细布局未知）",
+        "原生多模态输入通路（细部未知）"
+      ],
+      "disclosed_details": [
+        "第2.1节直接披露sparse MoE及token级条件计算",
+        "Pro与Flash均属本条2.5范围",
+        "总模型容量与每token计算成本可以分离，不能把总参数都视为每token激活"
+      ],
+      "unknowns": [
+        "专家数和top-k",
+        "总参数/活跃参数、层数/宽度/头数",
+        "注意力与位置编码的具体变体",
+        "多模态处理的精确拓扑"
+      ],
+      "disclosure_status": "闭源；公开MoE家族级信息，详细配置未公开",
+      "sources": [
+        {
+          "title": "Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities",
+          "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v2_5_report.pdf",
+          "read_extent": "实际读取第2.1节Model Architecture及相邻长上下文/模态段；所读PDF共73页，未通读所有评测和作者名单。"
+        },
+        {
+          "title": "Gemini 2.5 arXiv record",
+          "url": "https://arxiv.org/abs/2507.06261",
+          "read_extent": "实际核实同题报告初稿2025-07-07及后续修订；不声称该记录的当前v6与官方PDF文件逐字一致。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM06",
+      "model": "CLIP（含ViT视觉分支）",
+      "version": "OpenAI CLIP原始2021论文；ViT结构参照原始2020/ICLR2021论文，不外推后续OpenCLIP/SigLIP",
+      "publication_date": "2021-01-05（CLIP官方发布；论文为2021）",
+      "architecture_summary": "图像编码器与文字编码器分别产生向量，经线性投影与归一化进入同一嵌入空间，用对称对比目标对齐。视觉分支可用改造ResNet或ViT；CLIP并不全部等于ViT，也不是自回归对话LLM。",
+      "components": [
+        "图像编码器：改造ResNet或ViT",
+        "文字编码器：使用masked self-attention的Transformer，取EOS表示",
+        "线性投影、向量归一化与图文余弦相似度",
+        "ViT分支：patch投影、位置嵌入、自注意力/MLP、残差和LayerNorm"
+      ],
+      "disclosed_details": [
+        "原论文第2.4节举出的base文字模型为12层、宽512、8头；不同CLIP规模不能都套此数值",
+        "ResNet分支用attention pooling代替全局均值池化",
+        "对比学习是训练目标，不应冒充另一种注意力网络类型"
+      ],
+      "unknowns": [
+        "本条未穷举各CLIP发布权重的全部配置，也不推断任何闭源VLM一定采用同款视觉塔",
+        "不把CLIP对齐能力当作通用问题理解证据"
+      ],
+      "disclosure_status": "原论文结构公开；本次只读资料，未下载或运行权重",
+      "sources": [
+        {
+          "title": "Learning Transferable Visual Models From Natural Language Supervision",
+          "url": "https://cdn.openai.com/papers/Learning_Transferable_Visual_Models_From_Natural_Language_Supervision.pdf",
+          "read_extent": "实际读取第2.3/2.4节与Figure3，确认双编码器、投影、对称损失与文字/视觉分支。"
+        },
+        {
+          "title": "CLIP: Connecting text and images",
+          "url": "https://openai.com/index/clip/",
+          "read_extent": "实际打开官方发布页并核对2021-01-05日期。"
+        },
+        {
+          "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+          "url": "https://arxiv.org/pdf/2010.11929",
+          "read_extent": "实际读取原论文第3节：patch嵌入、可学习一维位置嵌入、pre-LN自注意力/MLP与残差。ViT仅作为本条组件，不另计同一模型。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM07",
+      "model": "Latent Diffusion / Stable Diffusion v1",
+      "version": "LDM原论文与CompVis Stable Diffusion v1配置分别核实；不外推SDXL/SD3",
+      "publication_date": "2022（LDM为CVPR2022论文；SD v1为2022配置）",
+      "architecture_summary": "先由图像自编码器压缩到潜空间，在带噪潜变量上用U-Net去噪，再由解码器还原图像；文字条件通过编码器及cross-attention注入。SD v1具体采用冻结的CLIP文字分支，不能把原LDM论文自训文字编码器与SD v1完全混同。",
+      "components": [
+        "图像VAE/自编码器编码端与解码端",
+        "潜空间去噪U-Net，含自注意力及条件cross-attention",
+        "冻结的CLIP模型文字Transformer分支",
+        "逐步扩散采样过程"
+      ],
+      "disclosed_details": [
+        "官方README：SD v1自编码器空间下采样8倍，U-Net约860M，文字编码器约123M",
+        "v1-inference配置：4潜通道、crossattn条件、cond_stage_trainable=false",
+        "CLIP ViT-L/14是所用CLIP模型名；SD取其文字分支，不是用视觉ViT把文字切成图像patch"
+      ],
+      "unknowns": [
+        "这里的权重细节属于原始v1配置，后续衍生版本必须另查",
+        "实际应用中的采样器/安全检查/界面不属于同一个U-Net结构"
+      ],
+      "disclosure_status": "原论文、作者代码和v1配置公开",
+      "sources": [
+        {
+          "title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+          "url": "https://arxiv.org/html/2112.10752v2",
+          "read_extent": "实际读取第3.1–3.3节与附录条件机制，区分感知压缩、潜空间去噪和cross-attention。CVF PDF直接访问403，使用同一原论文作者arXiv稿。"
+        },
+        {
+          "title": "CompVis Stable Diffusion README",
+          "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/README.md",
+          "read_extent": "实际读取Stable Diffusion v1段及860M/123M、8倍下采样配置说明。"
+        },
+        {
+          "title": "Stable Diffusion v1 Model Card",
+          "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/Stable_Diffusion_v1_Model_Card.md",
+          "read_extent": "实际读取Model Details与模型描述。"
+        },
+        {
+          "title": "CompVis v1-inference.yaml",
+          "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-diffusion/v1-inference.yaml",
+          "read_extent": "实际读取原始配置的latent channels、conditioning key和冻结条件编码器设置；没有执行代码。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    },
+    {
+      "id": "CM08",
+      "model": "DiT — Diffusion Transformer",
+      "version": "Scalable Diffusion Models with Transformers，原始DiT论文v2；示例为DiT-XL/2 adaLN-Zero，ImageNet类别条件模型",
+      "publication_date": "2022预印本；ICCV2023发表",
+      "architecture_summary": "仍在图像潜空间做迭代扩散去噪，用处理latent patches的Transformer替换常见U-Net。示例以扩散时间步与类别嵌入调节归一化/残差，不是把图像token按语言模型方式逐个预测。",
+      "components": [
+        "图像VAE潜空间",
+        "latent patch投影及位置表示",
+        "Transformer自注意力与MLP",
+        "adaLN-Zero时间步/类别条件调节",
+        "输出投影及潜空间到图像解码"
+      ],
+      "disclosed_details": [
+        "Table1：DiT-XL为28层、宽1152、16头；/2表示潜空间patch边长2",
+        "Table4：所列adaLN-Zero DiT-XL/2约675M参数，明确不含84M参数的VAE",
+        "论文比较in-context、cross-attention、adaLN和adaLN-Zero；不能说所有DiT都采用cross-attention",
+        "原始展示为类别条件图像生成，不是直接等同文字对话或任一现代文生图产品"
+      ],
+      "unknowns": [
+        "DiT是一个架构族；不能将原始DiT-XL/2数字填给其他DiT、MMDiT或未披露产品",
+        "本次不审计任何后续闭源图像模型的具体拓扑"
+      ],
+      "disclosure_status": "原论文与作者实现公开；未运行模型",
+      "sources": [
+        {
+          "title": "Scalable Diffusion Models with Transformers",
+          "url": "https://arxiv.org/html/2212.09748v2",
+          "read_extent": "实际读取第3.2节、Table1、adaLN-Zero段与Table4参数/VAE计数说明；CVF PDF403、arXiv PDF体积过大，改读同一论文HTML。"
+        },
+        {
+          "title": "DiT author project page",
+          "url": "https://www.wpeebles.com/DiT",
+          "read_extent": "实际打开作者项目页，确认原始模型类别条件、latent patch Transformer替代U-Net及官方论文/代码入口。"
+        }
+      ],
+      "input_file": "closed_multimodal_models.json"
+    }
+  ]
+}

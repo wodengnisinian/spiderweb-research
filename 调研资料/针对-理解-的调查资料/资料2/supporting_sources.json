@@ -1,0 +1,7 @@
+[
+  {
+    "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+    "url": "https://arxiv.org/abs/2205.14135",
+    "read_extent": "实际读取原始论文arXiv摘要，确认exact attention、tiling、减少HBM/SRAM间读写的定位。未通读推导或复现实验；仅支持报告中区分内核IO优化与改变注意力机制的简短说明。"
+  }
+]

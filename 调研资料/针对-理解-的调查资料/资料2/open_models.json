@@ -1,0 +1,582 @@
+[
+  {
+    "id": "llama_3_1_8b_instruct",
+    "model": "Meta Llama 3.1 8B Instruct",
+    "version": "meta-llama/Llama-3.1-8B-Instruct；2024-07原始3.1版本，不含3.2/3.3",
+    "publication_date": "2024-07-23",
+    "publication_date_kind": "官方Llama3.1发布公告日期",
+    "architecture_summary": "稠密、decoder-only自回归Transformer；GQA、SwiGLU、pre-RMSNorm与缩放RoPE。",
+    "components": [
+      "backbone: causal decoder-only Transformer",
+      "parameterization: dense",
+      "token_mixer: softmax self-attention with GQA",
+      "position: scaled RoPE；本版本use_scaled_rope=true",
+      "normalization: pre-RMSNorm，末尾RMSNorm",
+      "ffn: SwiGLU：SiLU门控乘法+下投影",
+      "modalities: 文本输入、文本输出"
+    ],
+    "disclosed_details": [
+      "nominal_parameters: 8B",
+      "layers: 32",
+      "hidden_size: 4096",
+      "query_heads: 32",
+      "kv_heads: 8",
+      "norm_eps: 1e-05",
+      "rope_theta: 500000",
+      "evidence_binding: 层数/维度/头数来自Meta sku_list.py中llama3_1_8b；算子来自Meta llama3参考实现，不凭相邻型号猜测。"
+    ],
+    "unknowns": [
+      "HF config在本次工具读取中不可访问，未下载权重核验张量；未用该失败推断模型未公开。",
+      "所列参考实现并非Meta线上服务完整推理系统。"
+    ],
+    "sources": [
+      {
+        "title": "Introducing Llama 3.1",
+        "url": "https://ai.meta.com/blog/meta-llama-3-1/",
+        "source_type": "官方发布公告",
+        "read_extent": "实际检索官方发布日期和模型架构/系列介绍。"
+      },
+      {
+        "title": "Meta llama-models sku_list.py",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+        "source_type": "开发者公开配置代码",
+        "read_extent": "实际读取llama3_1_8b对应arch_args，避免使用Llama3或70B条目的值。"
+      },
+      {
+        "title": "Meta Llama3/3.1参考实现",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/model.py",
+        "source_type": "开发者参考实现",
+        "read_extent": "实际读取RMSNorm、RoPE缩放、attention和FeedForward/TransformerBlock。"
+      }
+    ]
+  },
+  {
+    "id": "llama_4_scout_17b_16e_instruct",
+    "model": "Llama 4 Scout 17B-16E Instruct",
+    "version": "meta-llama/Llama-4-Scout-17B-16E-Instruct；2025-04发布",
+    "publication_date": "2025-04-05",
+    "publication_date_kind": "官方模型卡Model Release Date",
+    "architecture_summary": "自回归MoE语言骨干，文本与视觉token早期融合；使用iRoPE设计。Scout的精确层级超参有本次访问缺口，不套用Maverick示例。",
+    "components": [
+      "backbone: 自回归Transformer语言骨干+视觉编码器",
+      "parameterization: MoE；模型卡称16 experts",
+      "token_mixer: 公开参考Attention为scaled dot-product并支持KV头共享；本次未读取到Scout具体Q/KV头配置",
+      "position: iRoPE：大部分层用RoPE，穿插不使用位置编码的attention层；官方同时描述长上下文attention温度缩放",
+      "normalization: 公开Llama4实现采用RMSNorm；QK归一化按配置和层型控制",
+      "ffn: 公开MoE实现为SwiGLU专家及shared-expert路径；Scout具体MoE/dense层排列本次未核定",
+      "modalities: 文本/图像输入，文本输出；视觉编码器基于MetaCLIP，early fusion"
+    ],
+    "disclosed_details": [
+      "total_parameters_reported: 109B",
+      "active_parameters_reported: 17B",
+      "experts_reported: 16",
+      "query_heads: null",
+      "kv_heads: null",
+      "layers: null",
+      "context_model_card: 10M tokens；为开发者声明，不是本次实测",
+      "critical_scope: 发布文中128 routed+1 shared、dense/MoE交替的具体示例是Maverick，不据此填写Scout所有细节。"
+    ],
+    "unknowns": [
+      "本次HF config多种读取入口均不可访问，因此不填未经独立核对的Scout层数、宽度、头数、top-k或层间比例。",
+      "公开参考代码支持的选项不等于每个Scout层都启用；未下载权重/params.json核验。"
+    ],
+    "sources": [
+      {
+        "title": "Llama4官方模型卡",
+        "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "source_type": "官方模型卡",
+        "read_extent": "实际读取Model Information、参数/模态/日期表；未提交访问申请或接受许可。"
+      },
+      {
+        "title": "The Llama4 herd官方发布文",
+        "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+        "source_type": "官方技术发布文",
+        "read_extent": "实际读取early fusion、MetaCLIP、iRoPE与Scout段落；区分Maverick专属示例。"
+      },
+      {
+        "title": "Llama4公开model.py",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama4/model.py",
+        "source_type": "开发者参考实现",
+        "read_extent": "实际读取RMSNorm、Attention、nope_layer_interval和TransformerBlock条件分支。"
+      },
+      {
+        "title": "Llama4公开moe.py",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama4/moe.py",
+        "source_type": "开发者参考实现",
+        "read_extent": "实际读取SwiGLU专家、router与shared_expert；不将动态配置参数猜成Scout实值。"
+      }
+    ]
+  },
+  {
+    "id": "qwen3_8b",
+    "model": "Qwen3-8B",
+    "version": "Qwen/Qwen3-8B；2025-04首次发布版本，非Qwen3-Next或2507更新",
+    "publication_date": "2025-04-29",
+    "publication_date_kind": "Qwen团队官方发布博客日期",
+    "architecture_summary": "稠密decoder-only Transformer，GQA+QK-Norm、pre-RMSNorm、SwiGLU、RoPE；thinking/non-thinking是此模型中的运行/后训练能力，不代表两套骨干。",
+    "components": [
+      "backbone: causal decoder-only Transformer",
+      "parameterization: dense",
+      "token_mixer: GQA；去除QKV bias并加入QK-Norm",
+      "position: RoPE；config rope_scaling=null",
+      "normalization: pre-RMSNorm及attention中的QK-Norm",
+      "ffn: SwiGLU",
+      "modalities: 文本输入/输出"
+    ],
+    "disclosed_details": [
+      "parameters_model_card: 8.2B total / 6.95B non-embedding",
+      "layers: 36",
+      "hidden_size: 4096",
+      "intermediate_size: 12288",
+      "query_heads: 32",
+      "kv_heads: 8",
+      "head_dim: 128",
+      "rope_theta: 1000000",
+      "config_revision_observed: b968826d9c46dd6066d109eabc6255188de91218",
+      "context_labels: {\"model_card_native\":32768,\"model_card_YaRN\":131072,\"config_max_position_embeddings\":40960,\"technical_report_table\":\"128K\"}"
+    ],
+    "unknowns": [
+      "model card的原生上下文、YaRN扩展、论文上下文标签与config位置上限不是同一量，未将这些数字合并成一个未经解释的上限。",
+      "不把该dense版本套用于同系列MoE或Qwen3-Next。"
+    ],
+    "sources": [
+      {
+        "title": "Qwen3官方发布博客",
+        "url": "https://qwenlm.github.io/blog/qwen3/",
+        "source_type": "官方发布文",
+        "read_extent": "实际检索发布日期与dense/MoE发布清单。"
+      },
+      {
+        "title": "Qwen3 Technical Report",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取第2节架构及dense型号表，明确8B是dense。"
+      },
+      {
+        "title": "Qwen3-8B官方模型卡",
+        "url": "https://huggingface.co/Qwen/Qwen3-8B",
+        "source_type": "官方模型卡",
+        "read_extent": "实际读取Model Overview及参数/头数/上下文说明。"
+      },
+      {
+        "title": "Qwen3-8B config.json",
+        "url": "https://huggingface.co/Qwen/Qwen3-8B/blob/b968826d9c46dd6066d109eabc6255188de91218/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际打开main的resolve原始JSON，重定向披露此revision，读取全部30行配置。"
+      }
+    ]
+  },
+  {
+    "id": "qwen3_next_80b_a3b_instruct",
+    "model": "Qwen3-Next-80B-A3B-Instruct",
+    "version": "Qwen/Qwen3-Next-80B-A3B-Instruct；2025-09首版，非Thinking、非Qwen3.5/3.8",
+    "publication_date": "2025-09-11",
+    "publication_date_kind": "Qwen官方仓库历史News条目",
+    "architecture_summary": "因果混合骨干：3层Gated DeltaNet线性注意力配1层门控全注意力，所有这些模块后接高稀疏MoE；不是普通全softmax Transformer，也不直接等同于Mamba。",
+    "components": [
+      "backbone: causal hybrid linear-attention/full-attention language model",
+      "parameterization: MoE",
+      "token_mixer: 12×[3×Gated DeltaNet + 1×Gated Attention]，线性/全注意力3:1",
+      "position: 全注意力的partial RoPE：head维256中64维旋转；不能笼统说所有线性层都用同样RoPE",
+      "normalization: 模型卡披露zero-centered/weight-decayed norm；参考实现有RMSNorm及gated RMSNorm",
+      "ffn: SiLU门控专家；512路由专家每token激活10个，加1个shared expert",
+      "modalities: 文本输入/输出；本Instruct权重只支持non-thinking模式"
+    ],
+    "disclosed_details": [
+      "parameters_reported: 80B total / 3B activated",
+      "layers: 48",
+      "hidden_size: 2048",
+      "full_attention_query_heads: 16",
+      "full_attention_kv_heads: 2",
+      "full_attention_head_dim: 256",
+      "linear_qk_heads: 16",
+      "linear_value_heads: 32",
+      "linear_head_dim: 128",
+      "routed_experts: 512",
+      "activated_routed_experts_per_token: 10",
+      "shared_experts: 1",
+      "expert_intermediate_size: 512",
+      "config_revision_observed: 9c7f2fbe84465e40164a94cc16cd30b6999b0cc7"
+    ],
+    "unknowns": [
+      "旧Qwen3-Next GitHub main已转向更新Qwen系列；只用其历史News核日期，不将当前首页新架构当成本版证据。",
+      "博客页面当前动态内容不可全文读取；核心架构由具体官方HF模型卡/config交叉核对。",
+      "未实测MTP推理、吞吐或上下文；这些不作为本次验证结果。"
+    ],
+    "sources": [
+      {
+        "title": "Qwen3-Next官方模型卡",
+        "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
+        "source_type": "官方模型卡",
+        "read_extent": "实际读取Highlights和Model Overview，包含3:1布局、头数、MoE与Instruct模式限定。"
+      },
+      {
+        "title": "Qwen3-Next config.json",
+        "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct/blob/9c7f2fbe84465e40164a94cc16cd30b6999b0cc7/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际读取resolve原始43行JSON，核对重定向revision。"
+      },
+      {
+        "title": "Qwen官方仓库历史News",
+        "url": "https://raw.githubusercontent.com/QwenLM/Qwen3-Next/main/README.md",
+        "source_type": "开发者历史发布记录",
+        "read_extent": "仅采用实际读取到的2025-09-11历史发布记录；当前页标题已为后续系列，不用其当前架构描述。"
+      },
+      {
+        "title": "Qwen/HF Qwen3Next实现v4.57.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_next/modeling_qwen3_next.py",
+        "source_type": "开发者与框架团队联合参考实现",
+        "read_extent": "实际读取GatedDeltaRule导入、动态cache和RMSNormGated定义；未运行代码。"
+      }
+    ]
+  },
+  {
+    "id": "deepseek_v3_original",
+    "model": "DeepSeek-V3",
+    "version": "deepseek-ai/DeepSeek-V3；2024-12原始V3，不含0324/V3.1/V3.2",
+    "publication_date": "2024-12-26",
+    "publication_date_kind": "DeepSeek官方历史发布页日期",
+    "architecture_summary": "decoder-only Transformer，MLA低秩KV潜变量压缩+DeepSeekMoE；前3层为dense FFN，之后为MoE；MTP属于其训练/额外预测设计。",
+    "components": [
+      "backbone: causal decoder-only Transformer",
+      "parameterization: dense前3层+后续MoE FFN",
+      "token_mixer: Multi-head Latent Attention（MLA），不是仅根据num_key_value_heads字段就应判定为普通MHA",
+      "position: decoupled RoPE，长上下文配置使用YaRN",
+      "normalization: RMSNorm；压缩潜变量后另加RMSNorm",
+      "ffn: SwiGLU；256路由专家top8+1共享专家",
+      "modalities: 文本输入/输出"
+    ],
+    "disclosed_details": [
+      "parameters_reported: 671B total / 37B activated per token",
+      "layers: 61",
+      "hidden_size: 7168",
+      "mla_heads: 128",
+      "kv_compression_dim: 512",
+      "query_compression_dim: 1536",
+      "decoupled_rope_head_dim: 64",
+      "dense_ffn_first_layers: 3",
+      "routed_experts_per_moe_layer: 256",
+      "activated_routed_experts: 8",
+      "shared_experts: 1",
+      "expert_intermediate_size: 2048",
+      "mtp_depth_reported: 1"
+    ],
+    "unknowns": [
+      "当前API同名/别名的实际服务后端不由原始开放权重架构决定，本条只调查原始V3。",
+      "MTP存在不意味着每次部署都运行MTP模块；未下载权重验证完整张量与运行路径。"
+    ],
+    "sources": [
+      {
+        "title": "Introducing DeepSeek-V3",
+        "url": "https://api-docs.deepseek.com/news/news1226/",
+        "source_type": "官方历史发布页",
+        "read_extent": "实际读取2024/12/26索引、671B/37B以及原始仓库/论文链接。"
+      },
+      {
+        "title": "DeepSeek-V3 Technical Report",
+        "url": "https://arxiv.org/html/2412.19437v2",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取第2节MLA/DeepSeekMoE与模型超参数段，含61层、压缩维度、256/8+1专家与RMSNorm。"
+      },
+      {
+        "title": "DeepSeek-V3 config.json",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际读取配置字段，与技术报告交叉核对；不把main当不可变权重证明。"
+      }
+    ]
+  },
+  {
+    "id": "deepseek_r1_original",
+    "model": "DeepSeek-R1",
+    "version": "deepseek-ai/DeepSeek-R1；2025-01原始671B版本，非R1-0528、R1-Zero或Distill系列",
+    "publication_date": "2025-01-20",
+    "publication_date_kind": "DeepSeek官方历史新闻索引日期；具体旧新闻页现重定向",
+    "architecture_summary": "继承DeepSeek-V3-Base的MLA+DeepSeekMoE骨干；R1主要是cold-start SFT、RL等后训练流程与权重变化，不是因为会推理就换成另一种注意力结构。",
+    "components": [
+      "backbone: DeepSeek-V3-Base因果Transformer骨干",
+      "parameterization: MoE；前3层dense FFN，其后稀疏专家",
+      "token_mixer: MLA",
+      "position: decoupled RoPE/YaRN配置",
+      "normalization: RMSNorm，继承V3的潜变量归一化结构",
+      "ffn: SwiGLU；256路由专家top8+1共享",
+      "modalities: 文本输入/输出",
+      "post_training_distinction: 原始R1从V3-Base经cold-start、RL、采样/SFT、进一步RL得到；Distill-Qwen/Llama另有各自基础架构"
+    ],
+    "disclosed_details": [
+      "parameters_reported: 671B total / 37B activated",
+      "config_architectures: [\"DeepseekV3ForCausalLM\"]",
+      "config_model_type: deepseek_v3",
+      "layers: 61",
+      "hidden_size: 7168",
+      "mla_heads: 128",
+      "kv_compression_dim: 512",
+      "query_compression_dim: 1536",
+      "routed_experts: 256",
+      "activated_routed_experts: 8",
+      "shared_experts: 1",
+      "config_revision_observed: 56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad"
+    ],
+    "unknowns": [
+      "没有把R1-Zero的纯RL描述直接当作R1完整训练流程；原始R1含SFT阶段。",
+      "蒸馏版本不能统称MLA+MoE，例如Distill-Qwen/Llama保留各自学生骨干。",
+      "本次不核验当前API是否仍服务该原始checkpoint。"
+    ],
+    "sources": [
+      {
+        "title": "DeepSeek历史新闻索引",
+        "url": "https://api-docs.deepseek.com/news/news1226/",
+        "source_type": "官方历史新闻索引",
+        "read_extent": "实际读取侧栏DeepSeek-R1 Release 2025/01/20；其旧详情链接当前跳到API首页，不以首页当R1架构证据。"
+      },
+      {
+        "title": "DeepSeek-R1原始技术报告",
+        "url": "https://arxiv.org/html/2501.12948v1",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取V3-Base来源、R1与R1-Zero训练区别及蒸馏学生基础模型段落。"
+      },
+      {
+        "title": "DeepSeek-R1 config.json",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际读取resolve原始JSON的architecture、MLA维度与专家字段，重定向披露此revision。"
+      }
+    ]
+  },
+  {
+    "id": "mistral_7b_v0_1",
+    "model": "Mistral-7B-v0.1",
+    "version": "mistralai/Mistral-7B-v0.1基础模型，非v0.2/v0.3或Instruct",
+    "publication_date": "2023-09-27",
+    "publication_date_kind": "官方模型发布公告日期",
+    "architecture_summary": "稠密decoder-only Transformer，GQA+4096滑窗注意力；RMSNorm、RoPE、SiLU门控FFN。",
+    "components": [
+      "backbone: causal decoder-only Transformer",
+      "parameterization: dense",
+      "token_mixer: GQA+Sliding Window Attention（SWA）",
+      "position: RoPE",
+      "normalization: pre-RMSNorm",
+      "ffn: SwiGLU式SiLU门控MLP",
+      "modalities: 文本输入/输出"
+    ],
+    "disclosed_details": [
+      "parameters_official_announcement: 7.3B",
+      "layers: 32",
+      "hidden_size: 4096",
+      "intermediate_size: 14336",
+      "query_heads: 32",
+      "kv_heads: 8",
+      "sliding_window: 4096",
+      "rope_theta: 10000",
+      "config_max_position_embeddings: 32768"
+    ],
+    "unknowns": [
+      "配置位置上限不自动表示所有长文本行为都可靠；SWA的跨层传播也不是全局逐token注意力。",
+      "v0.1的SWA/词表/位置设置不能直接套到后续Mistral版本。"
+    ],
+    "sources": [
+      {
+        "title": "Mistral7B官方公告",
+        "url": "https://mistral.ai/news/announcing-mistral-7b/",
+        "source_type": "官方发布文",
+        "read_extent": "实际读取日期、7.3B、GQA与SWA说明。"
+      },
+      {
+        "title": "Mistral7B技术报告",
+        "url": "https://arxiv.org/html/2310.06825v1",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取摘要、Architectural details位置及GQA/SWA说明。"
+      },
+      {
+        "title": "Mistral7B-v0.1 config.json",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-v0.1/blob/main/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际读取32层、32/8头、宽度、norm、RoPE与sliding_window字段。"
+      },
+      {
+        "title": "Mistral/HF参考实现v4.36.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.36.0/src/transformers/models/mistral/modeling_mistral.py",
+        "source_type": "开发者与框架团队联合参考实现",
+        "read_extent": "实际打开版本固定实现，读取RMSNorm/RoPE及MLP相关公开结构；未运行。"
+      }
+    ]
+  },
+  {
+    "id": "mixtral_8x7b_v0_1",
+    "model": "Mixtral-8x7B-v0.1",
+    "version": "mistralai/Mixtral-8x7B-v0.1基础模型，非8x22B或Instruct",
+    "publication_date": "2023-12-11",
+    "publication_date_kind": "官方技术公告日期；不声称是最早torrent/权重上传日",
+    "architecture_summary": "decoder-only Transformer，把FFN替换为8个专家、每token选2个的稀疏MoE；注意力仍共享GQA，不能把8x7B算成8套完整7B模型。",
+    "components": [
+      "backbone: causal decoder-only Transformer",
+      "parameterization: sparse MoE FFN",
+      "token_mixer: GQA；所读v0.1 config sliding_window=null，不从Mistral7B名称继承4096滑窗",
+      "position: RoPE",
+      "normalization: RMSNorm",
+      "ffn: 每层8个SiLU门控专家，top2路由加权合并",
+      "modalities: 文本输入/输出"
+    ],
+    "disclosed_details": [
+      "parameters_official_announcement: 46.7B total / 12.9B per token",
+      "layers: 32",
+      "hidden_size: 4096",
+      "expert_intermediate_size: 14336",
+      "query_heads: 32",
+      "kv_heads: 8",
+      "experts_per_layer: 8",
+      "experts_per_token: 2",
+      "rope_theta: 1000000",
+      "sliding_window_config: null"
+    ],
+    "unknowns": [
+      "报告将参数近似写作47B/13B，公告给46.7B/12.9B，属精度口径不同。",
+      "未下载权重核验路由或注意力内核；本条不据纸面规格给出实测延迟。"
+    ],
+    "sources": [
+      {
+        "title": "Mixtral of experts官方公告",
+        "url": "https://mistral.ai/news/mixtral-of-experts/",
+        "source_type": "官方发布文",
+        "read_extent": "实际读取日期、decoder-only、8选2和46.7B/12.9B。"
+      },
+      {
+        "title": "Mixtral of Experts技术报告",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取摘要与Architectural details说明；不把近似参数视作精确计数。"
+      },
+      {
+        "title": "Mixtral8x7B-v0.1 config.json",
+        "url": "https://huggingface.co/mistralai/Mixtral-8x7B-v0.1/blob/main/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际读取层数/头数/8选2/RoPE与sliding_window=null。"
+      },
+      {
+        "title": "Mistral/HF Mixtral实现v4.36.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.36.0/src/transformers/models/mixtral/modeling_mixtral.py",
+        "source_type": "开发者与框架团队联合参考实现",
+        "read_extent": "实际打开版本固定公开实现，用于参考MoE算子与归一化拓扑；未运行代码。"
+      }
+    ]
+  },
+  {
+    "id": "gemma_3_4b_it",
+    "model": "Gemma3-4B-IT",
+    "version": "google/gemma-3-4b-it；2025-03首次Gemma3指令版本，非1B纯文本/12B/27B/QAT",
+    "publication_date": "2025-03-12",
+    "publication_date_kind": "Google官方发布公告日期；arXiv报告稍后提交",
+    "architecture_summary": "稠密decoder-only语言Transformer+SigLIP视觉编码器；GQA按5个局部层/1个全局层交错，加入QK-Norm，采用门控GELU FFN。",
+    "components": [
+      "backbone: dense causal decoder-only LM+vision encoder",
+      "parameterization: dense",
+      "token_mixer: GQA；局部滑窗与全局attention按5:1交错",
+      "position: local/global分别使用RoPE设置；全局基础频率1M、局部10K；报告用因子8作长上下文缩放",
+      "normalization: RMSNorm前/后归一化与QK-Norm",
+      "ffn: Google参考GemmaMLP为GELU(tanh近似)门控乘法，不是SiLU版SwiGLU",
+      "modalities: 文本/图像输入，文本输出；SigLIP编码器，图像表征进入语言骨干"
+    ],
+    "disclosed_details": [
+      "nominal_parameters: 4B",
+      "layers_reference_4b_config: 34",
+      "hidden_size_reference_4b_config: 2560",
+      "intermediate_size_reference_4b_config: 10240",
+      "query_heads_reference_4b_config: 8",
+      "kv_heads_reference_4b_config: 4",
+      "head_dim_reference_4b_config: 256",
+      "local_sliding_window: 1024",
+      "vision_encoder_parameters_reported: 417M"
+    ],
+    "unknowns": [
+      "本次HF权重config不可访问，维度来自Google公开get_config_for_4b；未对checkpoint形状逐张量核验。",
+      "Google参考配置的cleaned tokenizer与HF发行配置可能有词表包装差异，因此不合并报告/实现的词表数字。",
+      "Gemma3-1B没有视觉编码器，不能从4B的多模态结构推广整个系列。"
+    ],
+    "sources": [
+      {
+        "title": "Google Gemma3发布公告",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
+        "source_type": "官方发布文",
+        "read_extent": "实际读取2025-03-12日期、模型尺寸和模态介绍。"
+      },
+      {
+        "title": "Gemma3 Technical Report",
+        "url": "https://arxiv.org/html/2503.19786v1",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取第2节GQA/RMSNorm/QK-Norm、5:1局部全局结构、视觉参数及长上下文段落。"
+      },
+      {
+        "title": "Google Gemma PyTorch config",
+        "url": "https://raw.githubusercontent.com/google/gemma_pytorch/main/gemma/config.py",
+        "source_type": "开发者参考配置",
+        "read_extent": "实际读取get_config_for_4b，未使用1B/12B/27B相邻值。"
+      },
+      {
+        "title": "Google Gemma PyTorch model",
+        "url": "https://raw.githubusercontent.com/google/gemma_pytorch/main/gemma/model.py",
+        "source_type": "开发者参考实现",
+        "read_extent": "实际读取GemmaMLP的GELU门控、RMSNorm、QK norm及attention定义；未运行。"
+      }
+    ]
+  },
+  {
+    "id": "phi_4_original",
+    "model": "Phi-4",
+    "version": "microsoft/phi-4；原始14B文本模型，非Phi4-mini/multimodal/reasoning",
+    "publication_date": "2024-12-12",
+    "publication_date_kind": "官方模型卡release date；不等于HF权重首次上传日",
+    "architecture_summary": "稠密decoder-only Transformer；与Phi3-medium接近，采用全注意力、GQA、RoPE、RMSNorm和SiLU门控MLP。推理能力提升主要由数据/训练改进解释，不能只凭名称判断骨干全新。",
+    "components": [
+      "backbone: causal decoder-only Transformer",
+      "parameterization: dense",
+      "token_mixer: full causal GQA；config sliding_window=null",
+      "position: RoPE；config rope_scaling=null",
+      "normalization: RMSNorm",
+      "ffn: SiLU门控MLP；配置调用Phi3ForCausalLM，参考实现将gate/up投影合并后分块",
+      "modalities: 文本输入/输出"
+    ],
+    "disclosed_details": [
+      "parameters_model_card: 14B",
+      "layers: 40",
+      "hidden_size: 5120",
+      "intermediate_size: 17920",
+      "query_heads: 40",
+      "kv_heads: 10",
+      "rope_theta: 250000",
+      "config_max_position_embeddings: 16384",
+      "config_architectures: [\"Phi3ForCausalLM\"]",
+      "config_model_type: phi3"
+    ],
+    "unknowns": [
+      "类名Phi3ForCausalLM不表示权重是Phi3；应与Phi4模型卡/配置一起辨认。",
+      "技术报告预训练4K后扩到16K，不能将4K训练阶段误作发行模型最终上下文。",
+      "不将Phi4-mini或multimodal的结构套到此14B版本。"
+    ],
+    "sources": [
+      {
+        "title": "Phi4官方模型卡",
+        "url": "https://huggingface.co/microsoft/phi-4",
+        "source_type": "官方模型卡",
+        "read_extent": "实际读取Architecture、文本模态、16K及2024-12-12日期。"
+      },
+      {
+        "title": "Phi4 Technical Report",
+        "url": "https://arxiv.org/html/2412.08905v1",
+        "source_type": "开发者技术报告",
+        "read_extent": "实际读取第3节decoder-only、Phi3-medium关联、full attention和4K到16K扩展说明。"
+      },
+      {
+        "title": "Phi4 config.json",
+        "url": "https://huggingface.co/microsoft/phi-4/blob/main/config.json",
+        "source_type": "官方权重配置",
+        "read_extent": "实际读取40层、40/10头、宽度、SiLU、norm/RoPE及Phi3类名；不从类名否定模型身份。"
+      },
+      {
+        "title": "Microsoft/HF Phi3ForCausalLM实现v4.47.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.47.0/src/transformers/models/phi3/modeling_phi3.py",
+        "source_type": "开发者与框架团队联合参考实现",
+        "read_extent": "实际读取RMSNorm、RoPE、Phi3MLP的gate/up分块乘法；版本与所读配置声明匹配，未运行。"
+      }
+    ]
+  }
+]

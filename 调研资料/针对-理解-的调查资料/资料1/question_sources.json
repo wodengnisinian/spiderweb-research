@@ -1,0 +1,150 @@
+{
+  "scope": "问句语义、语用意图及理解的行为测量；仅文献调研，不运行模型或提出已验证算法。",
+  "date": "2026-11-05",
+  "selection": "6篇正文关键段已读的原始理论/实验/评测论文，另1篇原文读取受限的问句理论文献。所有主张限定到实际读到的内容。",
+  "sources": [
+    {
+      "id": "Q01",
+      "title": "Questions in Montague English",
+      "authors": ["C. L. Hamblin"],
+      "year": 1973,
+      "url": "https://www.jstor.org/stable/25000703",
+      "read_url": "https://rotom.github.io/files/hamblin73.pdf",
+      "source_type": "原始形式语义理论论文；原出版物扫描PDF的公开镜像",
+      "read_extent": "已核实原文题名/期刊/年份；实际读第8节Extension to Questions、问句的命题备选集合和答案关系相关段落（正文约47–52页），未逐式复核全部推导。",
+      "claim_supported": [
+        "在该理论中，问句可以由作为其答案的命题备选集合刻画；例如某人行走这一命题随所问人物而变。",
+        "作者把这里的工作定位为问句语义分析，并将它与更广泛的语言使用研究区分。"
+      ],
+      "limitations": [
+        "这是关于语言含义的形式理论，不是人脑或神经网络已经采用的计算机制。",
+        "原文对why类问句等覆盖有限；不能当作全部真实用户需求或祈使指令的统一模型。"
+      ],
+      "implication": "可把知道问题在区分哪些可能回答与知道哪个回答为真分开。前者是理解的一个分析视角，后者需要额外事实；不能用答不出直接等同没读懂。",
+      "usage_status": "main_evidence"
+    },
+    {
+      "id": "Q02",
+      "title": "Meaning",
+      "authors": ["H. P. Grice"],
+      "year": 1957,
+      "url": "https://web.stanford.edu/~paulsko/papers/Grice-meaning.pdf",
+      "doi": "10.2307/2182440",
+      "source_type": "原始哲学理论论文；Stanford提供原期刊扫描件",
+      "read_extent": "实际读一般符号意义与特定场合说者意义的区分、意图被听者识别参与交际效果的分析及相邻反例；并非心理或神经实验。",
+      "claim_supported": [
+        "作者区分一般符号意义与说话者在某一场合想表达什么，后者可能偏离一般意义。",
+        "对交际意义的分析涉及说者意图以及听者对该意图的识别。"
+      ],
+      "limitations": [
+        "这是有争论并持续修订的理论分析，不能宣称已证明人类总在显式递归计算意图。",
+        "不能据此给AI加入一条贝叶斯公式或意图字段，就称其已经实现语用理解。"
+      ],
+      "implication": "理解字面问句和理解用户此刻想完成的事情应分开描述；前者测得正确不自动涵盖后者。",
+      "usage_status": "main_evidence"
+    },
+    {
+      "id": "Q03",
+      "title": "Referring as a collaborative process",
+      "authors": ["Herbert H. Clark", "Deanna Wilkes-Gibbs"],
+      "year": 1986,
+      "url": "https://www.sciencedirect.com/science/article/pii/0010027786900107",
+      "read_url": "https://web.stanford.edu/~clark/1980s/Clark,%20H.H.%20_%20Wilkes-Gibbs,%20D.%20_Referring%20as%20a%20collaborative%20process_%201986.pdf",
+      "doi": "10.1016/0010-0277(86)90010-7",
+      "source_type": "原始人类交际实验及理论模型；作者大学原文PDF",
+      "read_extent": "实际读摘要、Mutual acceptance、References in an experimental task、Method与General patterns；实验8对伙伴、12幅图、6轮；未逐项重算全部统计。",
+      "claim_supported": [
+        "该指称任务中，说者与听者通过接受、补充、修正和反问共同确认所指。",
+        "在重复互动中指称变短：原文报告每图描述从首轮平均41词降到第6轮8词，听者参与是交际过程的一部分。"
+      ],
+      "limitations": [
+        "小规模、受控的双人指称任务，不是所有人类理解或动物理解的普遍机制实验。",
+        "互相接受是交际证据，不保证每次参与者都毫无误解；实验本身仍有错误。"
+      ],
+      "implication": "真实用户指代不充分时，理解可能需要澄清与共同背景；不能假设每个脱离上下文的单句都有唯一明确意图。",
+      "usage_status": "main_evidence"
+    },
+    {
+      "id": "Q04",
+      "title": "Predicting pragmatic reasoning in language games",
+      "authors": ["Michael C. Frank", "Noah D. Goodman"],
+      "year": 2012,
+      "url": "https://langcog.stanford.edu/papers/FG-science2012.pdf",
+      "doi": "10.1126/science.1218633",
+      "source_type": "原始人类实验与概率语用模型；作者实验室全文含补充材料",
+      "read_extent": "实际读模型式(1)/(2)、三类实验条件、结果与补充材料对有理说者假设的说明；不是只读摘要。",
+      "claim_supported": [
+        "作者在简单指称游戏中分别测量说者选择、对象显著性与听者判断，以语境中的信息性和显著性组合预测听者解释。",
+        "模型对该任务判断有较好拟合，但先验显著性来自单独的人类测量，并非自动由原始语言推得。"
+      ],
+      "limitations": [
+        "任务是少量对象与词的受控指称，不是开放问题理解或完整人脑理论。",
+        "行为拟合不证明人脑内部执行同一贝叶斯算法；论文所谓parameter-free也不等于没有语义和实验输入假设。"
+      ],
+      "implication": "相同字面表达的解释可依语境和替代说法而变；仅句对同义分数不足以检验这种能力。",
+      "usage_status": "main_evidence"
+    },
+    {
+      "id": "Q05",
+      "title": "PAWS: Paraphrase Adversaries from Word Scrambling",
+      "authors": ["Yuan Zhang", "Jason Baldridge", "Luheng He"],
+      "year": 2019,
+      "url": "https://aclanthology.org/N19-1131/",
+      "read_url": "https://aclanthology.org/N19-1131.pdf",
+      "doi": "10.18653/v1/N19-1131",
+      "source_type": "原始NLP数据集与评测实验论文；ACL官方全文",
+      "read_extent": "实际读摘要、词序/语义反例、数据生成与人工流畅度/同义标注部分及对应结果摘要；未复现实验。",
+      "claim_supported": [
+        "高词汇重合不保证同义；角色或起终点改变可让词袋接近的句子含义不同。",
+        "该工作用词序扰动、回译和人工判断建立挑战数据，揭示普通同义数据上的成绩可能掩盖这类错误。"
+      ],
+      "limitations": [
+        "它评测句对改写识别，不直接评测单问句解释、交际意图或求解。",
+        "其特定数据、模型和训练结果不能直接当作本地43k模型失败的确定原因，也不能作为通用理解判定。"
+      ],
+      "implication": "同义判断可以提供局部含义区分证据，但不能把词面相似、复述或一个分类正确当成完整理解。",
+      "usage_status": "main_evidence"
+    },
+    {
+      "id": "Q06",
+      "title": "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList",
+      "authors": ["Marco Tulio Ribeiro", "Tongshuang Wu", "Carlos Guestrin", "Sameer Singh"],
+      "year": 2020,
+      "url": "https://aclanthology.org/2020.acl-main.442/",
+      "read_url": "https://aclanthology.org/2020.acl-main.442.pdf",
+      "doi": "10.18653/v1/2020.acl-main.442",
+      "source_type": "原始NLP行为评测方法及用户研究；ACL官方全文",
+      "read_extent": "实际读摘要/引言、能力矩阵与第2.2节Minimum Functionality、Invariance、Directional Expectation定义及例子；未重跑工具或用户研究。",
+      "claim_supported": [
+        "单个总体准确率可能掩盖关键能力失败，需要按具体能力与行为关系检查。",
+        "该工作区分基本功能、保义扰动预测不变，以及改变意义后预测按预期变化的测试。"
+      ],
+      "limitations": [
+        "它是评测方法，不是理解机制或提升算法。",
+        "行为测试覆盖有限且预期关系可能标注不当；通过一组检查仍不是通用理解的证明。"
+      ],
+      "implication": "可以分别审视问题的角色、否定、条件、指代和语境敏感性；不得由一个总分宣布理解，或由一个代理测试失败推出所有理解都不存在。",
+      "usage_status": "main_evidence"
+    },
+    {
+      "id": "Q07",
+      "title": "Syntax and semantics of questions",
+      "authors": ["Lauri Karttunen"],
+      "year": 1977,
+      "url": "https://link.springer.com/article/10.1007/BF00351935",
+      "read_url": "https://semantics.uchicago.edu/kennedy/classes/s08/semantics2/karttunen77.pdf",
+      "doi": "10.1007/BF00351935",
+      "source_type": "原始形式语义理论论文；官方出版信息与大学原文PDF",
+      "read_extent": "实际核实官方题名/作者/年份/卷页，读大学PDF首页与搜索引擎直接返回的原文第17页Question Embedding段。多次web正文读取超时；未通读或复核完整形式系统。仅限扩展阅读。",
+      "claim_supported": [
+        "该工作构造疑问句及嵌入疑问句的组合语义分析；原文第17页区分选择问与是非问可能要求的不同回答形式。"
+      ],
+      "limitations": [
+        "本次原文读取范围受限，不把二手讲义中的true-answer-set等细节冒充已通读核实。",
+        "形式语义分析本身不是人类或AI如何实现理解的机制实验。"
+      ],
+      "implication": "作为进一步阅读的经典来源；本报告关于问题可能回答的主要论证以实际读到的Hamblin原文为依据。",
+      "usage_status": "further_reading_limited_access"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "files": [
+    {
+      "name": "AI_NOTES.md",
+      "bytes": 6777,
+      "sha256": "578fa7f22b79bad037c38f4f8837db56efc5e8aebd38b337e9430da6d3da8831",
+      "verified": true
+    },
+    {
+      "name": "ai_sources.json",
+      "bytes": 12745,
+      "sha256": "31cde31ce5c8609d7b4f3285dbcbf790e0372226734d174f8b59f6e0748d166f",
+      "verified": true
+    },
+    {
+      "name": "AUDIT.json",
+      "bytes": 2107,
+      "sha256": "d0000aa4c6a974f5af5843271224eede88d8e598005829ceb6b278a17239c16f",
+      "verified": true
+    },
+    {
+      "name": "build_research.py",
+      "bytes": 13468,
+      "sha256": "9322be51eb9ac03e7a488aa46fbbc5f05da07bc51a87d0d9c89b54930ab97b35",
+      "verified": true
+    },
+    {
+      "name": "HUMAN_NOTES.md",
+      "bytes": 7722,
+      "sha256": "f5b2a229cb4ace2d3f1e229500a412025bd8d02a08f5aecd4edbf875dfb5b995",
+      "verified": true
+    },
+    {
+      "name": "human_sources.json",
+      "bytes": 14891,
+      "sha256": "e2dd3e4333f3ddc1ad9d46b629635c9a873a1e8cbc89065fce04bddcf081dad4",
+      "verified": true
+    },
+    {
+      "name": "QUESTION_NOTES.md",
+      "bytes": 5142,
+      "sha256": "7d6048aa81242b85a7260ace4f4483925faa533213429cb5b0c7244bd577db16",
+      "verified": true
+    },
+    {
+      "name": "question_sources.json",
+      "bytes": 9796,
+      "sha256": "0aae33087463752486b028c35a95235ace46e699beb3e6509b11f2c1b7664662",
+      "verified": true
+    },
+    {
+      "name": "REPORT.html",
+      "bytes": 56933,
+      "sha256": "a9a5b8df416c98e713bcd3737c3b98365a022ae5bc0535c3084f3132c26d34bc",
+      "verified": true
+    },
+    {
+      "name": "root_sources.json",
+      "bytes": 4841,
+      "sha256": "7fd76a52b809c6eb00d23c3065110093bfddf8e694ceb07f675205fc93d1eda2",
+      "verified": true
+    },
+    {
+      "name": "SOURCE_REGISTER.json",
+      "bytes": 55356,
+      "sha256": "bd8d286a60926fb66dc7f75e637b9f1733041bd64fd4a9f2378532c19385aa65",
+      "verified": true
+    },
+    {
+      "name": "SYNTHESIS.json",
+      "bytes": 6523,
+      "sha256": "040a1f755b3102fc39f9383d2b6a96fed532a3f33568c84d9debeb689b2ae13d",
+      "verified": true
+    }
+  ],
+  "file_count": 12,
+  "destination": "C:\\Users\\xxs\\Desktop\\spiderweb项目资料\\针对-理解-的调查资料",
+  "source_preserved": true,
+  "source": "C:\\Users\\xxs\\Documents\\Codex\\2026-11-05\\understanding-evidence-research",
+  "status": "passed",
+  "verified_time": 1793848850.0664976,
+  "original_file_count": 12,
+  "original_files_sha256_all_match": true,
+  "added_files": [
+    {
+      "name": "问题理解图.png",
+      "bytes": 339872,
+      "sha256": "bec73e3c2a41778658a8451375c9a8369e57cdf87f111b361e4e3cb5543f03ac"
+    },
+    {
+      "name": "问题理解图.svg",
+      "bytes": 202293,
+      "sha256": "f5c5db453e22816257378d2f6caeea3fbfdf83c6f9e243d2e0c74d402c3233d9"
+    },
+    {
+      "name": "问题理解图.mmd",
+      "bytes": 1344,
+      "sha256": "de9957b87265a294b25924ee55daf62411330925aae58f7203e371d90fbb9c78"
+    },
+    {
+      "name": "打开资料.html",
+      "bytes": 2310,
+      "sha256": "810957e64c821a7831eb082a2634295d060785b6e1941aa6fde95eec23fdbf1d"
+    }
+  ],
+  "local_reading_links_checked": [
+    {
+      "from": "REPORT.html",
+      "target": "SOURCE_REGISTER.json"
+    },
+    {
+      "from": "REPORT.html",
+      "target": "SYNTHESIS.json"
+    },
+    {
+      "from": "REPORT.html",
+      "target": "AI_NOTES.md"
+    },
+    {
+      "from": "REPORT.html",
+      "target": "HUMAN_NOTES.md"
+    },
+    {
+      "from": "REPORT.html",
+      "target": "QUESTION_NOTES.md"
+    },
+    {
+      "from": "REPORT.html",
+      "target": "AUDIT.json"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "REPORT.html"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "问题理解图.svg"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "问题理解图.png"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "问题理解图.mmd"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "AI_NOTES.md"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "HUMAN_NOTES.md"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "QUESTION_NOTES.md"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "SOURCE_REGISTER.json"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "SYNTHESIS.json"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "COPY_VERIFICATION.json"
+    },
+    {
+      "from": "打开资料.html",
+      "target": "问题理解图.png"
+    }
+  ],
+  "png_dimensions": [
+    2250,
+    2400
+  ],
+  "svg_xml_valid": true,
+  "diagram_visually_inspected": true,
+  "total_files_now": 17,
+  "archive_build_script_dependency": "Original build_research.py is archived unchanged; recompilation still requires the original experiment directory. REPORT.html and the index are directly readable."
+}

@@ -1,0 +1,184 @@
+{
+  "collected_on": "2026-11-05",
+  "scope": "AI的理解定义、问题理解机制与证据边界；定向原始文献资料汇集，非穷尽系统综述。只调研，不训练、不改模型、不启动新实验。",
+  "selection_policy": "优先论文官方发布页、ACL原始PDF、作者机构原文和arXiv原文。将理论立场、实验发现与研究者综合推论区分，不宣布LLM必定不能理解或已经具有通用真正理解。",
+  "sources": [
+    {
+      "id": "ai_vaswani_2017_attention",
+      "title": "Attention Is All You Need",
+      "year": 2017,
+      "authors": "Ashish Vaswani et al.",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "primary_text_url": "https://arxiv.org/html/1706.03762v7",
+      "venue": "NeurIPS 2017",
+      "source_type": "实验",
+      "read_extent": "实际打开arXiv摘要与官方HTML，阅读3节注意力/编码器定义及5节训练数据、优化器段落；没有复现实验。HTML版本标为2023修订，论文初次发表为2017。",
+      "claim_supported": [
+        "自注意力用查询、键和值的运算，把不同位置的信息按权重组合，是一种序列表示计算机制。",
+        "原Transformer还包含前馈层、残差、归一化、位置编码等；其训练使用翻译数据和优化过程，论文实证主要是翻译与句法分析。"
+      ],
+      "limitations": [
+        "没有给出理解的通用充分必要条件，也没有证明只要装上自注意力就学会问题意义。",
+        "Q是数学查询向量名称，不等于模型已辨识自然语言问题意图；这种区分是对公式的解释。",
+        "2017年的翻译成绩不是当前所有AI模型能力的调查。"
+      ],
+      "implication_for_our_question": "必须区分计算机制、训练信号和学得能力。自注意力说明信息怎样交互，理解到了什么仍需独立证据。"
+    },
+    {
+      "id": "ai_bender_koller_2020_form_meaning",
+      "title": "Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data",
+      "year": 2020,
+      "authors": "Emily M. Bender; Alexander Koller",
+      "url": "https://aclanthology.org/2020.acl-main.463/",
+      "primary_text_url": "https://aclanthology.org/2020.acl-main.463.pdf",
+      "venue": "ACL 2020",
+      "source_type": "理论",
+      "read_extent": "实际打开官方摘要与PDF；阅读引言的工作定义，以及PDF第8至9页关于定义、语义相似度、BERT与结论的讨论片段。不是实验或形式不可能性定理的复现。",
+      "claim_supported": [
+        "作者把意义界定为语言形式与交际意图的关系，并据此论证仅靠形式预测不足以获得这种意义。",
+        "作者承认语言模型可能学到意义在线索形式中的有用反映，强调研究主张应与任务和方法对齐。"
+      ],
+      "limitations": [
+        "这是采用明确意义定义的立场论证，不是针对所有可能理解定义、模型、数据和多模态系统的已完成实验否定。",
+        "作者的意义定义包含语言之外的关系；若讨论的是局部可泛化关系表征，须先说明概念是否相同。"
+      ],
+      "implication_for_our_question": "同义分类只覆盖某种意义关系；识别话题或形式相似，不自动等于识别用户希望获知什么、为何发问或话语指向什么。"
+    },
+    {
+      "id": "ai_harnad_1990_grounding",
+      "title": "The Symbol Grounding Problem",
+      "year": 1990,
+      "authors": "Stevan Harnad",
+      "url": "https://www.southampton.ac.uk/~harnad/Papers/Harnad/harnad90.sgproblem.html",
+      "publisher_url": "https://doi.org/10.1016/0167-2789(90)90087-6",
+      "venue": "Physica D 42:335–346",
+      "source_type": "理论",
+      "read_extent": "实际打开作者大学托管原文，阅读摘要的问题定义与候选方案，并核对出版商检索结果的书目信息；没有声称阅读全文或验证候选认知模型。",
+      "claim_supported": [
+        "文章提出符号意义怎样成为系统自身可用的内容，而不是仅由外部解释者赋义的问题。",
+        "作者提出由感觉性的图像/类别表征连接基本符号的候选接地方案。"
+      ],
+      "limitations": [
+        "这是问题与理论候选方案，不是现代语言模型必须采用某种身体硬件的实验证明。",
+        "内部内容、外部指称和感觉体验不是本文一个实验已经统一解决的概念。"
+      ],
+      "implication_for_our_question": "人能替输出标签解释意义，和系统能把词与对象、事件及使用后果联系起来，是需要分辨的两种主张；此文不能单独裁定现代LLM有无理解。"
+    },
+    {
+      "id": "ai_bisk_2020_experience",
+      "title": "Experience Grounds Language",
+      "year": 2020,
+      "authors": "Yonatan Bisk et al.",
+      "url": "https://aclanthology.org/2020.emnlp-main.703/",
+      "primary_text_url": "https://aclanthology.org/2020.emnlp-main.703.pdf",
+      "venue": "EMNLP 2020",
+      "source_type": "理论",
+      "read_extent": "实际打开官方摘要与原始PDF；阅读World Scope五类定义及社会互动部分片段。文章性质为立场与研究路线综合，不是单一新实验的结果。",
+      "claim_supported": [
+        "作者用语料、互联网、感知、具身和社会互动五种World Scope讨论学习经验怎样限制语言模型可利用的语义信息。",
+        "文章强调理解交流还涉及共享情境、指称、行动和话语对他人的作用。"
+      ],
+      "limitations": [
+        "五类Scope不是已验证的通用智能等级量表，也不是多模态或机器人一加就理解的证明。",
+        "文章关于接地的重要性是研究立场；不能把它扩大为所有抽象概念都必须直接亲身感知。"
+      ],
+      "implication_for_our_question": "对孤立文字的判断、在情境中识别所指、在交流中弄清对方目的，涵盖的信息不同，不能用同一分数彼此替代。"
+    },
+    {
+      "id": "ai_mccoy_2019_hans",
+      "title": "Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference",
+      "year": 2019,
+      "authors": "R. Thomas McCoy; Ellie Pavlick; Tal Linzen",
+      "url": "https://aclanthology.org/P19-1334/",
+      "primary_text_url": "https://aclanthology.org/P19-1334.pdf",
+      "venue": "ACL 2019",
+      "source_type": "实验",
+      "read_extent": "实际打开官方摘要和PDF，阅读三类启发式、MNLI数据支持偏差、HANS控制与部分分析段落；没有复跑模型或重读全部附录。",
+      "claim_supported": [
+        "原研究发现，多种MNLI训练模型在HANS诊断中暴露词汇重合、子序列与成分启发式，常规得分不能单独说明采用了期望的句法关系。",
+        "原文也报告加入相应反例后的部分改善；结果不是架构永远无法学习这些关系的证明。"
+      ],
+      "limitations": [
+        "对象是2019年的特定模型、英语NLI与构造数据，不能自动代表当前所有AI、中文或问句理解。",
+        "一个挑战集排除若干捷径后仍不能排除一切替代策略。"
+      ],
+      "implication_for_our_question": "成功标签可能来自非预期线索。角色交换与词面保持的失败能限定能力，但单个模型训练失败不支持整个自注意力机制不可能理解。"
+    },
+    {
+      "id": "ai_hewitt_liang_2019_probes",
+      "title": "Designing and Interpreting Probes with Control Tasks",
+      "year": 2019,
+      "authors": "John Hewitt; Percy Liang",
+      "url": "https://aclanthology.org/D19-1275/",
+      "primary_text_url": "https://aclanthology.org/D19-1275.pdf",
+      "venue": "EMNLP-IJCNLP 2019",
+      "source_type": "实验",
+      "read_extent": "实际打开官方摘要及PDF第一页，核对随机词类型控制任务和selectivity定义；后续PDF定位请求超时，未声称阅读全文。",
+      "claim_supported": [
+        "探针可能凭自身容量学习或记忆被测任务，因此高探针准确率需与控制任务对照。",
+        "作者用语言任务与随机词类型任务的差异衡量选择性，并发现某些常用探针在ELMo上选择性不足。"
+      ],
+      "limitations": [
+        "特定控制任务只约束某些解释，不能一次排除所有探针学习或信息泄漏。",
+        "从表征可读出信息，仍不同于主模型的原行为实际使用了该信息；本研究不是通用理解或意识检测器。"
+      ],
+      "implication_for_our_question": "不能把隐藏状态能被另一个分类器读成语义，直接当作原系统正在理解并使用该语义的证明；行为、可读出表征与因果使用应分开。"
+    },
+    {
+      "id": "ai_geirhos_2020_shortcuts",
+      "title": "Shortcut Learning in Deep Neural Networks",
+      "year": 2020,
+      "authors": "Robert Geirhos et al.",
+      "url": "https://www.nature.com/articles/s42256-020-00257-z",
+      "primary_text_url": "https://arxiv.org/html/2004.07780v5",
+      "venue": "Nature Machine Intelligence 2:665–673",
+      "source_type": "综述",
+      "read_extent": "实际读取期刊检索摘要；期刊直接打开遇身份跳转，改读作者arXiv全文HTML的引言、决策规则分类与来源片段，并核对诊断章节标题。未声称逐段读完全文；作者版本为2023修订，期刊发表年为2020。",
+      "claim_supported": [
+        "该Perspective把捷径界定为在通常评测条件表现好、但在更严格条件下失效的决策规则。",
+        "文章区分训练拟合、IID泛化与预期解法，并提醒数据集分数与底层能力不是同一对象。"
+      ],
+      "limitations": [
+        "这是跨领域综合与少量示范实验，不是所有失败都已被确定为捷径的原始实证。",
+        "分布外失败还可能涉及知识、优化或任务定义问题，不能不做分析就唯一归因。"
+      ],
+      "implication_for_our_question": "对理解的证据要明确排除了哪些简单替代解释；高得分和低得分都须结合学习程度、数据条件和测试含义解释。"
+    },
+    {
+      "id": "ai_abdou_2021_color_structure",
+      "title": "Can Language Models Encode Perceptual Structure Without Grounding? A Case Study in Color",
+      "year": 2021,
+      "authors": "Mostafa Abdou; Artur Kulmizev; Daniel Hershcovich; Stella Frank; Ellie Pavlick; Anders Søgaard",
+      "url": "https://aclanthology.org/2021.conll-1.9/",
+      "primary_text_url": "https://aclanthology.org/2021.conll-1.9.pdf",
+      "venue": "CoNLL 2021",
+      "source_type": "实验",
+      "read_extent": "实际打开官方摘要、arXiv HTML及ACL原始PDF，阅读摘要、引言与方法开头（数据、CIELAB、模型和表示提取）；没有复算结构对齐指标。",
+      "claim_supported": [
+        "研究发现，文本训练所得颜色词表示与感知CIELAB颜色空间存在显著结构对应，文本中可保留某些与世界有关的结构线索。",
+        "原文同时比较简单共现/词向量基线，并讨论颜色范围、搭配和句法用法对对应程度的影响。"
+      ],
+      "limitations": [
+        "限于英语颜色概念与特定表征分析；结构对应不是视觉体验、全面接地或通用问题理解的证据。",
+        "对齐测量不能单独证明模型在任意交流或行为中实际使用该结构。"
+      ],
+      "implication_for_our_question": "需要同时避免两个极端：没有直接感知经验不意味着学不到任何世界结构；学到部分结构也不等于完整理解。"
+    }
+  ],
+  "access_notes": [
+    {
+      "title": "Mapping Language Models to Grounded Conceptual Spaces",
+      "year": 2022,
+      "url": "https://openreview.net/forum?id=gJcEM8sxHK",
+      "status": "未纳入已读主来源",
+      "reason": "核对到作者机构出版列表，但OpenReview页面和PDF均要求浏览器验证；本次没有读取原论文正文，因此未以二手摘要代替已读证据。改用可直接读取的Abdou等2021原始颜色结构实验。"
+    }
+  ],
+  "synthesis_status": "以下为资料整理者的解释框架，不是学界已统一的理解定义。",
+  "synthesis": [
+    "计算机制、训练目标、可观察行为、可读出表示和因果使用属于不同证据问题。",
+    "语言形式/组合语义、指称与情境、交际意图的理解需要先说明定义与范围。",
+    "局部实验成功不能升级为通用理解，局部训练失败也不能升级为机制不可能性的证明。",
+    "当前资料收集不启动或安排后续模型实验。"
+  ]
+}

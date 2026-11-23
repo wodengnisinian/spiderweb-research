@@ -1,0 +1,46 @@
+{
+  "collected_on": "2026-11-05",
+  "scope": "理解争论、受控正面案例与注意力解释争论；仅资料调研",
+  "sources": [
+    {
+      "id": "R01", "title": "The Debate Over Understanding in AI’s Large Language Models", "authors": "Melanie Mitchell; David C. Krakauer", "year": 2023,
+      "url": "https://arxiv.org/html/2210.13966v3", "publisher_url": "https://doi.org/10.1073/pnas.2215907120", "source_type": "Perspective / 争论综述",
+      "read_extent": "实际读取作者arXiv HTML的争论双方、基准捷径和概念模型讨论段。PNAS直接访问403，PMC页面要求验证；没有以这些失败页面充作已读全文。",
+      "claim_supported": ["作者梳理了关于LLM理解的不同标准与相反论证，并讨论基准得分与人类式理解的解释距离。"],
+      "limitations": ["2023年的观点综述，不是对所有2026模型的新实验或统一裁决。"],
+      "implication_for_our_question": "先明确理解指哪种能力；不要把一个小模型或一个分数扩大为所有AI的结论。"
+    },
+    {
+      "id": "R02", "title": "Human-like systematic generalization through a meta-learning neural network", "authors": "Brenden M. Lake; Marco Baroni", "year": 2023,
+      "url": "https://www.nature.com/articles/s41586-023-06668-3", "primary_text_url": "https://www.nature.com/articles/s41586-023-06668-3.pdf", "source_type": "原始人类行为与神经模型实验",
+      "read_extent": "实际读取Nature官方检索返回的摘要、Modelling results、方法与Discussion正文片段。随后直接打开原页遇授权重定向；没有逐项复核补充统计。",
+      "claim_supported": ["受控指令学习中，经过组合元学习训练的标准Transformer表现出较强系统泛化，并与人类作同任务比较。"],
+      "limitations": ["训练包含特定任务分布与先验；论文仍报告分布外和生产性泛化限制，未验证完整自然语言。"],
+      "implication_for_our_question": "同属标准Transformer架构，也可能因训练条件产生不同能力；局部失败不能证明自注意力原理上不可能理解。"
+    },
+    {
+      "id": "R03", "title": "Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task", "authors": "Kenneth Li; Aspen K. Hopkins; David Bau; Fernanda Viégas; Hanspeter Pfister; Martin Wattenberg", "year": 2023,
+      "url": "https://arxiv.org/html/2210.13382v5", "publisher_url": "https://openreview.net/forum?id=DeG07_TcZvT", "source_type": "原始受控神经表示与干预实验",
+      "read_extent": "实际读取原论文arXiv v5摘要、表示干预、结论及附录关于指标和干预限制的段落；ICLR2023，作者稿2024修订。",
+      "claim_supported": ["黑白棋序列模型的内部棋盘状态可被探针读出；干预这些状态会系统改变落子预测。"],
+      "limitations": ["棋盘游戏有限且高度可控；不证明自然语言、完整因果模型或通用问题理解。探针和干预有设计依赖。"],
+      "implication_for_our_question": "区分信息能被读出、实际影响行为，以及更广泛理解这三种证据。"
+    },
+    {
+      "id": "R04", "title": "Attention is not Explanation", "authors": "Sarthak Jain; Byron C. Wallace", "year": 2019,
+      "url": "https://aclanthology.org/N19-1357/", "primary_text_url": "https://aclanthology.org/N19-1357.pdf", "source_type": "原始注意力解释性实验",
+      "read_extent": "实际读取ACL官方摘要、任务范围及论文原始索引片段；没有重新运行实验。",
+      "claim_supported": ["在所测模型中，不同注意力分布可能有近似输出，权重与其他重要性指标可能不一致。"],
+      "limitations": ["主要研究当时的注意力模型与解释标准，不能直接推广为所有现代Transformer或注意力无效。"],
+      "implication_for_our_question": "注意力图不能单独证明理解；应与R05的反驳和行为证据一起读。"
+    },
+    {
+      "id": "R05", "title": "Attention is not not Explanation", "authors": "Sarah Wiegreffe; Yuval Pinter", "year": 2019,
+      "url": "https://aclanthology.org/D19-1002/", "primary_text_url": "https://aclanthology.org/D19-1002.pdf", "source_type": "原始方法论反驳与诊断实验",
+      "read_extent": "实际读取ACL官方摘要及原始PDF索引中对解释定义、对照和整体模型评估的讨论；未复现实验。",
+      "claim_supported": ["作者质疑一概否定注意力解释力的实验前提，要求按解释定义及整个模型设计对照。"],
+      "limitations": ["并未证明注意力总能解释决策，更未给出理解的通用检测器。"],
+      "implication_for_our_question": "对解释性结论保留争论两面，不能用论文标题替代条件和证据。"
+    }
+  ]
+}

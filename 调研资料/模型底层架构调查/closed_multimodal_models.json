@@ -1,0 +1,130 @@
+{
+  "scope": "公开披露边界与代表性多模态架构。精确到下列报告/版本，不代表2026年全部最新产品；未披露项不按传闻补全。",
+  "collected_on": "2026-11-05",
+  "method": "实际浏览官方文档、技术报告、原论文和作者仓库；没有下载权重或运行模型。OpenAI先检查本地资料与官方API文档，架构信息不足后查官方研究报告。",
+  "models": [
+    {
+      "id": "CM01",
+      "model": "GPT-4",
+      "version": "GPT-4 Technical Report，所读官方PDF页脚为2023-03-27；不等同于所有GPT-4后续API快照",
+      "publication_date": "2023-03-27（所读报告版本日期；最初模型公开日期不在此字段混用）",
+      "architecture_summary": "报告明确称为Transformer-style模型，以预测下一个token预训练，可接收图像和文字、输出文字；没有披露完整层级与多模态融合拓扑。",
+      "components": ["Transformer-style主干（公开到家族级）", "图像/文字输入处理与文字生成（内部连接细节未知）"],
+      "disclosed_details": ["next-token预训练", "RLHF是后训练方法，不能据此推导网络层结构", "报告第2节明确表示不进一步披露架构，包括模型大小"],
+      "unknowns": ["参数总量和激活参数量", "层数/宽度/头数", "dense还是MoE及专家配置", "具体注意力变体", "视觉编码器和融合位置"],
+      "disclosure_status": "闭源；仅家族级结构公开",
+      "sources": [
+        {"title": "GPT-4 Technical Report", "url": "https://cdn.openai.com/papers/gpt-4.pdf", "read_extent": "实际读取摘要及第2节Scope and Limitations；官方PDF共100页，未通读全部安全附录。"},
+        {"title": "GPT-4 Model — OpenAI API", "url": "https://developers.openai.com/api/docs/models/gpt-4", "read_extent": "已实际打开官方API模型页；它不足以建立底层层数/专家数，所以未用API规格代替架构证据。"}
+      ]
+    },
+    {
+      "id": "CM02",
+      "model": "GPT-4o",
+      "version": "GPT-4o System Card，2024-08-08",
+      "publication_date": "2024-08-08",
+      "architecture_summary": "所选系统卡公开为自回归omni模型，文字、视觉、音频端到端训练，输入输出由同一神经网络处理；这不等于公开了内部每个编码器、注意力层和输出分支。",
+      "components": ["统一的多模态自回归神经模型（更细拓扑未披露）", "模态输入/输出通路，内部划分未披露"],
+      "disclosed_details": ["卡中描述的模型输入可组合文字/音频/图像/视频，输出可组合文字/音频/图像", "同一网络的端到端训练不同于把独立ASR、语言模型和TTS串起来的系统描述", "描述的是报告中的模型，不据此保证任一日期API已开放全部模态"],
+      "unknowns": ["精确层数/参数量", "dense或MoE", "注意力类型与专家路由", "各模态token化、编码器和生成头详细结构"],
+      "disclosure_status": "闭源；公开端到端多模态组织方式，未公开完整网络",
+      "sources": [
+        {"title": "GPT-4o System Card", "url": "https://cdn.openai.com/gpt-4o-system-card.pdf", "read_extent": "实际读取首页Introduction与Model data and training开头；并核对官方同名网页。"},
+        {"title": "GPT-4o System Card — OpenAI", "url": "https://openai.com/index/gpt-4o-system-card/", "read_extent": "实际读取系统卡网页及其模态/安全部署描述；未由辅助安全系统反推基础网络结构。"}
+      ]
+    },
+    {
+      "id": "CM03",
+      "model": "Claude 3 family",
+      "version": "Claude 3 Opus/Sonnet/Haiku，2024发布；模型卡含2024-06-20 Claude 3.5 Sonnet补充，本文不把补充当原版结构",
+      "publication_date": "2024-03-04（家族公告）",
+      "architecture_summary": "所读Claude 3官方资料确认文字/图像多模态输入和文字输出，但不足以重建底层网络。不能用其他Claude代际的架构描述、Constitutional AI或框架名称替代本代的结构披露。",
+      "components": ["文字/图像输入与文字输出通路（具体编码器和连接拓扑未知）"],
+      "disclosed_details": ["官方模型卡导言描述多模态输入、文字输出", "Constitutional AI及无监督学习属于训练方法；PyTorch/JAX/Triton属于实现框架，不是架构图", "本条对架构作有限披露登记，不假定已读到未公开的内部配置"],
+      "unknowns": ["精确骨干拓扑与层数/宽度/头数", "参数量、dense或MoE及专家数", "视觉编码器、模态融合和位置表示细节", "不同家族成员是否共享相同具体拓扑"],
+      "disclosure_status": "闭源；本次关键模型卡PDF完整打开受体积限制，所读官方公告及原始索引片段不足以重建架构",
+      "sources": [
+        {"title": "Introducing the next generation of Claude", "url": "https://www.anthropic.com/news/claude-3-family", "read_extent": "实际打开官方公告，读取家族/视觉能力/模型细节段及模型卡链接。"},
+        {"title": "The Claude 3 Model Family: Opus, Sonnet, Haiku", "url": "https://www-cdn.anthropic.com/f2986af8d052f26236f6251da62d16172cfabd6e/claude-3-model-card.pdf", "read_extent": "实际读取搜索返回的官方PDF导言和June20更新说明；直接完整打开被工具拒绝（28,782,922字节）。没有声称通读或以未读全文证明某结构不存在。"}
+      ]
+    },
+    {
+      "id": "CM04",
+      "model": "Gemini 1.5 Pro / Gemini 1.5 Flash",
+      "version": "官方Gemini 1.5技术报告中更新的Pro与Flash；正文比较February与May2024版本；不是只含最初Pro的早期稿",
+      "publication_date": "2024（所读报告含多次更新；同题arXiv初稿2024-03-08）",
+      "architecture_summary": "同一家族包含不同骨干配置：Pro明确为稀疏MoE Transformer；Flash明确为dense Transformer，并由Pro在线蒸馏。不能把整个1.5家族统一填为MoE。",
+      "components": ["Pro：Transformer与学习的稀疏专家路由", "Flash：dense Transformer", "多模态输入处理，详细模态接口未完全展开"],
+      "disclosed_details": ["正文第3节及附录12.1模型卡分别确认Pro与Flash结构", "图像、文字、音频、视频输入，报告中的主要输出为文字", "在线蒸馏是Flash训练关系，不是推理时把每次请求转发给Pro"],
+      "unknowns": ["Pro专家数、每token激活专家数及路由层布局", "两模型完整参数量、层数、宽度与注意力变体", "长上下文改进的完整实现细节"],
+      "disclosure_status": "闭源；公开dense/MoE差异，完整配置未公开",
+      "sources": [
+        {"title": "Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context", "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf", "read_extent": "实际读取第3节Model Architecture及附录12.1 Model Card（PDF第105页附近），共154页，未通读全部评测。"},
+        {"title": "Gemini 1.5 arXiv record", "url": "https://arxiv.org/abs/2403.05530", "read_extent": "实际核实初稿2024-03-08、该条记录已多次修订；不将初稿日期冒充Flash发布日。"}
+      ]
+    },
+    {
+      "id": "CM05",
+      "model": "Gemini 2.5 Pro / Gemini 2.5 Flash",
+      "version": "Gemini 2.5官方技术报告第2.1节；不将文中2.0成员自动套用同一披露",
+      "publication_date": "2025（同题arXiv首发2025-07-07；本次读取的官方PDF未见精确版次日期）",
+      "architecture_summary": "报告明确称Gemini 2.5模型为原生支持文字、视觉和音频输入的稀疏MoE Transformer，token经学习路由激活部分专家参数。thinking budget属于推理计算/行为控制的披露，不能据此另画一种网络骨干。",
+      "components": ["Transformer骨干", "稀疏MoE专家层与学习路由（详细布局未知）", "原生多模态输入通路（细部未知）"],
+      "disclosed_details": ["第2.1节直接披露sparse MoE及token级条件计算", "Pro与Flash均属本条2.5范围", "总模型容量与每token计算成本可以分离，不能把总参数都视为每token激活"],
+      "unknowns": ["专家数和top-k", "总参数/活跃参数、层数/宽度/头数", "注意力与位置编码的具体变体", "多模态处理的精确拓扑"],
+      "disclosure_status": "闭源；公开MoE家族级信息，详细配置未公开",
+      "sources": [
+        {"title": "Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities", "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v2_5_report.pdf", "read_extent": "实际读取第2.1节Model Architecture及相邻长上下文/模态段；所读PDF共73页，未通读所有评测和作者名单。"},
+        {"title": "Gemini 2.5 arXiv record", "url": "https://arxiv.org/abs/2507.06261", "read_extent": "实际核实同题报告初稿2025-07-07及后续修订；不声称该记录的当前v6与官方PDF文件逐字一致。"}
+      ]
+    },
+    {
+      "id": "CM06",
+      "model": "CLIP（含ViT视觉分支）",
+      "version": "OpenAI CLIP原始2021论文；ViT结构参照原始2020/ICLR2021论文，不外推后续OpenCLIP/SigLIP",
+      "publication_date": "2021-01-05（CLIP官方发布；论文为2021）",
+      "architecture_summary": "图像编码器与文字编码器分别产生向量，经线性投影与归一化进入同一嵌入空间，用对称对比目标对齐。视觉分支可用改造ResNet或ViT；CLIP并不全部等于ViT，也不是自回归对话LLM。",
+      "components": ["图像编码器：改造ResNet或ViT", "文字编码器：使用masked self-attention的Transformer，取EOS表示", "线性投影、向量归一化与图文余弦相似度", "ViT分支：patch投影、位置嵌入、自注意力/MLP、残差和LayerNorm"],
+      "disclosed_details": ["原论文第2.4节举出的base文字模型为12层、宽512、8头；不同CLIP规模不能都套此数值", "ResNet分支用attention pooling代替全局均值池化", "对比学习是训练目标，不应冒充另一种注意力网络类型"],
+      "unknowns": ["本条未穷举各CLIP发布权重的全部配置，也不推断任何闭源VLM一定采用同款视觉塔", "不把CLIP对齐能力当作通用问题理解证据"],
+      "disclosure_status": "原论文结构公开；本次只读资料，未下载或运行权重",
+      "sources": [
+        {"title": "Learning Transferable Visual Models From Natural Language Supervision", "url": "https://cdn.openai.com/papers/Learning_Transferable_Visual_Models_From_Natural_Language_Supervision.pdf", "read_extent": "实际读取第2.3/2.4节与Figure3，确认双编码器、投影、对称损失与文字/视觉分支。"},
+        {"title": "CLIP: Connecting text and images", "url": "https://openai.com/index/clip/", "read_extent": "实际打开官方发布页并核对2021-01-05日期。"},
+        {"title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale", "url": "https://arxiv.org/pdf/2010.11929", "read_extent": "实际读取原论文第3节：patch嵌入、可学习一维位置嵌入、pre-LN自注意力/MLP与残差。ViT仅作为本条组件，不另计同一模型。"}
+      ]
+    },
+    {
+      "id": "CM07",
+      "model": "Latent Diffusion / Stable Diffusion v1",
+      "version": "LDM原论文与CompVis Stable Diffusion v1配置分别核实；不外推SDXL/SD3",
+      "publication_date": "2022（LDM为CVPR2022论文；SD v1为2022配置）",
+      "architecture_summary": "先由图像自编码器压缩到潜空间，在带噪潜变量上用U-Net去噪，再由解码器还原图像；文字条件通过编码器及cross-attention注入。SD v1具体采用冻结的CLIP文字分支，不能把原LDM论文自训文字编码器与SD v1完全混同。",
+      "components": ["图像VAE/自编码器编码端与解码端", "潜空间去噪U-Net，含自注意力及条件cross-attention", "冻结的CLIP模型文字Transformer分支", "逐步扩散采样过程"],
+      "disclosed_details": ["官方README：SD v1自编码器空间下采样8倍，U-Net约860M，文字编码器约123M", "v1-inference配置：4潜通道、crossattn条件、cond_stage_trainable=false", "CLIP ViT-L/14是所用CLIP模型名；SD取其文字分支，不是用视觉ViT把文字切成图像patch"],
+      "unknowns": ["这里的权重细节属于原始v1配置，后续衍生版本必须另查", "实际应用中的采样器/安全检查/界面不属于同一个U-Net结构"],
+      "disclosure_status": "原论文、作者代码和v1配置公开",
+      "sources": [
+        {"title": "High-Resolution Image Synthesis with Latent Diffusion Models", "url": "https://arxiv.org/html/2112.10752v2", "read_extent": "实际读取第3.1–3.3节与附录条件机制，区分感知压缩、潜空间去噪和cross-attention。CVF PDF直接访问403，使用同一原论文作者arXiv稿。"},
+        {"title": "CompVis Stable Diffusion README", "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/README.md", "read_extent": "实际读取Stable Diffusion v1段及860M/123M、8倍下采样配置说明。"},
+        {"title": "Stable Diffusion v1 Model Card", "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/Stable_Diffusion_v1_Model_Card.md", "read_extent": "实际读取Model Details与模型描述。"},
+        {"title": "CompVis v1-inference.yaml", "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-diffusion/v1-inference.yaml", "read_extent": "实际读取原始配置的latent channels、conditioning key和冻结条件编码器设置；没有执行代码。"}
+      ]
+    },
+    {
+      "id": "CM08",
+      "model": "DiT — Diffusion Transformer",
+      "version": "Scalable Diffusion Models with Transformers，原始DiT论文v2；示例为DiT-XL/2 adaLN-Zero，ImageNet类别条件模型",
+      "publication_date": "2022预印本；ICCV2023发表",
+      "architecture_summary": "仍在图像潜空间做迭代扩散去噪，用处理latent patches的Transformer替换常见U-Net。示例以扩散时间步与类别嵌入调节归一化/残差，不是把图像token按语言模型方式逐个预测。",
+      "components": ["图像VAE潜空间", "latent patch投影及位置表示", "Transformer自注意力与MLP", "adaLN-Zero时间步/类别条件调节", "输出投影及潜空间到图像解码"],
+      "disclosed_details": ["Table1：DiT-XL为28层、宽1152、16头；/2表示潜空间patch边长2", "Table4：所列adaLN-Zero DiT-XL/2约675M参数，明确不含84M参数的VAE", "论文比较in-context、cross-attention、adaLN和adaLN-Zero；不能说所有DiT都采用cross-attention", "原始展示为类别条件图像生成，不是直接等同文字对话或任一现代文生图产品"],
+      "unknowns": ["DiT是一个架构族；不能将原始DiT-XL/2数字填给其他DiT、MMDiT或未披露产品", "本次不审计任何后续闭源图像模型的具体拓扑"],
+      "disclosure_status": "原论文与作者实现公开；未运行模型",
+      "sources": [
+        {"title": "Scalable Diffusion Models with Transformers", "url": "https://arxiv.org/html/2212.09748v2", "read_extent": "实际读取第3.2节、Table1、adaLN-Zero段与Table4参数/VAE计数说明；CVF PDF403、arXiv PDF体积过大，改读同一论文HTML。"},
+        {"title": "DiT author project page", "url": "https://www.wpeebles.com/DiT", "read_extent": "实际打开作者项目页，确认原始模型类别条件、latent patch Transformer替代U-Net及官方论文/代码入口。"}
+      ]
+    }
+  ]
+}

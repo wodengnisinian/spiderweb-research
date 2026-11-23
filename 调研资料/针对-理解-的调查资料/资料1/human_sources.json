@@ -1,0 +1,298 @@
+{
+  "status": "complete",
+  "client_date": "2026-11-05",
+  "scope": "Human question/language comprehension, context, situation models, communicative intent and distinction from problem solving. Research only; no experiments or model changes.",
+  "selected_evidence_count": 7,
+  "bibliographic_only_candidates": 1,
+  "sources": [
+    {
+      "id": "H01",
+      "title": "Contextual Prerequisites for Understanding: Some Investigations of Comprehension and Recall",
+      "authors": [
+        "John D. Bransford",
+        "Marcia K. Johnson"
+      ],
+      "year": 1972,
+      "url": "https://doi.org/10.1016/S0022-5371(72)80006-9",
+      "primary_copy_url": "https://labs.la.utexas.edu/gilden/files/2016/04/Bransford_Johnson_1972.pdf",
+      "source_type": "primary_empirical_behavioral_experiments",
+      "read_extent": "实际读取原出版商摘要与大学托管原论文的网页索引摘要/部分表格；10页扫描PDF可打开但未获得可读正文。未声称逐页全文阅读。",
+      "claim_supported": [
+        "该文报告四项实验；适当前置信息提高这些特定篇章的理解自评与回忆，相同信息在阅读后提供的效果较弱。"
+      ],
+      "limitations": [
+        "特殊篇章、理解自评与回忆指标，不能推广为所有理解都必须先有标题或先验答案。",
+        "本轮未完整读取方法与全部结果，避免新增样本量和效应量断言。"
+      ],
+      "implication": "同一文字在不同先行语境下可能形成不同解释；研究问题理解时应区分文字识别、语境可用性与记忆表现。此为研究启发，不是AI架构处方。",
+      "relevance": [
+        "context",
+        "prior_knowledge",
+        "comprehension_vs_recall"
+      ],
+      "evidence_locations": [
+        "原出版商摘要：四项实验、context-before/context-after比较"
+      ],
+      "access_notes": [
+        "大学扫描PDF文本不可解析；未将截图工具成功返回当作已人工读完。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H02",
+      "title": "The Construction of Situation Models in Narrative Comprehension: An Event-Indexing Model",
+      "authors": [
+        "Rolf A. Zwaan",
+        "Mark C. Langston",
+        "Arthur C. Graesser"
+      ],
+      "year": 1995,
+      "url": "https://www.psychologicalscience.org/journals/psychological-science/j.1467-9280.1995.tb00513.x/",
+      "doi": "10.1111/j.1467-9280.1995.tb00513.x",
+      "source_type": "primary_model_and_behavioral_experiment",
+      "read_extent": "实际读取期刊原始摘要；正文需要访问权限，本轮未读全文。",
+      "claim_supported": [
+        "作者提出并用动词聚类任务检验事件索引模型：叙事事件在时间、空间、主角、因果、意图五个维度关联。"
+      ],
+      "limitations": [
+        "摘要层面的模型与任务结果，不足以断言五维是所有问题理解的必要且充分条件。",
+        "叙事理解不等于任意问句理解；未核对样本量或逐项统计。"
+      ],
+      "implication": "理解可涉及所描述情境及关系，超出字词列表；可据此区分问句表面相近与事件/关系相同，但不能强制把人脑等同于人工图结构。",
+      "relevance": [
+        "situation_models",
+        "events",
+        "causality",
+        "intentionality"
+      ],
+      "evidence_locations": [
+        "期刊Abstract"
+      ],
+      "access_notes": [
+        "原始摘要可用，全文未获取。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H03",
+      "title": "Predicting Pragmatic Reasoning in Language Games",
+      "authors": [
+        "Michael C. Frank",
+        "Noah D. Goodman"
+      ],
+      "year": 2012,
+      "url": "https://langcog.stanford.edu/papers_new/frank-2012-science.pdf",
+      "doi": "10.1126/science.1218633",
+      "source_type": "primary_computational_model_and_behavioral_experiment",
+      "read_extent": "实际读取作者实验室4页PDF：正文、图注、补充方法及模型推导。",
+      "claim_supported": [
+        "在简单指称沟通游戏中，结合情境显著性与对说话者信息性的假设，贝叶斯听者模型较好预测人类对象判断。"
+      ],
+      "limitations": [
+        "有限对象、共享词义、受控沟通任务；不能据此断言人类所有交谈都进行精确贝叶斯递归。",
+        "显著性先验来自实验测量；模型拟合不是唯一认知实现或神经机制证明。"
+      ],
+      "implication": "字面词义之外还要区分当前候选对象、共同知识与说话目的；推断意图和求解外部领域问题可作为不同研究对象。",
+      "relevance": [
+        "pragmatics",
+        "speaker_intent",
+        "common_ground",
+        "context"
+      ],
+      "evidence_locations": [
+        "正文式1/式2、Figure1；Supplementary Materials and Methods/Model Derivation"
+      ],
+      "access_notes": [
+        "作者PDF含补充材料；未另行重现分析。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H04",
+      "title": "Pragmatic inferences are QUD-sensitive: an experimental study",
+      "authors": [
+        "Eszter Ronai",
+        "Ming Xiang"
+      ],
+      "year": 2021,
+      "online_year": 2020,
+      "url": "https://doi.org/10.1017/S0022226720000389",
+      "primary_copy_url": "https://lucian.uchicago.edu/blogs/mingxiang/files/2020/11/JofLinguisticspaper.pdf",
+      "source_type": "primary_empirical_behavioral_experiments",
+      "read_extent": "实际读取原出版商摘要与作者30页PDF的摘要/引言及索引可见结论；后续定位全文末段时超时，未声称完整复核全部统计。",
+      "claim_supported": [
+        "先实验引出当前讨论问题(QUD)，再检验数量推论和it-cleft排他解释；QUD影响推论产生与反应时间成本。"
+      ],
+      "limitations": [
+        "两个特定语用现象与受控任务，不能把QUD当作所有理解的单一因素。",
+        "语义/语用的理论边界及it-cleft排他效应的来源仍有争论。",
+        "2020为在线发表，正式卷期2021；不能混作两项独立研究。"
+      ],
+      "implication": "理解一句话还可能依赖“当前究竟在回答什么问题”；语用推论是理解过程的一部分，不能把理解一概定义为完全无推断。",
+      "relevance": [
+        "question_under_discussion",
+        "goal",
+        "pragmatic_inference"
+      ],
+      "evidence_locations": [
+        "作者PDF摘要与引言；原出版商摘要；作者PDF索引结论第27页"
+      ],
+      "access_notes": [
+        "原出版商2020-11-24 online；Journal of Linguistics 57(4),2021,841-870。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H05",
+      "title": "Robust Effects of Working Memory Demand during Naturalistic Language Comprehension in Language-Selective Cortex",
+      "authors": [
+        "Cory Shain",
+        "Idan A. Blank",
+        "Evelina Fedorenko",
+        "Edward Gibson",
+        "William Schuler"
+      ],
+      "year": 2022,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9525168/",
+      "doi": "10.1523/JNEUROSCI.1894-21.2022",
+      "source_type": "primary_fmri_computational_analysis_of_existing_dataset",
+      "read_extent": "实际读取开放全文的摘要、方法(78人故事理解/功能定位)、结果、留出泛化表3与讨论相关段落；未重新分析原始数据。",
+      "claim_supported": [
+        "控制词语可预测性后，与依存整合/检索难度有关的工作记忆指标仍解释语言网络活动，并得到留出数据支持；独立存储成本证据较弱。"
+      ],
+      "limitations": [
+        "BOLD与模型预测量的关系并非某个完整心智算法的因果证明。",
+        "重用Shain等2020故事数据，不能与该2020论文当作独立样本重复验证。",
+        "自然故事材料与指标假设限定结论，且分析未预注册。"
+      ],
+      "implication": "理解涉及跨词信息整合与关系维持；预测下一个词和构建关系表征不能简单视为同一可观察指标，更不能由脑相关结果保证某AI模块有效。",
+      "relevance": [
+        "incremental_comprehension",
+        "working_memory",
+        "structure",
+        "prediction"
+      ],
+      "evidence_locations": [
+        "Methods/Experimental design；Generalization phase，Table3；Data availability说明未预注册"
+      ],
+      "access_notes": [
+        "开放原文可读；78名成人，数据来自既有自然故事实验。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H06",
+      "title": "Comprehension of computer code relies primarily on domain-general executive brain regions",
+      "authors": [
+        "Anna A. Ivanova",
+        "Shashank Srikant",
+        "Yotaro Sueoka",
+        "Hope H. Kean",
+        "Riva Dhamala",
+        "Una-May O’Reilly",
+        "Marina U. Bers",
+        "Evelina Fedorenko"
+      ],
+      "year": 2020,
+      "url": "https://elifesciences.org/articles/58906",
+      "doi": "10.7554/eLife.58906",
+      "source_type": "primary_empirical_fmri_experiments",
+      "read_extent": "实际读取原文摘要、设计、结果、讨论和方法相关段落，含Python24人与ScratchJr19人的对照。",
+      "claim_supported": [
+        "在熟练成人的两种代码任务中，代码相对内容匹配句子更强招募多需求网络；语言网络对句子更强，代码反应较弱或不显著。设计明确区分读懂代码与模拟代码所描述运算。"
+      ],
+      "limitations": [
+        "代码理解是特定后天技能；不能外推所有语言理解与所有推理都完全隔离。",
+        "小样本、fMRI任务对照和专业程度范围限制推广；未证明普遍固定先理解后推理的串行流程。"
+      ],
+      "implication": "理解表达/识别所要求的操作与执行这些操作可以分开测量；答题失败可能来自解释或运算，但神经分离不是AI必需分模块的证明。",
+      "relevance": [
+        "comprehension_vs_problem_solving",
+        "language_vs_reasoning",
+        "task_controls"
+      ],
+      "evidence_locations": [
+        "Introduction定义code comprehension/problem content；Results的内容匹配句子对照；Discussion"
+      ],
+      "access_notes": [
+        "Version of Record:2020-12-15。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H07",
+      "title": "Language is primarily a tool for communication rather than thought",
+      "authors": [
+        "Evelina Fedorenko",
+        "Steven T. Piantadosi",
+        "Edward A. F. Gibson"
+      ],
+      "year": 2024,
+      "url": "https://www.nature.com/articles/s41586-024-07522-w",
+      "primary_copy_url": "https://mcgovern.mit.edu/wp-content/uploads/2024/08/s41586-024-07522-w.pdf",
+      "doi": "10.1038/s41586-024-07522-w",
+      "source_type": "perspective_synthesis_argument_not_new_single_experiment",
+      "read_extent": "实际读取MIT托管Nature原文的摘要、语言网络说明、语言与思考分离论证和结论；Nature网页跳登录，原PDF可读。",
+      "claim_supported": [
+        "作者综合神经与相关证据，主张现代人类语言主要服务沟通，语言能力与多种已测思考能力有可分离性。"
+      ],
+      "limitations": [
+        "Perspective综合论证，不是一次新实验，也不是关于理解的最终统一定义。",
+        "不等于语言永不辅助思考；作者区分语言必要性、促进作用及学习支架。",
+        "引用研究与H06等有重叠，不能将这篇再计作独立重复验证。"
+      ],
+      "implication": "语言熟练、可复述、会说话与一般问题求解能力不能互作充分证明；这一点支持测量上分开，不能推出任何具体AI算法必然正确。",
+      "relevance": [
+        "language_vs_thought",
+        "evidence_boundaries",
+        "communication"
+      ],
+      "evidence_locations": [
+        "Perspective标记；Box1；Language is not necessary or sufficient for thought；Conclusions"
+      ],
+      "access_notes": [
+        "2024-06-19 online；Nature630,575-586。"
+      ],
+      "included_in_primary_evidence_count": true
+    },
+    {
+      "id": "H08",
+      "title": "The role of knowledge in discourse comprehension: a construction-integration model",
+      "authors": [
+        "Walter Kintsch"
+      ],
+      "year": 1988,
+      "url": "https://doi.org/10.1037/0033-295X.95.2.163",
+      "bibliographic_url": "https://pubmed.ncbi.nlm.nih.gov/3375398/",
+      "author_lab_url": "https://www.colorado.edu/ics/research/caccamisekintsch-lab",
+      "source_type": "primary_theoretical_model_bibliographic_candidate_only",
+      "read_extent": "本轮仅核验原论文书目信息与作者机构列表；APA正文访问失败，机构旧附件链接404。未读到原始模型全文。",
+      "claim_supported": [
+        "可以确认该原始模型论文的题名、作者、1988年、期刊与DOI；本轮不据它独立断言具体算法细节。"
+      ],
+      "limitations": [
+        "不计入本轮已读的七项主要证据，不用二手概述冒充原文结论。"
+      ],
+      "implication": "作为后续进一步阅读的经典入口；本轮核心说明由其余实际可读原始研究支持。",
+      "relevance": [
+        "knowledge",
+        "construction_integration",
+        "further_reading"
+      ],
+      "evidence_locations": [
+        "PubMed书目；Colorado作者研究组publication列表"
+      ],
+      "access_notes": [
+        "PubMed无摘要；APA无法访问；作者组2011附件404，未据此补写模型内容。"
+      ],
+      "included_in_primary_evidence_count": false
+    }
+  ],
+  "synthesis_is_author_interpretation": true,
+  "general_limits": [
+    "No claim that a single accepted formula or a unique final definition of understanding has been established.",
+    "No mapping of fMRI regions or behavioral models onto Transformer modules; implications are hypotheses for discussion, not design guarantees.",
+    "Behavioral comprehension, neural implementation, theory and philosophical understanding are different evidential levels.",
+    "Comprehension can include inferential interpretation; distinction from solving a target domain problem is operational rather than an inference-free boundary."
+  ]
+}

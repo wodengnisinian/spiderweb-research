@@ -1,0 +1,251 @@
+{
+  "file_count": 6087,
+  "source_bytes": 2044621336,
+  "archives": [
+    {
+      "name": "batch-00.zip",
+      "roots": [
+        "00-实验准备-20261119-01a1f1b2"
+      ],
+      "file_count": 19,
+      "source_bytes": 496338,
+      "zip_bytes": 96725,
+      "sha256": "9032845ba3ecb6cf4375fe11f6a0ac64764189f32e64e981904ed8f860328eec"
+    },
+    {
+      "name": "batch-01-part-01.zip",
+      "roots": [
+        "01-R2首跳证据-20261119-01a1f1b2"
+      ],
+      "file_count": 144,
+      "source_bytes": 57397322,
+      "zip_bytes": 41659089,
+      "sha256": "3ab5245d3a0336de3f751e4dacfb36fc0812aabc4cd359bb22e19d13e1002093"
+    },
+    {
+      "name": "batch-01-part-02.zip",
+      "roots": [
+        "01-R2首跳证据-20261119-01a1f1b2"
+      ],
+      "file_count": 145,
+      "source_bytes": 57553587,
+      "zip_bytes": 41642332,
+      "sha256": "cad3207062bece56860d42fa46777c72b1953bf67d9cf1fa536f80f25a7b7f13"
+    },
+    {
+      "name": "batch-01-part-03.zip",
+      "roots": [
+        "01-R2首跳证据-20261119-01a1f1b2"
+      ],
+      "file_count": 1,
+      "source_bytes": 67688014,
+      "zip_bytes": 67688238,
+      "sha256": "1ab57d71ae513e5bfa0142182ead3dcdd2bf0ce9bc8b02a4219fa7cd3b014b20"
+    },
+    {
+      "name": "batch-02.zip",
+      "roots": [
+        "02-R2方向表征-20261119-01a1f1b2"
+      ],
+      "file_count": 366,
+      "source_bytes": 146429676,
+      "zip_bytes": 120158517,
+      "sha256": "287be6c79483d2f765b10d5adb42dbe30f0d9a4de705a81e22f8f202367df7ff"
+    },
+    {
+      "name": "batch-03.zip",
+      "roots": [
+        "03-R2关系顺序训练-20261119-01a1f1b2"
+      ],
+      "file_count": 424,
+      "source_bytes": 161410048,
+      "zip_bytes": 127553340,
+      "sha256": "8ec37c7491dcd4cf9c7d5cdd0388e5416074c73c488707da711aa1af7bf0b474"
+    },
+    {
+      "name": "batch-04-part-01.zip",
+      "roots": [
+        "04-R2首步辅助监督-20261119-01a1f1b2"
+      ],
+      "file_count": 252,
+      "source_bytes": 62958784,
+      "zip_bytes": 43886510,
+      "sha256": "d0dfc57b2206d3f5e03f023b4ae4bd27ad14b28a1d3e9293f01600282044a154"
+    },
+    {
+      "name": "batch-04-part-02.zip",
+      "roots": [
+        "04-R2首步辅助监督-20261119-01a1f1b2"
+      ],
+      "file_count": 250,
+      "source_bytes": 58042309,
+      "zip_bytes": 43851420,
+      "sha256": "6df7a24abde5d90d997e65c634d6087649b01cdbcd7488f471da99c72231107b"
+    },
+    {
+      "name": "batch-04-part-03.zip",
+      "roots": [
+        "04-R2首步辅助监督-20261119-01a1f1b2"
+      ],
+      "file_count": 1,
+      "source_bytes": 74907227,
+      "zip_bytes": 74907463,
+      "sha256": "bf0a3263a47bd3a91a6dfa5df56843e308c8ef2800fa3dfdf1cbfffd6f0bc4f8"
+    },
+    {
+      "name": "batch-05-part-01.zip",
+      "roots": [
+        "05-R2竞争题辅助监督-20261119-01a1f1b2"
+      ],
+      "file_count": 253,
+      "source_bytes": 63088794,
+      "zip_bytes": 44156326,
+      "sha256": "d2de1a157616e867e7b3b44cb9b602443cf97edb3c83b6912b731d0577301036"
+    },
+    {
+      "name": "batch-05-part-02.zip",
+      "roots": [
+        "05-R2竞争题辅助监督-20261119-01a1f1b2"
+      ],
+      "file_count": 251,
+      "source_bytes": 59383412,
+      "zip_bytes": 44119027,
+      "sha256": "d30c99d3a99d9ebb8a1f7088b8b8adace70b773c332533af0150dc2ec364d850"
+    },
+    {
+      "name": "batch-05-part-03.zip",
+      "roots": [
+        "05-R2竞争题辅助监督-20261119-01a1f1b2"
+      ],
+      "file_count": 1,
+      "source_bytes": 75296499,
+      "zip_bytes": 75296741,
+      "sha256": "1b2bc01a8c8310a25f89ccc1a5be642567eef72af1681b52e36543b2bfdb0f2f"
+    },
+    {
+      "name": "batch-06.zip",
+      "roots": [
+        "06-R2条件词元匹配-20261119-01a1f1b2"
+      ],
+      "file_count": 554,
+      "source_bytes": 134467788,
+      "zip_bytes": 106379246,
+      "sha256": "c5543346bc24379811140ee9d47f7728ec7bcab1265ff3bc2621f8e6a95fa126"
+    },
+    {
+      "name": "batch-07.zip",
+      "roots": [
+        "07-R2成对换序训练-20261119-01a1f1b2"
+      ],
+      "file_count": 573,
+      "source_bytes": 150186376,
+      "zip_bytes": 114955272,
+      "sha256": "d517c3d93fcbcc8a18a7093e23c981734a0bb13a2c268caf3d91d83897db2693"
+    },
+    {
+      "name": "batch-08.zip",
+      "roots": [
+        "08-R2同义句序-20261120-01a1f1b2"
+      ],
+      "file_count": 545,
+      "source_bytes": 126710411,
+      "zip_bytes": 96514509,
+      "sha256": "b89fbc2061d053ebf5681a2ff77660e02c0c4f61d6d036edcd3ee395388321a5"
+    },
+    {
+      "name": "batch-09.zip",
+      "roots": [
+        "09-R2原训练措辞-20261120-01a1f1b2"
+      ],
+      "file_count": 548,
+      "source_bytes": 128294351,
+      "zip_bytes": 97344773,
+      "sha256": "7b68099238d1b6f39872ca265643d91ccc61fac258db57d8a631aff93633eb8c"
+    },
+    {
+      "name": "batch-10.zip",
+      "roots": [
+        "10-R2同义对鲁棒损失-20261120-01a1f1b2"
+      ],
+      "file_count": 379,
+      "source_bytes": 111122849,
+      "zip_bytes": 84031485,
+      "sha256": "9a81edb5ea5ff6a141fd7c15745cab374d438fd3bfc5cccb61deb0ff57be1714"
+    },
+    {
+      "name": "batch-11.zip",
+      "roots": [
+        "11-R2残差叠层-20261120-01a1f1b2"
+      ],
+      "file_count": 612,
+      "source_bytes": 241873450,
+      "zip_bytes": 196928393,
+      "sha256": "8819ad47f56f9b48cd66693379605b18a841b667577435440fddf428e9a2f700"
+    },
+    {
+      "name": "batch-12.zip",
+      "roots": [
+        "12-R2候选同分排序-20261120-01a1f1b2"
+      ],
+      "file_count": 143,
+      "source_bytes": 46734577,
+      "zip_bytes": 21572411,
+      "sha256": "b06dda2fe9d5c546d6bb9c8d67db85ec129488e5d1af3918daedf7645704c7e0"
+    },
+    {
+      "name": "batch-13.zip",
+      "roots": [
+        "13-R2方向排序一次性验证-20261120-01a1f1b2"
+      ],
+      "file_count": 57,
+      "source_bytes": 13321108,
+      "zip_bytes": 9224451,
+      "sha256": "c6483dd6d169c62387c51e522b61ff843ad5d4716a14a827d3d582d41d197dad"
+    },
+    {
+      "name": "batch-14.zip",
+      "roots": [
+        "14-R2多层残差-20261120-01a1f1b2"
+      ],
+      "file_count": 187,
+      "source_bytes": 75197892,
+      "zip_bytes": 52918934,
+      "sha256": "ae30b5b8eb854c34b87885b83d695cf113546a4a879dba257b37d913265b0428"
+    },
+    {
+      "name": "batch-15.zip",
+      "roots": [
+        "15-R2首层固定点循环-20261120-01a1f1b2"
+      ],
+      "file_count": 114,
+      "source_bytes": 35722113,
+      "zip_bytes": 19436620,
+      "sha256": "45827e7cd3daaec97ae83616ab07eab723e663fe01b3175f575e2b780955fa4a"
+    },
+    {
+      "name": "batch-16.zip",
+      "roots": [
+        "16-R2循环交接训练-20261120-01a1f1b2"
+      ],
+      "file_count": 258,
+      "source_bytes": 95364221,
+      "zip_bytes": 56438055,
+      "sha256": "c362aa4a1eff1ecdfcd5f6afafb4e719ad0cea80307733993c904c1cb83be3cc"
+    },
+    {
+      "name": "overview.zip",
+      "roots": [
+        "01批次到16批次实验总结",
+        "第01至11批正式结果总表.txt",
+        "第01至12批分版本对照.txt",
+        "第01至14批分版本总表.txt",
+        "第01至15批分版本总表.txt",
+        "第01至16批分版本总表.txt"
+      ],
+      "file_count": 10,
+      "source_bytes": 974190,
+      "zip_bytes": 965761,
+      "sha256": "432fc18f7ac17bb28f1444b714efda93a27d56757741728cc7bccba678157a8a"
+    }
+  ]
+}

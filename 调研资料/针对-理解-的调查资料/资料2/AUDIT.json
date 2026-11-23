@@ -1,0 +1,138 @@
+{
+  "generated_at": "2026-11-05T12:34:31+08:00",
+  "status": "passed",
+  "model_architecture_or_component_cards": 31,
+  "unique_source_urls": 80,
+  "checks": [
+    {
+      "check": "input_schema",
+      "file": "foundation_models.json",
+      "passed": true,
+      "cards": 4
+    },
+    {
+      "check": "input_schema",
+      "file": "open_models.json",
+      "passed": true,
+      "cards": 10
+    },
+    {
+      "check": "input_schema",
+      "file": "alternative_models.json",
+      "passed": true,
+      "cards": 9
+    },
+    {
+      "check": "input_schema",
+      "file": "closed_multimodal_models.json",
+      "passed": true,
+      "cards": 8
+    },
+    {
+      "check": "unique_model_ids",
+      "passed": true
+    },
+    {
+      "check": "local_links",
+      "passed": true,
+      "count": 11
+    },
+    {
+      "check": "svg_xml",
+      "passed": true
+    }
+  ],
+  "files": [
+    {
+      "path": "alternative_models.json",
+      "bytes": 23940,
+      "sha256": "50255fac5fc1753b9be54e47aa5625df735eca9e2e595f6fd276f13ad24f5787"
+    },
+    {
+      "path": "ALTERNATIVE_NOTES.md",
+      "bytes": 5929,
+      "sha256": "d25447931355960dca15838556be0d55a0c4f28d1ae9bee1a8e57a3475b7931d"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 21027,
+      "sha256": "c4ad0329909abeb51e9dadfb834a81c73f3bb900ceb85ec339e5625a2ef37c67"
+    },
+    {
+      "path": "closed_multimodal_models.json",
+      "bytes": 15791,
+      "sha256": "e9d2df28a3d1cd28b6cee6b574ca2dded0eee37ea15cff82cbc1cb7868de2848"
+    },
+    {
+      "path": "DISCLOSURE_NOTES.md",
+      "bytes": 3956,
+      "sha256": "0668fd3560e08a5862647b97017b9564a49cbe3705f32ae47fca21117f426986"
+    },
+    {
+      "path": "foundation_models.json",
+      "bytes": 4766,
+      "sha256": "610117585c9055bc304d2403a48132f1102994e869895d8107cc939904f737b6"
+    },
+    {
+      "path": "MODEL_REGISTER.json",
+      "bytes": 77263,
+      "sha256": "befa24478efa1e46486b1576cb6722a380ec9a9c4d03accd1d3994d32df61b3f"
+    },
+    {
+      "path": "open_models.json",
+      "bytes": 28713,
+      "sha256": "c286a1fb709f2a72b2b223cd114a09d67d67562fad6115b07717475eccc2a199"
+    },
+    {
+      "path": "OPEN_MODELS_NOTES.md",
+      "bytes": 5837,
+      "sha256": "3ad19022c4a61c2416d3d27a10a2edf1e54faba20b84614f95fc182ce5483e5c"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 1274,
+      "sha256": "ec994dcb56d374c6d873686418b6e0414b5bc74717d673bb9e38c131d06698a6"
+    },
+    {
+      "path": "REPORT.html",
+      "bytes": 98053,
+      "sha256": "39af6b47d24a445edd57fb210b33e25484ba12e61ae9e8012dc129d2b01d5afd"
+    },
+    {
+      "path": "SOURCE_REGISTER.json",
+      "bytes": 27929,
+      "sha256": "ae166b2eb27275cc5c2eebdef9134a630bc6a3981d28a17c6dc24cff123d8ba8"
+    },
+    {
+      "path": "supporting_sources.json",
+      "bytes": 392,
+      "sha256": "4b71383787c492e0d2538bd64f0e05bf6dfaf2230a6055eaf3450cbe6a4a02b4"
+    },
+    {
+      "path": "verify_delivery.py",
+      "bytes": 2582,
+      "sha256": "58760ece1b798201802f5b757a1d30ad957f3eb2ecf066ea9dd9d3dff96e93f7"
+    },
+    {
+      "path": "打开资料.html",
+      "bytes": 98053,
+      "sha256": "39af6b47d24a445edd57fb210b33e25484ba12e61ae9e8012dc129d2b01d5afd"
+    },
+    {
+      "path": "架构分层图.mmd",
+      "bytes": 639,
+      "sha256": "9540c4602e55b7b6e0ceaa153482bcebf7537d3cf107ddbb599309f72a24d677"
+    },
+    {
+      "path": "架构分层图.png",
+      "bytes": 295204,
+      "sha256": "4d2029b54cc703a8ae24b5b77bf843aa9c03d21b38d908f889a69fbf88a390f9"
+    },
+    {
+      "path": "架构分层图.svg",
+      "bytes": 234728,
+      "sha256": "b6828859acbec04b6a974889e1e5f89894e8503a6e77ea34b02a038f2657618d"
+    }
+  ],
+  "verification_boundary": "字段、本地链接、SVG XML与文件hash；不是模型复现或能力验证。架构PNG已由助手实际打开查看。HTML浏览器布局未人工验收。"
+}

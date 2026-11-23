@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-05T12:35:55+08:00",
+  "status": "passed",
+  "cards": 31,
+  "unique_source_urls": 80,
+  "source_copy_hash_matches": 10,
+  "hashes_verified": 18,
+  "html_entries_identical": true,
+  "png_dimensions": [
+    2240,
+    1600
+  ],
+  "visual_review": {
+    "reviewed": "架构分层图.png",
+    "method": "助手使用view_image实际打开查看",
+    "result": "标题、四层标签和说明可读，未见遮挡或裁切",
+    "png_sha256": "4d2029b54cc703a8ae24b5b77bf843aa9c03d21b38d908f889a69fbf88a390f9"
+  },
+  "independent_content_review": "另一研究助手只读复核4组JSON及构建逻辑，未发现与来源卡冲突或夸大验证范围的实质问题。",
+  "browser_layout_reviewed": false,
+  "model_training_or_inference_executed": false,
+  "audit_sha256": "1d91185dd4ef9bced993db285b27e28e0216af2551ee124cd651e292fabbd940",
+  "self_hash_excluded": true
+}

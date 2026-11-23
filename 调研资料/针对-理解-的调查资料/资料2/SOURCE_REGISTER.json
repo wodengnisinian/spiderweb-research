@@ -1,0 +1,810 @@
+{
+  "generated_at": "2026-11-05T12:34:31+08:00",
+  "sources": [
+    {
+      "title": "Attention Is All You Need",
+      "url": "https://arxiv.org/html/1706.03762v7",
+      "used_by": [
+        "foundation_transformer_2017"
+      ],
+      "read_extents": [
+        "实际读取摘要、§1–3.5及§4表1，重点核对编码器/解码器、MHA、FFN、位置编码公式和复杂度限定；未复现论文实验。"
+      ]
+    },
+    {
+      "title": "Deep Residual Learning for Image Recognition",
+      "url": "https://arxiv.org/pdf/1512.03385",
+      "used_by": [
+        "foundation_resnet_2015"
+      ],
+      "read_extents": [
+        "实际读取摘要、§1、§3.1–3.4、表1及相关基本块描述；CVF PDF访问403后改读作者arXiv原稿。"
+      ]
+    },
+    {
+      "title": "Fast Transformer Decoding: One Write-Head is All You Need",
+      "url": "https://arxiv.org/pdf/1911.02150",
+      "used_by": [
+        "component_mqa_2019"
+      ],
+      "read_extents": [
+        "实际读取摘要、§2的多头/增量解码说明、§3 MQA算法及性能分析；arXiv HTML失败后读取PDF。"
+      ]
+    },
+    {
+      "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "url": "https://aclanthology.org/2023.emnlp-main.298.pdf",
+      "used_by": [
+        "component_gqa_2023"
+      ],
+      "read_extents": [
+        "实际读取摘要、§1–3.1、图2及主实验/分组说明，核对GQA/MQA/MHA边界；未复现实验。"
+      ]
+    },
+    {
+      "title": "Introducing Llama 3.1",
+      "url": "https://ai.meta.com/blog/meta-llama-3-1/",
+      "used_by": [
+        "llama_3_1_8b_instruct"
+      ],
+      "read_extents": [
+        "实际检索官方发布日期和模型架构/系列介绍。"
+      ]
+    },
+    {
+      "title": "Meta llama-models sku_list.py",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+      "used_by": [
+        "llama_3_1_8b_instruct"
+      ],
+      "read_extents": [
+        "实际读取llama3_1_8b对应arch_args，避免使用Llama3或70B条目的值。"
+      ]
+    },
+    {
+      "title": "Meta Llama3/3.1参考实现",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/model.py",
+      "used_by": [
+        "llama_3_1_8b_instruct"
+      ],
+      "read_extents": [
+        "实际读取RMSNorm、RoPE缩放、attention和FeedForward/TransformerBlock。"
+      ]
+    },
+    {
+      "title": "Llama4官方模型卡",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "used_by": [
+        "llama_4_scout_17b_16e_instruct"
+      ],
+      "read_extents": [
+        "实际读取Model Information、参数/模态/日期表；未提交访问申请或接受许可。"
+      ]
+    },
+    {
+      "title": "The Llama4 herd官方发布文",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "used_by": [
+        "llama_4_scout_17b_16e_instruct"
+      ],
+      "read_extents": [
+        "实际读取early fusion、MetaCLIP、iRoPE与Scout段落；区分Maverick专属示例。"
+      ]
+    },
+    {
+      "title": "Llama4公开model.py",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama4/model.py",
+      "used_by": [
+        "llama_4_scout_17b_16e_instruct"
+      ],
+      "read_extents": [
+        "实际读取RMSNorm、Attention、nope_layer_interval和TransformerBlock条件分支。"
+      ]
+    },
+    {
+      "title": "Llama4公开moe.py",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama4/moe.py",
+      "used_by": [
+        "llama_4_scout_17b_16e_instruct"
+      ],
+      "read_extents": [
+        "实际读取SwiGLU专家、router与shared_expert；不将动态配置参数猜成Scout实值。"
+      ]
+    },
+    {
+      "title": "Qwen3官方发布博客",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "used_by": [
+        "qwen3_8b"
+      ],
+      "read_extents": [
+        "实际检索发布日期与dense/MoE发布清单。"
+      ]
+    },
+    {
+      "title": "Qwen3 Technical Report",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "used_by": [
+        "qwen3_8b"
+      ],
+      "read_extents": [
+        "实际读取第2节架构及dense型号表，明确8B是dense。"
+      ]
+    },
+    {
+      "title": "Qwen3-8B官方模型卡",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B",
+      "used_by": [
+        "qwen3_8b"
+      ],
+      "read_extents": [
+        "实际读取Model Overview及参数/头数/上下文说明。"
+      ]
+    },
+    {
+      "title": "Qwen3-8B config.json",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B/blob/b968826d9c46dd6066d109eabc6255188de91218/config.json",
+      "used_by": [
+        "qwen3_8b"
+      ],
+      "read_extents": [
+        "实际打开main的resolve原始JSON，重定向披露此revision，读取全部30行配置。"
+      ]
+    },
+    {
+      "title": "Qwen3-Next官方模型卡",
+      "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "used_by": [
+        "qwen3_next_80b_a3b_instruct"
+      ],
+      "read_extents": [
+        "实际读取Highlights和Model Overview，包含3:1布局、头数、MoE与Instruct模式限定。"
+      ]
+    },
+    {
+      "title": "Qwen3-Next config.json",
+      "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct/blob/9c7f2fbe84465e40164a94cc16cd30b6999b0cc7/config.json",
+      "used_by": [
+        "qwen3_next_80b_a3b_instruct"
+      ],
+      "read_extents": [
+        "实际读取resolve原始43行JSON，核对重定向revision。"
+      ]
+    },
+    {
+      "title": "Qwen官方仓库历史News",
+      "url": "https://raw.githubusercontent.com/QwenLM/Qwen3-Next/main/README.md",
+      "used_by": [
+        "qwen3_next_80b_a3b_instruct"
+      ],
+      "read_extents": [
+        "仅采用实际读取到的2025-09-11历史发布记录；当前页标题已为后续系列，不用其当前架构描述。"
+      ]
+    },
+    {
+      "title": "Qwen/HF Qwen3Next实现v4.57.0",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_next/modeling_qwen3_next.py",
+      "used_by": [
+        "qwen3_next_80b_a3b_instruct"
+      ],
+      "read_extents": [
+        "实际读取GatedDeltaRule导入、动态cache和RMSNormGated定义；未运行代码。"
+      ]
+    },
+    {
+      "title": "Introducing DeepSeek-V3",
+      "url": "https://api-docs.deepseek.com/news/news1226/",
+      "used_by": [
+        "deepseek_v3_original",
+        "deepseek_r1_original"
+      ],
+      "read_extents": [
+        "实际读取2024/12/26索引、671B/37B以及原始仓库/论文链接。",
+        "实际读取侧栏DeepSeek-R1 Release 2025/01/20；其旧详情链接当前跳到API首页，不以首页当R1架构证据。"
+      ]
+    },
+    {
+      "title": "DeepSeek-V3 Technical Report",
+      "url": "https://arxiv.org/html/2412.19437v2",
+      "used_by": [
+        "deepseek_v3_original"
+      ],
+      "read_extents": [
+        "实际读取第2节MLA/DeepSeekMoE与模型超参数段，含61层、压缩维度、256/8+1专家与RMSNorm。"
+      ]
+    },
+    {
+      "title": "DeepSeek-V3 config.json",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/config.json",
+      "used_by": [
+        "deepseek_v3_original"
+      ],
+      "read_extents": [
+        "实际读取配置字段，与技术报告交叉核对；不把main当不可变权重证明。"
+      ]
+    },
+    {
+      "title": "DeepSeek-R1原始技术报告",
+      "url": "https://arxiv.org/html/2501.12948v1",
+      "used_by": [
+        "deepseek_r1_original"
+      ],
+      "read_extents": [
+        "实际读取V3-Base来源、R1与R1-Zero训练区别及蒸馏学生基础模型段落。"
+      ]
+    },
+    {
+      "title": "DeepSeek-R1 config.json",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/config.json",
+      "used_by": [
+        "deepseek_r1_original"
+      ],
+      "read_extents": [
+        "实际读取resolve原始JSON的architecture、MLA维度与专家字段，重定向披露此revision。"
+      ]
+    },
+    {
+      "title": "Mistral7B官方公告",
+      "url": "https://mistral.ai/news/announcing-mistral-7b/",
+      "used_by": [
+        "mistral_7b_v0_1"
+      ],
+      "read_extents": [
+        "实际读取日期、7.3B、GQA与SWA说明。"
+      ]
+    },
+    {
+      "title": "Mistral7B技术报告",
+      "url": "https://arxiv.org/html/2310.06825v1",
+      "used_by": [
+        "mistral_7b_v0_1"
+      ],
+      "read_extents": [
+        "实际读取摘要、Architectural details位置及GQA/SWA说明。"
+      ]
+    },
+    {
+      "title": "Mistral7B-v0.1 config.json",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-v0.1/blob/main/config.json",
+      "used_by": [
+        "mistral_7b_v0_1"
+      ],
+      "read_extents": [
+        "实际读取32层、32/8头、宽度、norm、RoPE与sliding_window字段。"
+      ]
+    },
+    {
+      "title": "Mistral/HF参考实现v4.36.0",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.36.0/src/transformers/models/mistral/modeling_mistral.py",
+      "used_by": [
+        "mistral_7b_v0_1"
+      ],
+      "read_extents": [
+        "实际打开版本固定实现，读取RMSNorm/RoPE及MLP相关公开结构；未运行。"
+      ]
+    },
+    {
+      "title": "Mixtral of experts官方公告",
+      "url": "https://mistral.ai/news/mixtral-of-experts/",
+      "used_by": [
+        "mixtral_8x7b_v0_1"
+      ],
+      "read_extents": [
+        "实际读取日期、decoder-only、8选2和46.7B/12.9B。"
+      ]
+    },
+    {
+      "title": "Mixtral of Experts技术报告",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "used_by": [
+        "mixtral_8x7b_v0_1"
+      ],
+      "read_extents": [
+        "实际读取摘要与Architectural details说明；不把近似参数视作精确计数。"
+      ]
+    },
+    {
+      "title": "Mixtral8x7B-v0.1 config.json",
+      "url": "https://huggingface.co/mistralai/Mixtral-8x7B-v0.1/blob/main/config.json",
+      "used_by": [
+        "mixtral_8x7b_v0_1"
+      ],
+      "read_extents": [
+        "实际读取层数/头数/8选2/RoPE与sliding_window=null。"
+      ]
+    },
+    {
+      "title": "Mistral/HF Mixtral实现v4.36.0",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.36.0/src/transformers/models/mixtral/modeling_mixtral.py",
+      "used_by": [
+        "mixtral_8x7b_v0_1"
+      ],
+      "read_extents": [
+        "实际打开版本固定公开实现，用于参考MoE算子与归一化拓扑；未运行代码。"
+      ]
+    },
+    {
+      "title": "Google Gemma3发布公告",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
+      "used_by": [
+        "gemma_3_4b_it"
+      ],
+      "read_extents": [
+        "实际读取2025-03-12日期、模型尺寸和模态介绍。"
+      ]
+    },
+    {
+      "title": "Gemma3 Technical Report",
+      "url": "https://arxiv.org/html/2503.19786v1",
+      "used_by": [
+        "gemma_3_4b_it"
+      ],
+      "read_extents": [
+        "实际读取第2节GQA/RMSNorm/QK-Norm、5:1局部全局结构、视觉参数及长上下文段落。"
+      ]
+    },
+    {
+      "title": "Google Gemma PyTorch config",
+      "url": "https://raw.githubusercontent.com/google/gemma_pytorch/main/gemma/config.py",
+      "used_by": [
+        "gemma_3_4b_it"
+      ],
+      "read_extents": [
+        "实际读取get_config_for_4b，未使用1B/12B/27B相邻值。"
+      ]
+    },
+    {
+      "title": "Google Gemma PyTorch model",
+      "url": "https://raw.githubusercontent.com/google/gemma_pytorch/main/gemma/model.py",
+      "used_by": [
+        "gemma_3_4b_it"
+      ],
+      "read_extents": [
+        "实际读取GemmaMLP的GELU门控、RMSNorm、QK norm及attention定义；未运行。"
+      ]
+    },
+    {
+      "title": "Phi4官方模型卡",
+      "url": "https://huggingface.co/microsoft/phi-4",
+      "used_by": [
+        "phi_4_original"
+      ],
+      "read_extents": [
+        "实际读取Architecture、文本模态、16K及2024-12-12日期。"
+      ]
+    },
+    {
+      "title": "Phi4 Technical Report",
+      "url": "https://arxiv.org/html/2412.08905v1",
+      "used_by": [
+        "phi_4_original"
+      ],
+      "read_extents": [
+        "实际读取第3节decoder-only、Phi3-medium关联、full attention和4K到16K扩展说明。"
+      ]
+    },
+    {
+      "title": "Phi4 config.json",
+      "url": "https://huggingface.co/microsoft/phi-4/blob/main/config.json",
+      "used_by": [
+        "phi_4_original"
+      ],
+      "read_extents": [
+        "实际读取40层、40/10头、宽度、SiLU、norm/RoPE及Phi3类名；不从类名否定模型身份。"
+      ]
+    },
+    {
+      "title": "Microsoft/HF Phi3ForCausalLM实现v4.47.0",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.47.0/src/transformers/models/phi3/modeling_phi3.py",
+      "used_by": [
+        "phi_4_original"
+      ],
+      "read_extents": [
+        "实际读取RMSNorm、RoPE、Phi3MLP的gate/up分块乘法；版本与所读配置声明匹配，未运行。"
+      ]
+    },
+    {
+      "title": "Long Short-Term Memory（原始期刊记录）",
+      "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+      "used_by": [
+        "ALT01"
+      ],
+      "read_extents": [
+        "实际读出版信息、原始摘要及作者原论文索引；作者PDF字体编码损坏，未声称完整公式逐页核查。"
+      ]
+    },
+    {
+      "title": "Gers作者研究页：Learning to forget文献列表",
+      "url": "https://prof.bht-berlin.de/gers/projekte/lstm",
+      "used_by": [
+        "ALT01"
+      ],
+      "read_extents": [
+        "实际读作者页的1999会议/2000期刊条目；结合原始摘要核实遗忘门是后续扩展。"
+      ]
+    },
+    {
+      "title": "Learning to Forget: Continual Prediction with LSTM",
+      "url": "https://doi.org/10.1162/089976600300015015",
+      "used_by": [
+        "ALT01"
+      ],
+      "read_extents": [
+        "本轮读取该原论文摘要的公开索引和作者书目，未通读全文。"
+      ]
+    },
+    {
+      "title": "Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation",
+      "url": "https://aclanthology.org/D14-1179.pdf",
+      "used_by": [
+        "ALT02"
+      ],
+      "read_extents": [
+        "实际读原论文2.1–2.3节、Figure2、式(5)–(8)及训练目标说明。"
+      ]
+    },
+    {
+      "title": "原始预印本及首发日期",
+      "url": "https://arxiv.org/abs/1406.1078",
+      "used_by": [
+        "ALT02"
+      ],
+      "read_extents": [
+        "实际核验题名、作者、首次提交日期。"
+      ]
+    },
+    {
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "url": "https://arxiv.org/html/2312.00752v2",
+      "used_by": [
+        "ALT03"
+      ],
+      "read_extents": [
+        "实际读2–3节、Algorithm2、scan/简化块设计及任务范围；未复现速度或模型。"
+      ]
+    },
+    {
+      "title": "state-spaces/mamba 官方README",
+      "url": "https://github.com/state-spaces/mamba/blob/main/README.md",
+      "used_by": [
+        "ALT03",
+        "ALT04"
+      ],
+      "read_extents": [
+        "通过GitHub连接器实际读取README的Selective SSM、Mamba/Mamba2模块和LM入口；未安装或运行。",
+        "实际读对应模块路径和完整LM说明，不把README示例默认参数当所有模型配置。"
+      ]
+    },
+    {
+      "title": "Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality",
+      "url": "https://arxiv.org/html/2405.21060v1",
+      "used_by": [
+        "ALT04"
+      ],
+      "read_extents": [
+        "实际读SSD块算法/Listing、第6–7节、第9.3节速度范围及hybrid对照；未重跑。"
+      ]
+    },
+    {
+      "title": "RWKV-7 Goose with Expressive Dynamic State Evolution",
+      "url": "https://arxiv.org/html/2503.14456v1",
+      "used_by": [
+        "ALT05"
+      ],
+      "read_extents": [
+        "实际读第2–3节更新、第6节训练史和理论主张假设，未复核全部证明或benchmark。"
+      ]
+    },
+    {
+      "title": "RWKV/RWKV-LM 官方README",
+      "url": "https://github.com/RWKV/RWKV-LM/blob/main/README.md",
+      "used_by": [
+        "ALT05"
+      ],
+      "read_extents": [
+        "通过GitHub连接器实际读v7/v6版本入口、RNN演示和训练标记；未运行。"
+      ]
+    },
+    {
+      "title": "Retentive Network: A Successor to Transformer for Large Language Models",
+      "url": "https://arxiv.org/html/2307.08621v4",
+      "used_by": [
+        "ALT06"
+      ],
+      "read_extents": [
+        "实际读2.1–2.3节、三种retention表示与块组成，未复现性能数字。"
+      ]
+    },
+    {
+      "title": "Microsoft unilm/retnet 官方README",
+      "url": "https://github.com/microsoft/unilm/blob/master/retnet/README.md",
+      "used_by": [
+        "ALT06"
+      ],
+      "read_extents": [
+        "通过GitHub连接器实际读代码入口及2023修复、2024 Gated RetNet版本说明。"
+      ]
+    },
+    {
+      "title": "Gated Delta Networks: Improving Mamba2 with Delta Rule",
+      "url": "https://arxiv.org/html/2412.06464v1",
+      "used_by": [
+        "ALT07"
+      ],
+      "read_extents": [
+        "实际读式8、第3.2–3.3节、实验设置与真实回忆结果，未重跑。"
+      ]
+    },
+    {
+      "title": "NVlabs/GatedDeltaNet 官方README",
+      "url": "https://github.com/NVlabs/GatedDeltaNet/blob/main/README.md",
+      "used_by": [
+        "ALT07"
+      ],
+      "read_extents": [
+        "通过GitHub连接器实际读block示例、FAQ权重/训练数据说明和原论文入口；master路径失败后改用main。"
+      ]
+    },
+    {
+      "title": "BERT原始NAACL论文",
+      "url": "https://aclanthology.org/N19-1423.pdf",
+      "used_by": [
+        "ALT08"
+      ],
+      "read_extents": [
+        "实际读模型架构、输入表示、MLM/NSP、微调与Base/Large配置。"
+      ]
+    },
+    {
+      "title": "google-research/bert 官方README",
+      "url": "https://github.com/google-research/bert/blob/master/README.md",
+      "used_by": [
+        "ALT08"
+      ],
+      "read_extents": [
+        "通过GitHub连接器实际读模型、tokenization和pretraining公开范围，未下载权重。"
+      ]
+    },
+    {
+      "title": "BERT首次预印本记录",
+      "url": "https://arxiv.org/abs/1810.04805",
+      "used_by": [
+        "ALT08"
+      ],
+      "read_extents": [
+        "实际核验首发2018-10-11及后续版本日期。"
+      ]
+    },
+    {
+      "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+      "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+      "used_by": [
+        "ALT09"
+      ],
+      "read_extents": [
+        "实际读第2.1节骨干和位置bias、baseline/去噪目标及text-to-text定义；未逐项复核全部67页统计。"
+      ]
+    },
+    {
+      "title": "Google T5 官方README",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/main/README.md",
+      "used_by": [
+        "ALT09"
+      ],
+      "read_extents": [
+        "通过GitHub连接器实际读任务/模型接口与版本说明，未运行T5X或下载模型。"
+      ]
+    },
+    {
+      "title": "T5首次预印本记录",
+      "url": "https://arxiv.org/abs/1910.10683",
+      "used_by": [
+        "ALT09"
+      ],
+      "read_extents": [
+        "实际核验2019-10-23首发与后续修订记录。"
+      ]
+    },
+    {
+      "title": "GPT-4 Technical Report",
+      "url": "https://cdn.openai.com/papers/gpt-4.pdf",
+      "used_by": [
+        "CM01"
+      ],
+      "read_extents": [
+        "实际读取摘要及第2节Scope and Limitations；官方PDF共100页，未通读全部安全附录。"
+      ]
+    },
+    {
+      "title": "GPT-4 Model — OpenAI API",
+      "url": "https://developers.openai.com/api/docs/models/gpt-4",
+      "used_by": [
+        "CM01"
+      ],
+      "read_extents": [
+        "已实际打开官方API模型页；它不足以建立底层层数/专家数，所以未用API规格代替架构证据。"
+      ]
+    },
+    {
+      "title": "GPT-4o System Card",
+      "url": "https://cdn.openai.com/gpt-4o-system-card.pdf",
+      "used_by": [
+        "CM02"
+      ],
+      "read_extents": [
+        "实际读取首页Introduction与Model data and training开头；并核对官方同名网页。"
+      ]
+    },
+    {
+      "title": "GPT-4o System Card — OpenAI",
+      "url": "https://openai.com/index/gpt-4o-system-card/",
+      "used_by": [
+        "CM02"
+      ],
+      "read_extents": [
+        "实际读取系统卡网页及其模态/安全部署描述；未由辅助安全系统反推基础网络结构。"
+      ]
+    },
+    {
+      "title": "Introducing the next generation of Claude",
+      "url": "https://www.anthropic.com/news/claude-3-family",
+      "used_by": [
+        "CM03"
+      ],
+      "read_extents": [
+        "实际打开官方公告，读取家族/视觉能力/模型细节段及模型卡链接。"
+      ]
+    },
+    {
+      "title": "The Claude 3 Model Family: Opus, Sonnet, Haiku",
+      "url": "https://www-cdn.anthropic.com/f2986af8d052f26236f6251da62d16172cfabd6e/claude-3-model-card.pdf",
+      "used_by": [
+        "CM03"
+      ],
+      "read_extents": [
+        "实际读取搜索返回的官方PDF导言和June20更新说明；直接完整打开被工具拒绝（28,782,922字节）。没有声称通读或以未读全文证明某结构不存在。"
+      ]
+    },
+    {
+      "title": "Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context",
+      "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf",
+      "used_by": [
+        "CM04"
+      ],
+      "read_extents": [
+        "实际读取第3节Model Architecture及附录12.1 Model Card（PDF第105页附近），共154页，未通读全部评测。"
+      ]
+    },
+    {
+      "title": "Gemini 1.5 arXiv record",
+      "url": "https://arxiv.org/abs/2403.05530",
+      "used_by": [
+        "CM04"
+      ],
+      "read_extents": [
+        "实际核实初稿2024-03-08、该条记录已多次修订；不将初稿日期冒充Flash发布日。"
+      ]
+    },
+    {
+      "title": "Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities",
+      "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_v2_5_report.pdf",
+      "used_by": [
+        "CM05"
+      ],
+      "read_extents": [
+        "实际读取第2.1节Model Architecture及相邻长上下文/模态段；所读PDF共73页，未通读所有评测和作者名单。"
+      ]
+    },
+    {
+      "title": "Gemini 2.5 arXiv record",
+      "url": "https://arxiv.org/abs/2507.06261",
+      "used_by": [
+        "CM05"
+      ],
+      "read_extents": [
+        "实际核实同题报告初稿2025-07-07及后续修订；不声称该记录的当前v6与官方PDF文件逐字一致。"
+      ]
+    },
+    {
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "url": "https://cdn.openai.com/papers/Learning_Transferable_Visual_Models_From_Natural_Language_Supervision.pdf",
+      "used_by": [
+        "CM06"
+      ],
+      "read_extents": [
+        "实际读取第2.3/2.4节与Figure3，确认双编码器、投影、对称损失与文字/视觉分支。"
+      ]
+    },
+    {
+      "title": "CLIP: Connecting text and images",
+      "url": "https://openai.com/index/clip/",
+      "used_by": [
+        "CM06"
+      ],
+      "read_extents": [
+        "实际打开官方发布页并核对2021-01-05日期。"
+      ]
+    },
+    {
+      "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+      "url": "https://arxiv.org/pdf/2010.11929",
+      "used_by": [
+        "CM06"
+      ],
+      "read_extents": [
+        "实际读取原论文第3节：patch嵌入、可学习一维位置嵌入、pre-LN自注意力/MLP与残差。ViT仅作为本条组件，不另计同一模型。"
+      ]
+    },
+    {
+      "title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+      "url": "https://arxiv.org/html/2112.10752v2",
+      "used_by": [
+        "CM07"
+      ],
+      "read_extents": [
+        "实际读取第3.1–3.3节与附录条件机制，区分感知压缩、潜空间去噪和cross-attention。CVF PDF直接访问403，使用同一原论文作者arXiv稿。"
+      ]
+    },
+    {
+      "title": "CompVis Stable Diffusion README",
+      "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/README.md",
+      "used_by": [
+        "CM07"
+      ],
+      "read_extents": [
+        "实际读取Stable Diffusion v1段及860M/123M、8倍下采样配置说明。"
+      ]
+    },
+    {
+      "title": "Stable Diffusion v1 Model Card",
+      "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/Stable_Diffusion_v1_Model_Card.md",
+      "used_by": [
+        "CM07"
+      ],
+      "read_extents": [
+        "实际读取Model Details与模型描述。"
+      ]
+    },
+    {
+      "title": "CompVis v1-inference.yaml",
+      "url": "https://raw.githubusercontent.com/CompVis/stable-diffusion/main/configs/stable-diffusion/v1-inference.yaml",
+      "used_by": [
+        "CM07"
+      ],
+      "read_extents": [
+        "实际读取原始配置的latent channels、conditioning key和冻结条件编码器设置；没有执行代码。"
+      ]
+    },
+    {
+      "title": "Scalable Diffusion Models with Transformers",
+      "url": "https://arxiv.org/html/2212.09748v2",
+      "used_by": [
+        "CM08"
+      ],
+      "read_extents": [
+        "实际读取第3.2节、Table1、adaLN-Zero段与Table4参数/VAE计数说明；CVF PDF403、arXiv PDF体积过大，改读同一论文HTML。"
+      ]
+    },
+    {
+      "title": "DiT author project page",
+      "url": "https://www.wpeebles.com/DiT",
+      "used_by": [
+        "CM08"
+      ],
+      "read_extents": [
+        "实际打开作者项目页，确认原始模型类别条件、latent patch Transformer替代U-Net及官方论文/代码入口。"
+      ]
+    },
+    {
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135",
+      "used_by": [
+        "report_mechanisms_complexity"
+      ],
+      "read_extents": [
+        "实际读取原始论文arXiv摘要，确认exact attention、tiling、减少HBM/SRAM间读写的定位。未通读推导或复现实验；仅支持报告中区分内核IO优化与改变注意力机制的简短说明。"
+      ]
+    }
+  ],
+  "note": "阅读范围由研究记录逐项标注；不是所有链接可达性的自动复查，也不代表下载了全部论文或权重。"
+}
