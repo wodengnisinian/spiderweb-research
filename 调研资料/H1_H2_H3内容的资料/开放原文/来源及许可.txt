@@ -1,0 +1,60 @@
+﻿开放论文原文｜来源及许可
+核对日期  2026-11-23
+本目录的 PDF 均为出版方提供的原版文件。核验项目为 PDF 文件头、可读取页数及首页或 PDF 元数据中的题名。作者名依出版方书目列出。
+CC BY 4.0　https://creativecommons.org/licenses/by/4.0/
+CC BY-NC-SA 3.0　https://creativecommons.org/licenses/by-nc-sa/3.0/
+
+Designing and Interpreting Probes with Control Tasks
+作者  John Hewitt, Percy Liang
+出版  EMNLP-IJCNLP 2019
+文件  Hewitt-Liang 2019 - Control Tasks.pdf（11 页）
+论文  https://aclanthology.org/D19-1275/
+下载  https://aclanthology.org/D19-1275.pdf
+许可  CC BY 4.0
+授权依据  https://aclanthology.org/faq/copyright/
+
+Set Transformer: A Framework for Attention-based Permutation-Invariant Neural Networks
+作者  Juho Lee, Yoonho Lee, Jungtaek Kim, Adam Kosiorek, Seungjin Choi, Yee Whye Teh
+出版  ICML 2019, PMLR 97, 3744–3753
+文件  Lee et al 2019 - Set Transformer.pdf（10 页）
+论文  https://proceedings.mlr.press/v97/lee19d.html
+下载  https://proceedings.mlr.press/v97/lee19d/lee19d.pdf
+许可  CC BY 4.0
+授权依据  https://proceedings.mlr.press/pmlr-license-agreement.html
+逐篇授权记录  https://ora.ox.ac.uk/objects/uuid:8aa5f831-66b2-46ca-89ea-7b2384064db3
+
+Beyond Accuracy: Behavioral Testing of NLP Models with CheckList
+作者  Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh
+出版  ACL 2020
+文件  Ribeiro et al 2020 - CheckList.pdf（11 页）
+论文  https://aclanthology.org/2020.acl-main.442/
+下载  https://aclanthology.org/2020.acl-main.442.pdf
+许可  CC BY 4.0
+授权依据  https://aclanthology.org/faq/copyright/
+
+Evaluating Models’ Local Decision Boundaries via Contrast Sets
+作者  Matt Gardner, Yoav Artzi, Victoria Basmov, Jonathan Berant, Ben Bogin, Sihao Chen, Pradeep Dasigi, Dheeru Dua, Yanai Elazar, Ananth Gottumukkala, Nitish Gupta, Hannaneh Hajishirzi, Gabriel Ilharco, Daniel Khashabi, Kevin Lin, Jiangming Liu, Nelson F. Liu, Phoebe Mulcaire, Qiang Ning, Sameer Singh, Noah A. Smith, Sanjay Subramanian, Reut Tsarfaty, Eric Wallace, Ally Zhang, Ben Zhou
+出版  Findings of EMNLP 2020
+文件  Gardner et al 2020 - Contrast Sets.pdf（17 页）
+论文  https://aclanthology.org/2020.findings-emnlp.117/
+下载  https://aclanthology.org/2020.findings-emnlp.117.pdf
+许可  CC BY 4.0
+授权依据  https://aclanthology.org/faq/copyright/
+
+MuSiQue: Multihop Questions via Single-hop Question Composition
+作者  Harsh Trivedi, Niranjan Balasubramanian, Tushar Khot, Ashish Sabharwal
+出版  TACL 10 (2022), 539–554
+文件  Trivedi et al 2022 - MuSiQue.pdf（16 页）
+论文  https://aclanthology.org/2022.tacl-1.31/
+下载  https://aclanthology.org/2022.tacl-1.31.pdf
+许可  CC BY 4.0
+授权依据  https://aclanthology.org/2022.tacl-1.31.pdf （第一页页脚直接标注 CC BY 4.0）
+
+Statistical Significance Tests for Machine Translation Evaluation
+作者  Philipp Koehn
+出版  EMNLP 2004
+文件  Koehn 2004 - Bootstrap Significance Tests.pdf（8 页）
+论文  https://aclanthology.org/W04-3250/
+下载  https://aclanthology.org/W04-3250.pdf
+许可  CC BY-NC-SA 3.0
+授权依据  https://aclanthology.org/faq/copyright/
