@@ -1,4 +1,8 @@
-# 理解与模型架构调研
+# 资料
+
+## 研究手册
+
+[手册说明与阅读入口](%E7%A0%94%E7%A9%B6%E6%89%8B%E5%86%8C%E8%AF%B4%E6%98%8E.md) · [中文版 PDF](SpiderWeb-%E4%B8%AD%E6%96%87%E7%A0%94%E7%A9%B6%E6%89%8B%E5%86%8C.pdf) · [英文版 PDF](SpiderWeb-English-Research-Handbook.pdf)
 
 ## 理解的定义、证据与验证
 
